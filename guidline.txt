@@ -1,7 +1,19 @@
 Project Guidline:
 
 1. Dataset suchen (mehrere Vorschläge willkommen)
--> cifar, und verschiedene Varianten von imagenet auf dem Server
+-> cifar(zu wenig klassen), und verschiedene Varianten von imagenet auf dem
+  Server
+-> im paper PASCAL dataset (http://host.robots.ox.ac.uk/pascal/VOC/)
+  und Imagenet
+-> Pascal: 20 classes. The train/val data has 11,530 images containing 27,450
+  ROI annotated objects and 6,929 segmentation.
+  Datasets for classification, detection and person layout are
+  the same as VOC2011.
+-> vergleich mit SUN dataset (https://groups.csail.mit.edu/vision/SUN/)
+-> SUN: large variety of environmental scenes, places and the objects within
+  SUN2012: 16,873 images, Also available in PASCAL format (ist das also nur ein format?)
+- "Though our model was trained on object-centric ImageNet dataset, we demonstrate
+that it nonetheless remains eective for photos from the scene-centric SUN dataset" (p. 23)
 
 2. Bilder in lab und greyscale
 
