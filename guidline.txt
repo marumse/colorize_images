@@ -1,0 +1,18 @@
+Project Guidline:
+
+1. Dataset suchen (mehrere Vorschläge willkommen)
+-> cifar, und verschiedene Varianten von imagenet auf dem Server
+
+2. Bilder in lab und greyscale
+
+3. lege report als texfile an (maren)
+
+4. layer nachbauen
+
+5. training
+
+6. exp.
+
+7. visualisierung der results
+
+8. Blogpost fertig schreiben
