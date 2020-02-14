@@ -32,7 +32,7 @@ if __name__ == "__main__":
 
     train_it, val_it, test_it = generate_dataset(path_to_train, path_to_val, path_to_test, path_to_save, batch_size=3)
     # confirm the iterator works
-    batchX, batchy = train_it.next()
+    batchX = train_it.next()
     print('Batch shape=%s, min=%.3f, max=%.3f' % (batchX.shape, batchX.min(), batchX.max()))
     
     # define model
