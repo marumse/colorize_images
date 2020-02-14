@@ -25,6 +25,9 @@ def generate_dataset(path_to_train, path_to_val, path_to_test, path_to_save, bat
 
 if __name__ == "__main__":
 
+    from PIL import ImageFile
+    ImageFile.LOAD_TRUNCATED_IMAGES = True
+    
     path_to_save = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/save/'
     path_to_test = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/test/'
     path_to_train = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/train/'
@@ -46,8 +49,8 @@ if __name__ == "__main__":
     # compile model
     model.compile(optimizer='sgd', loss='mean_squared_error', metrics=['accuracy'])
     # fit model
-    from PIL import ImageFile
-    ImageFile.LOAD_TRUNCATED_IMAGES = True
+
+
     model.fit_generator(train_it, steps_per_epoch=16, validation_data=val_it, validation_steps=8)
     # save weights
     #model.save_weights('first_try.h5')
