@@ -44,7 +44,7 @@ if __name__ == "__main__":
     model.add(Flatten())
     
     # compile model
-    model.compile(optimizer='sgd', loss=None, metrics=None)
+    model.compile(optimizer='sgd', loss='mean_squared_error', metrics=['accuracy'])
     # fit model
     model.fit_generator(train_it, steps_per_epoch=16, validation_data=val_it, validation_steps=8)
 
