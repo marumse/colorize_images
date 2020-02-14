@@ -1,5 +1,11 @@
 Project Guidline:
 
+Paper: https://arxiv.org/abs/1603.08511
+- we will only look at their best resulte
+- classes sind farbwerte
+- 10x10 große bins: gucke wie oft die einzelnen farbwerte in dem bins vorkommen
+-> das benutzen um zu reweighten
+
 1. Dataset suchen (mehrere Vorschläge willkommen)
 -> cifar(zu wenig klassen), und verschiedene Varianten von imagenet auf dem
   Server
@@ -16,6 +22,17 @@ Project Guidline:
 that it nonetheless remains eective for photos from the scene-centric SUN dataset" (p. 23)
 
 2. Bilder in lab und greyscale
+2.1 große Mengen an Bildern (1 Mio) handeln (lade problem?)
+2.2 kleineres datenset zum debuggen etc erstellen
+2.2 preprocessing: cropping, labspace umwandeln (statt RGB)
+- labspace ist ein colorspace, luminanca und dann farbe encoden
+-> d.h. erste layer ist greyscale, channel ab ist target
+
+2.3. trenne datenset in l und ab
+
+2.4 loss function schreiben (caffe) - from original paper versuchen anzupassen?
+- annealed mean?
+- reweightender einzelnen bins
 
 3. lege report als texfile an (maren)
 
