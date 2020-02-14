@@ -1,6 +1,6 @@
 import numpy as np 
 #import tensorflow as tf 
-from skimage.color import rgb2lab
+from skimage import color
 import keras
 
 from keras.preprocessing.image import ImageDataGenerator
@@ -11,7 +11,7 @@ from keras.layers import Conv2D, MaxPooling2D, Flatten, Activation, BatchNormali
 #from keras.layers import Dense
 
 def rgb_to_lab(img):
-    return rgb2lab(img)
+    return color.rgb2lab(img)
 
 def generate_dataset(path_to_train, path_to_val, path_to_test, path_to_save, batch_size=3):
     
