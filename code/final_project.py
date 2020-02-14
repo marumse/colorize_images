@@ -27,7 +27,7 @@ if __name__ == "__main__":
 
     from PIL import ImageFile
     ImageFile.LOAD_TRUNCATED_IMAGES = True
-    
+
     path_to_save = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/save/'
     path_to_test = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/test/'
     path_to_train = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/train/'
@@ -40,7 +40,7 @@ if __name__ == "__main__":
     
     # define model
     model = Sequential()
-    model.add(Conv2D(3, (3,3), padding='same', input_shape=batchX.shape[1:]))
+    model.add(Conv2D(32, (3,3), padding='same', input_shape=batchX.shape[1:]))
     model.add(Activation('relu'))
     model.add(BatchNormalization())
     model.add(MaxPooling2D(pool_size=(2,2)))
