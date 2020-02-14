@@ -66,6 +66,7 @@ https://arxiv.org/abs/1603.08511
 3.1 Dataset
 - loading large amount of data
 https://machinelearningmastery.com/how-to-load-large-datasets-from-directories-for-deep-learning-with-keras/
+- we decided to take Imagenet as we have it on the IKW server and it provides a lot of images
 
 3.2 Preprocessing
 - image preprocessing documentation
