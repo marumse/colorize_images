@@ -27,7 +27,7 @@ that it nonetheless remains effective for photos from the scene-centric SUN data
 - ziel mindestens 100.000
 - als numpy oder image date?
 - datenset generator inspiration https://machinelearningmastery.com/how-to-load-large-datasets-from-directories-for-deep-learning-with-keras/
-- https://fairyonice.github.io/Color-space-defenitions-in-python-RGB-and-LAB.html function to convert RGB to LAB Space 
+- functions to convert RGB to LAB Space : https://fairyonice.github.io/Color-space-defenitions-in-python-RGB-and-LAB.html , https://medium.com/@kumarashish1550/learning-tensorflow-with-image-colorization-39be9eca8958 
 
 2.2 kleineres datenset zum debuggen etc erstellen - selbe klasse 100 bilder
 Z:\net\projects\scratch\winter\valid_until_31_July_2020\asparagus\LabelFiles\colorize_images
