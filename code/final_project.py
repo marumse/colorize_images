@@ -50,7 +50,6 @@ if __name__ == "__main__":
     model.compile(optimizer='sgd', loss='mean_squared_error', metrics=['accuracy'])
     # fit model
 
-
     model.fit_generator(train_it, steps_per_epoch=16, validation_data=val_it, validation_steps=8)
     # save weights
     #model.save_weights('first_try.h5')
