@@ -13,8 +13,9 @@ from keras.layers import Conv2D, MaxPooling2D, Flatten, Activation, BatchNormali
 
 def transform_image(img):
     img_new = img.copy()
-    for i,j in enumerate(img):
-        img_new[i,j,:] = rgb_to_lab(img[i,j,:])
+    for i in range(img.shape[0]):
+        for j in range(img.shape[1]):
+            img_new[i,j,:] = rgb_to_lab(img[i,j,:])
     return img_new
 
 def rgb_to_lab(inputColor):
