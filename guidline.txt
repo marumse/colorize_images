@@ -26,8 +26,6 @@ that it nonetheless remains effective for photos from the scene-centric SUN data
 - skript, dass das datenset generiert (1000 bilder pro 1000 klassen ist zu groß)
 - ziel mindestens 100.000
 - als numpy oder image date?
-- datenset generator inspiration https://machinelearningmastery.com/how-to-load-large-datasets-from-directories-for-deep-learning-with-keras/
-- functions to convert RGB to LAB Space : https://fairyonice.github.io/Color-space-defenitions-in-python-RGB-and-LAB.html , https://medium.com/@kumarashish1550/learning-tensorflow-with-image-colorization-39be9eca8958 
 
 2.2 kleineres datenset zum debuggen etc erstellen - selbe klasse 100 bilder
 Z:\net\projects\scratch\winter\valid_until_31_July_2020\asparagus\LabelFiles\colorize_images
@@ -53,3 +51,32 @@ Z:\net\projects\scratch\winter\valid_until_31_July_2020\asparagus\LabelFiles\col
 7. visualisierung der results
 
 8. Blogpost fertig schreiben
+
+REPORT:
+1. Introduction/Motivation
+- we want to built a network that can colorize images
+
+2. Important background knowledge (including reference to most relevant publications)
+- We started looking at this paper:
+https://arxiv.org/abs/1603.08511
+- at their best solution
+
+3. The model and the experiment (MAIN PART). This part should feature code.
+
+3.1 Dataset
+- loading large amount of data
+https://machinelearningmastery.com/how-to-load-large-datasets-from-directories-for-deep-learning-with-keras/
+
+3.2 Preprocessing
+- image preprocessing documentation
+https://keras.io/preprocessing/image/#imagedatagenerator-class
+
+3.3 Layer
+
+3.4 Loss-Function
+
+4. Visualization and discussion of your results.
+
+4.1 Training
+
+4.2 Testing
