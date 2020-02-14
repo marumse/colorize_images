@@ -37,7 +37,7 @@ if __name__ == "__main__":
     
     # define model
     model = Sequential()
-    model.add(Conv2D(32,(3,3),padding='same', input_shape=batchX.shape[1:]))
+    model.add(Conv2D(3, (3,3), padding='same', input_shape=batchX.shape[0:]))
     model.add(Activation('relu'))
     model.add(BatchNormalization())
     model.add(MaxPooling2D(pool_size=(2,2)))
@@ -49,7 +49,8 @@ if __name__ == "__main__":
     from PIL import ImageFile
     ImageFile.LOAD_TRUNCATED_IMAGES = True
     model.fit_generator(train_it, steps_per_epoch=16, validation_data=val_it, validation_steps=8)
-
+    # save weights
+    #model.save_weights('first_try.h5')
     # evaluate model
     loss = model.evaluate_generator(test_it, steps=24)
     # make a prediction
