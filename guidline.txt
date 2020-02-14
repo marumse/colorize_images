@@ -26,7 +26,10 @@ that it nonetheless remains effective for photos from the scene-centric SUN data
 - skript, dass das datenset generiert (1000 bilder pro 1000 klassen ist zu groß)
 - ziel mindestens 100.000
 - als numpy oder image date?
-2.2 kleineres datenset zum debuggen etc erstellen - selbe klasse 100 bilder - zum debuggen - m
+
+2.2 kleineres datenset zum debuggen etc erstellen - selbe klasse 100 bilder
+Z:\net\projects\scratch\winter\valid_until_31_July_2020\asparagus\LabelFiles\colorize_images
+
 2.2 preprocessing: cropping, labspace umwandeln (statt RGB) - sophia
 - labspace ist ein colorspace, luminanca und dann farbe encoden
 -> d.h. erste layer ist greyscale, channel ab ist target

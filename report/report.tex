@@ -1,7 +1,7 @@
-\documentclass[12pt,a4paper]{scrartcl}
+\documentclass[12pt,letterpaper]{article}
 
 %Trennungsregeln etc.
-\usepackage[ngerman]{babel}
+\usepackage[english]{babel}
 
 %Schriftart
 %see http://www.tug.dk/FontCatalogue/ for more
@@ -17,41 +17,52 @@
 \usepackage[onehalfspacing]{setspace}
 
 %Seitenränder, hier oneside
-\usepackage[left=2.5cm,right=3.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage[left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
 
 %Anführungszeichen (for help see CTAN-package-page:  http://ftp.gwdg.de/pub/ctan/macros/latex/contrib/csquotes/csquotes.pdf)
 \usepackage[strict=true,autostyle=true,german=quotes]{csquotes}
-
-%%Kopf-/Fußzeilen (help: http://esc-now.de/index.php?url=45&blog=entry&id=63)
-\usepackage[automark, headsepline]{scrpage2}
-\pagestyle{scrheadings}			
-\clearscrheadfoot
-%head/foot; inner/center/outer
-%Format: \wostehtetwas[Kapitelstartseiten]{normale Seiten}
-\ohead[]{\pagemark}
-\ihead[]{\headmark}
-%Was durch headmark definiert wird, \automark[rechte Seite]{linke Seite}
-\automark[section]{chapter}
-%% Kopf-/Fußzeilen Ende
 
 %Einrücklänge der ersten Zeile eines neuen Absatzes, standardmäßig drin
 \setlength{\parindent}{1cm}
 
 %%Chapter/Section-Überschriften (Schriftart, Größe)
 %Section-Überschriften
-\setkomafont{section}{\normalfont \bfseries \Large} 
+%\setkomafont{section}{\normalfont \bfseries \Large} 
 %Inhaltsverzeichnis auch mit Serifen
-\setkomafont{disposition}{\normalcolor\bfseries} 
+%\setkomafont{disposition}{\normalcolor\bfseries} 
+
+\usepackage[ colorlinks=true, urlcolor=blue, linkcolor=green]{hyperref}
 
 %Literaturverzeichnis
-\usepackage[author year]{natbib} %hier muss noch komme zwischen Autor und Jahr weg
-
-%new command for english words in text
-\newcommand{\englishwordemph}[1]{\emph{#1}}
-
-
+%\usepackage[author year]{natbib} %hier muss noch komme zwischen Autor und Jahr weg
+%\documentclass{article}% use option titlepage to get the title on a page of its own.
+\pagestyle{empty}
+\usepackage{blindtext}
+\title{Colorful Image Colorization with Tensorflow}
+\date{\today}
+\author{Sophia Schulze-Weddige \and Malin Spaniol \and Maren Born \\Integrating Artificial Neural Networks with Tensorflow \\Universität Osnabrück}
 \begin{document}
+\maketitle
+\thispagestyle{empty}
 
-test
+\section{Introduction/Motivation}
+- we want to built a network that can colorize images
+\section{Important background knowledge (including reference to most relevant publications)}
+- We started looking at this paper: \\
+\url{https://arxiv.org/abs/1603.08511} , \\
+- at their best solution
+\section{The model and the experiment (MAIN PART). This part should feature code.}
+\subsection{Dataset}
+- loading large amount of data\\
+\url{https://machinelearningmastery.com/how-to-load-large-datasets-from-directories-for-deep-learning-with-keras/}\\
+- 
+\subsection{Preprocessing}
+- image preprocessing documentation\\
+\url{https://keras.io/preprocessing/image/#imagedatagenerator-class}\\
+\subsection{Layer}
+\subsection{Loss-Function}
+\section{Visualization and discussion of your results.}
+\subsection{Training}
+\subsection{Testing}
 	
 \end{document}
