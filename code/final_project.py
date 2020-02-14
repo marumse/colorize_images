@@ -1,6 +1,6 @@
 import numpy as np 
 #import tensorflow as tf 
-from skimage import color
+#from skimage import color
 import keras
 
 from keras.preprocessing.image import ImageDataGenerator
