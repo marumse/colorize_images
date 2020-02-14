@@ -43,6 +43,8 @@ if __name__ == "__main__":
     model.add(MaxPooling2D(pool_size=(2,2)))
     model.add(Flatten())
     
+    # compile model
+    model.compile(optimizer='sgd', loss=None, metrics=None)
     # fit model
     model.fit_generator(train_it, steps_per_epoch=16, validation_data=val_it, validation_steps=8)
 
