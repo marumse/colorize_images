@@ -25,10 +25,10 @@ def generate_dataset(path_to_train, path_to_val, path_to_test, path_to_save, bat
 
 if __name__ == "__main__":
 
-    path_to_save = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/save/save/'
-    path_to_test = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/test/test/'
-    path_to_train = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/train/train/'
-    path_to_val = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/validation/validation/'
+    path_to_save = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/save/save'
+    path_to_test = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/test/test'
+    path_to_train = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/train/train'
+    path_to_val = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/validation/validation'
 
     train_it, val_it, test_it = generate_dataset(path_to_train, path_to_val, path_to_test, path_to_save, batch_size=3)
     # confirm the iterator works
