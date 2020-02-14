@@ -26,6 +26,8 @@ that it nonetheless remains effective for photos from the scene-centric SUN data
 - skript, dass das datenset generiert (1000 bilder pro 1000 klassen ist zu groß)
 - ziel mindestens 100.000
 - als numpy oder image date?
+- datenset generator inspiration https://machinelearningmastery.com/how-to-load-large-datasets-from-directories-for-deep-learning-with-keras/
+- https://fairyonice.github.io/Color-space-defenitions-in-python-RGB-and-LAB.html function to convert RGB to LAB Space 
 
 2.2 kleineres datenset zum debuggen etc erstellen - selbe klasse 100 bilder
 Z:\net\projects\scratch\winter\valid_until_31_July_2020\asparagus\LabelFiles\colorize_images
