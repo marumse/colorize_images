@@ -24,6 +24,7 @@ that it nonetheless remains effective for photos from the scene-centric SUN data
 2. Bilder in lab und greyscale
 2.1 große Mengen an Bildern (1 Mio) handeln (lade problem?)
 - skript, dass das datenset generiert (1000 bilder pro 1000 klassen ist zu groß)
+- ziel mindestens 100.000
 - als numpy oder image date?
 2.2 kleineres datenset zum debuggen etc erstellen - selbe klasse 100 bilder - zum debuggen - m
 2.2 preprocessing: cropping, labspace umwandeln (statt RGB) - sophia
@@ -32,7 +33,7 @@ that it nonetheless remains effective for photos from the scene-centric SUN data
 
 2.3. trenne datenset in l und ab
 
-2.4 loss function schreiben (caffe) - from original paper versuchen anzupassen?
+2.4 loss function schreiben (caffe) - from original paper versuchen anzupassen? - malin
 - annealed mean?
 - reweightender einzelnen bins
 
