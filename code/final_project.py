@@ -1,5 +1,6 @@
 import numpy as np 
 #import tensorflow as tf 
+from skimage.color import rgb2lab
 import keras
 
 from keras.preprocessing.image import ImageDataGenerator
@@ -9,17 +10,20 @@ from keras.models import Sequential
 from keras.layers import Conv2D, MaxPooling2D, Flatten, Activation, BatchNormalization
 #from keras.layers import Dense
 
+def rgb_to_lab(img):
+    return rgb2lab(img)
 
 def generate_dataset(path_to_train, path_to_val, path_to_test, path_to_save, batch_size=3):
     
     datagen = ImageDataGenerator() #featurewise_center=True, featurewise_std_normalization=True)
     # load and iterate training dataset
-    train_it = datagen.flow_from_directory(path_to_train, target_size=(224,224), save_to_dir = path_to_save, class_mode=None, batch_size=batch_size) # for class_mode=None we need subfolders in dir?
+    train_it = datagen.flow_from_directory(path_to_train, target_size=(224,224), save_to_dir = path_to_save, preprocessing_function = rgb_to_lab, class_mode=None, batch_size=batch_size) # for class_mode=None we need subfolders in dir?
     # load and iterate validation dataset
-    val_it = datagen.flow_from_directory(path_to_val, target_size=(224,224), class_mode=None, batch_size=batch_size)
+    val_it = datagen.flow_from_directory(path_to_val, target_size=(224,224), preprocessing_function = rgb_to_lab, class_mode=None, batch_size=batch_size)
     # load and iterate test dataset
-    test_it = datagen.flow_from_directory(path_to_test, target_size=(224,224), class_mode=None, batch_size=batch_size)
+    test_it = datagen.flow_from_directory(path_to_test, target_size=(224,224), preprocessing_function = rgb_to_lab, class_mode=None, batch_size=batch_size)
     
+    # change color space to lab
     return train_it, val_it, test_it
 
 
