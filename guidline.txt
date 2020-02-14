@@ -19,12 +19,14 @@ Paper: https://arxiv.org/abs/1603.08511
 -> SUN: large variety of environmental scenes, places and the objects within
   SUN2012: 16,873 images, Also available in PASCAL format (ist das also nur ein format?)
 - "Though our model was trained on object-centric ImageNet dataset, we demonstrate
-that it nonetheless remains eective for photos from the scene-centric SUN dataset" (p. 23)
+that it nonetheless remains effective for photos from the scene-centric SUN dataset" (p. 23)
 
 2. Bilder in lab und greyscale
 2.1 große Mengen an Bildern (1 Mio) handeln (lade problem?)
-2.2 kleineres datenset zum debuggen etc erstellen
-2.2 preprocessing: cropping, labspace umwandeln (statt RGB)
+- skript, dass das datenset generiert (1000 bilder pro 1000 klassen ist zu groß)
+- als numpy oder image date?
+2.2 kleineres datenset zum debuggen etc erstellen - selbe klasse 100 bilder - zum debuggen - m
+2.2 preprocessing: cropping, labspace umwandeln (statt RGB) - sophia
 - labspace ist ein colorspace, luminanca und dann farbe encoden
 -> d.h. erste layer ist greyscale, channel ab ist target
 
