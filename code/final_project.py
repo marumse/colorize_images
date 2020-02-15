@@ -13,7 +13,7 @@ from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Activation, B
 
 def transform_image(img):
     img_new = cv2.cvtColor(img, cv2.COLOR_RGB2LAB)
-    return img_new[:,:,0]
+    return img_new
 
 
 def generate_dataset(path_to_train, path_to_val, path_to_test, path_to_save, batch_size=3):
@@ -41,11 +41,14 @@ if __name__ == "__main__":
     path_to_train = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/train/'
     path_to_val = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/validation/'
 
-    train_it, val_it, test_it = generate_dataset(path_to_train, path_to_val, path_to_test, path_to_save, batch_size=3)
+    train_it, val_it, test_it = generate_dataset(path_to_train, path_to_val, path_to_test, path_to_save, batch_size=32)
     # confirm the iterator works
     batchX = train_it.next()
     print('Batch shape=%s, min=%.3f, max=%.3f' % (batchX.shape, batchX.min(), batchX.max()))
-    
+    input_L, output_ab = tf.unstack(train_it.next(), axis = 2)
+    print('input_L: ' + input_l.shape)
+    print('output_ab: ' + output_ab.shape)
+
     
     # # define model
     # model = Sequential()
