@@ -7,8 +7,9 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 from tensorflow.keras.models import Sequential
 
-from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Activation, BatchNormalization
-#from keras.layers import Dense
+from tensorflow.keras.layers import Conv2D, Activation, BatchNormalization, Softmax
+
+from tensorflow.keras.optimizers import Adam
 
 
 def transform_image(img):
@@ -28,7 +29,7 @@ def generate_dataset(path_to_train, path_to_val, path_to_test, path_to_save, bat
     test_it = datagen.flow_from_directory(path_to_test, target_size=(224,224), class_mode=None, batch_size=batch_size)
     
     # change color space to lab
-    return train_it, val_it, test_it
+    return datagen, train_it, val_it, test_it
 
 
 if __name__ == "__main__":
@@ -40,8 +41,18 @@ if __name__ == "__main__":
     path_to_test = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/test/'
     path_to_train = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/train/'
     path_to_val = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/validation/'
+    batch_size = 3
 
-    train_it, val_it, test_it = generate_dataset(path_to_train, path_to_val, path_to_test, path_to_save, batch_size=32)
+    # data generator for large datasets
+    # featurewise_center=True, featurewise_std_normalization=True)
+    # if we want this we need .fit()
+    datagen = ImageDataGenerator(preprocessing_function = transform_image) 
+    # load and iterate training dataset
+    train_it = datagen.flow_from_directory(path_to_train, target_size=(224,224), save_to_dir = path_to_save, class_mode=None, batch_size=batch_size) # for class_mode=None we need subfolders in dir?
+    # load and iterate validation dataset
+    val_it = datagen.flow_from_directory(path_to_val, target_size=(224,224), class_mode=None, batch_size=batch_size)
+    # load and iterate test dataset
+    test_it = datagen.flow_from_directory(path_to_test, target_size=(224,224), class_mode=None, batch_size=batch_size)
     # confirm the iterator works
     batchX = train_it.next()
     print('Batch shape=%s, min=%.3f, max=%.3f' % (batchX.shape, batchX.min(), batchX.max()))
@@ -50,23 +61,86 @@ if __name__ == "__main__":
     #print(a.shape) # (32,224,224)
     #print(b.shape) # (32,224,224)
     ab = tf.stack([a,b], axis = -1)
-    print(ab.shape) # (32,224,224,2)
+    #print(ab.shape) # (32,224,224,2)
     L = tf.expand_dims(L, axis = 3)
-    print(L.shape)
+    #print(L.shape) # (32,224,224,1)
     
     # define model
     model = Sequential()
-    model.add(Conv2D(32, (3,3), padding='same', input_shape=L.shape[1:]))
+    # conv1
+    model.add(Conv2D(64, (3,3), padding='same', input_shape=L.shape[1:]))
+    model.add(Activation('relu'))
+    model.add(Conv2D(64, (3,3), stride = 2, padding='same'))
     model.add(Activation('relu'))
     model.add(BatchNormalization())
-    model.add(MaxPooling2D(pool_size=(2,2)))
-    model.add(Flatten())
+    # conv2
+    model.add(Conv2D(128, (3,3), padding='same'))
+    model.add(Activation('relu'))
+    model.add(Conv2D(128, (3,3), stride = 2, padding='same'))
+    model.add(Activation('relu'))
+    model.add(BatchNormalization())
+    # conv3
+    model.add(Conv2D(256, (3,3), padding='same'))
+    model.add(Activation('relu'))
+    model.add(Conv2D(256, (3,3), padding='same'))
+    model.add(Activation('relu'))
+    model.add(Conv2D(256, (3,3), stride = 2, padding='same'))
+    model.add(Activation('relu'))
+    model.add(BatchNormalization())
+    # conv4
+    model.add(Conv2D(512, (3,3), stride = 1, dilation_rate = 1, padding='same'))
+    model.add(Activation('relu'))
+    model.add(Conv2D(512, (3,3), stride = 1, dilation_rate = 1, padding='same'))
+    model.add(Activation('relu'))
+    model.add(Conv2D(512, (3,3), stride = 1, dilation_rate = 1, padding='same'))
+    model.add(Activation('relu'))
+    model.add(BatchNormalization())
+    # conv5
+    model.add(Conv2D(512, (3,3), stride = 1, dilation_rate = 2, padding='same'))
+    model.add(Activation('relu'))
+    model.add(Conv2D(512, (3,3), stride = 1, dilation_rate = 2, padding='same'))
+    model.add(Activation('relu'))
+    model.add(Conv2D(512, (3,3), stride = 1, dilation_rate = 2, padding='same'))
+    model.add(Activation('relu'))
+    model.add(BatchNormalization())
+    # conv6
+    model.add(Conv2D(512, (3,3), dilation_rate = 2, padding='same'))
+    model.add(Activation('relu'))
+    model.add(Conv2D(512, (3,3), dilation_rate = 2, padding='same'))
+    model.add(Activation('relu'))
+    model.add(Conv2D(512, (3,3), dilation_rate = 2, padding='same'))
+    model.add(Activation('relu'))
+    model.add(BatchNormalization())
+    # conv7
+    model.add(Conv2D(512, (3,3), dilation_rate = 1, padding='same'))
+    model.add(Activation('relu'))
+    model.add(Conv2D(512, (3,3), dilation_rate = 1, padding='same'))
+    model.add(Activation('relu'))
+    model.add(Conv2D(512, (3,3), dilation_rate = 1, padding='same'))
+    model.add(Activation('relu'))
+    model.add(BatchNormalization())
+    # conv8
+    model.add(Conv2D(256, (4,4), stride = 2, dilation_rate = 1, padding='same'))
+    model.add(Activation('relu'))
+    model.add(Conv2D(256, (3,3), dilation_rate = 1, padding='same'))
+    model.add(Activation('relu'))
+    model.add(Conv2D(256, (3,3), dilation_rate = 1, padding='same'))
+    model.add(Activation('relu'))
+
+    # softmax layer
+    model.add(Conv2D(313, (1,1), stride = 1, dilation_rate = 1))
+    model.add(Multiply())
+    model.add(Softmax())
+
+    # decoding layer
+    model.add(Conv2D(2, (1,1), stride = 1, dilation_rate = 1))
     
     # compile model
-    model.compile(optimizer='sgd', loss='mean_squared_error', metrics=['accuracy'])
+    model.compile(optimizer=Adam(0.01))
     # fit model
+    model.fit_generator(L, ab, steps_per_epoch=16, Epochs = 2, validation_data=val_it, validation_steps=8)
 
-    model.fit_generator(L, steps_per_epoch=16, validation_data=val_it, validation_steps=8)
+
     # save weights
     #model.save_weights('first_try.h5')
     # evaluate model
