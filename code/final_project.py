@@ -46,9 +46,9 @@ if __name__ == "__main__":
     batchX = train_it.next()
     print('Batch shape=%s, min=%.3f, max=%.3f' % (batchX.shape, batchX.min(), batchX.max()))
     L, a, b = tf.unstack(batchX, axis = 3)
-    print('input_L: ' + L.shape)
-    print('output_ab: ' + a.shape)
-    print('output_ab: ' + b.shape)
+    print('input_L: ' + L)
+    print('output_ab: ' + a)
+    print('output_ab: ' + b)
 
     
     # # define model
