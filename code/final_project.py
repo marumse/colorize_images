@@ -1,21 +1,21 @@
 import numpy as np 
-#import tensorflow as tf 
-#from skimage import color
-import keras
+import tensorflow as tf 
+from skimage import color
 
-from keras.preprocessing.image import ImageDataGenerator
+from tf.keras.preprocessing.image import ImageDataGenerator
 
-from keras.models import Sequential
+from tf.keras.models import Sequential
 
-from keras.layers import Conv2D, MaxPooling2D, Flatten, Activation, BatchNormalization
+from tf.keras.layers import Conv2D, MaxPooling2D, Flatten, Activation, BatchNormalization
 #from keras.layers import Dense
 
 
 def transform_image(img):
-    img_new = img.copy()
-    for i in range(img.shape[0]):
-        for j in range(img.shape[1]):
-            img_new[i,j,:] = rgb_to_lab(img[i,j,:])
+    #img_new = img.copy()
+    img_new = color.rgb2lab(img)
+    # for i in range(img.shape[0]):
+    #     for j in range(img.shape[1]):
+    #         img_new[i,j,:] = rgb_to_lab(img[i,j,:])
     return img_new
 
 def rgb_to_lab(inputColor):
@@ -99,22 +99,23 @@ if __name__ == "__main__":
     batchX = train_it.next()
     print('Batch shape=%s, min=%.3f, max=%.3f' % (batchX.shape, batchX.min(), batchX.max()))
     
-    # define model
-    model = Sequential()
-    model.add(Conv2D(32, (3,3), padding='same', input_shape=batchX.shape[1:]))
-    model.add(Activation('relu'))
-    model.add(BatchNormalization())
-    model.add(MaxPooling2D(pool_size=(2,2)))
-    model.add(Flatten())
     
-    # compile model
-    model.compile(optimizer='sgd', loss='mean_squared_error', metrics=['accuracy'])
-    # fit model
+    # # define model
+    # model = Sequential()
+    # model.add(Conv2D(32, (3,3), padding='same', input_shape=batchX.shape[1:]))
+    # model.add(Activation('relu'))
+    # model.add(BatchNormalization())
+    # model.add(MaxPooling2D(pool_size=(2,2)))
+    # model.add(Flatten())
+    
+    # # compile model
+    # model.compile(optimizer='sgd', loss='mean_squared_error', metrics=['accuracy'])
+    # # fit model
 
-    model.fit_generator(train_it, steps_per_epoch=16, validation_data=val_it, validation_steps=8)
-    # save weights
-    #model.save_weights('first_try.h5')
-    # evaluate model
-    loss = model.evaluate_generator(test_it, steps=24)
-    # make a prediction
-    #yhat = model.predict_generator(predict_it, steps=24)
+    # model.fit_generator(train_it, steps_per_epoch=16, validation_data=val_it, validation_steps=8)
+    # # save weights
+    # #model.save_weights('first_try.h5')
+    # # evaluate model
+    # loss = model.evaluate_generator(test_it, steps=24)
+    # # make a prediction
+    # #yhat = model.predict_generator(predict_it, steps=24)
