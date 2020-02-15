@@ -12,12 +12,8 @@ from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Activation, B
 
 
 def transform_image(img):
-    #img_new = img.copy()
     img_new = cv2.cvtColor(img, cv2.COLOR_RGB2LAB)
-    # for i in range(img.shape[0]):
-    #     for j in range(img.shape[1]):
-    #         img_new[i,j,:] = rgb_to_lab(img[i,j,:])
-    return img_new
+    return img_new[:,:,0]
 
 
 def generate_dataset(path_to_train, path_to_val, path_to_test, path_to_save, batch_size=3):
