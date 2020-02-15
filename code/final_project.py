@@ -49,7 +49,7 @@ if __name__ == "__main__":
     print(L.shape)
     print(a.shape)
     print(b.shape)
-    ab = tf.concat([a,b], axis = -1)
+    ab = tf.stack([a,b], axis = -1)
     print(ab.shape)
     
     # # define model
