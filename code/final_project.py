@@ -45,7 +45,7 @@ if __name__ == "__main__":
     # confirm the iterator works
     batchX = train_it.next()
     print('Batch shape=%s, min=%.3f, max=%.3f' % (batchX.shape, batchX.min(), batchX.max()))
-    input_L, output_ab = tf.unstack(train_it.next(), axis = 2)
+    input_L, output_ab = tf.unstack(batchX, axis = 3)
     print('input_L: ' + input_l.shape)
     print('output_ab: ' + output_ab.shape)
 
