@@ -17,10 +17,7 @@ def transform_image(img):
     # for i in range(img.shape[0]):
     #     for j in range(img.shape[1]):
     #         img_new[i,j,:] = rgb_to_lab(img[i,j,:])
-    L = img_new[:,:,0]
-    a = img_new[:,:,1]
-    b = img_new[:,:,2]
-    return [L, a, b]
+    return img_new
 
 
 def generate_dataset(path_to_train, path_to_val, path_to_test, path_to_save, batch_size=3):
