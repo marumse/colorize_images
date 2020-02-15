@@ -37,10 +37,11 @@ if __name__ == "__main__":
     #from PIL import ImageFile
     #ImageFile.LOAD_TRUNCATED_IMAGES = True
 
-    path_to_save = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/save/'
-    path_to_test = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/test/'
-    path_to_train = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/train/'
-    path_to_val = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/validation/'
+    #path_to_save = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/save/'
+    #path_to_test = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/test/'
+    #path_to_train = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/train/'
+    #path_to_val = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/validation/'
+    path_to_train = 'C:/Users/Acer/colorize_images/ex_pics/train/'
     batch_size = 3
 
     # data generator for large datasets
@@ -48,11 +49,11 @@ if __name__ == "__main__":
     # if we want this we need .fit()
     datagen = ImageDataGenerator(preprocessing_function = transform_image) 
     # load and iterate training dataset
-    train_it = datagen.flow_from_directory(path_to_train, target_size=(224,224), save_to_dir = path_to_save, class_mode=None, batch_size=batch_size) # for class_mode=None we need subfolders in dir?
+    train_it = datagen.flow_from_directory(path_to_train, target_size=(224,224), class_mode=None, batch_size=batch_size) # for class_mode=None we need subfolders in dir?
     # load and iterate validation dataset
-    val_it = datagen.flow_from_directory(path_to_val, target_size=(224,224), class_mode=None, batch_size=batch_size)
+    val_it = datagen.flow_from_directory(path_to_train, target_size=(224,224), class_mode=None, batch_size=batch_size)
     # load and iterate test dataset
-    test_it = datagen.flow_from_directory(path_to_test, target_size=(224,224), class_mode=None, batch_size=batch_size)
+    #test_it = datagen.flow_from_directory(path_to_test, target_size=(224,224), class_mode=None, batch_size=batch_size)
     # confirm the iterator works
     batchX = train_it.next()
     print('Batch shape=%s, min=%.3f, max=%.3f' % (batchX.shape, batchX.min(), batchX.max()))
@@ -129,16 +130,18 @@ if __name__ == "__main__":
 
     # softmax layer
     model.add(Conv2D(313, (1,1), strides = 1, dilation_rate = 1))
-    model.add(Multiply())
+    #model.add(Multiply())
     model.add(Softmax())
 
     # decoding layer
     model.add(Conv2D(2, (1,1), strides = 1, dilation_rate = 1))
     
     # compile model
-    model.compile(optimizer=Adam(0.01))
+    sgd = tf.keras.optimizers.SGD(lr=0.001, momentum=0.9, nesterov=True, clipnorm=5.)
+    model.compile(optimizer=sgd, loss='categorical_crossentropy')
+    print(model.summary())
     # fit model
-    model.fit_generator(L, ab, steps_per_epoch=16, Epochs = 2, validation_data=val_it, validation_steps=8)
+    model.fit_generator(train_it, steps_per_epoch=3, validation_data=val_it, validation_steps=8)
 
 
     # save weights
