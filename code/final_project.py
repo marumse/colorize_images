@@ -56,7 +56,7 @@ if __name__ == "__main__":
     
     # define model
     model = Sequential()
-    model.add(Conv2D(32, (3,3), padding='same', input_shape=L.shape))
+    model.add(Conv2D(32, (3,3), padding='same', input_shape=L.shape[1:]))
     model.add(Activation('relu'))
     model.add(BatchNormalization())
     model.add(MaxPooling2D(pool_size=(2,2)))
