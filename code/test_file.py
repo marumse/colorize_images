@@ -1,5 +1,5 @@
-import numpy as np
-import tensorflow as tf
+import numpy as np 
+import tensorflow as tf 
 #from skimage import color
 import cv2
 
@@ -12,74 +12,55 @@ from tensorflow.keras.layers import Conv2D, Activation, BatchNormalization, Soft
 from tensorflow.keras.optimizers import Adam
 
 
-def transform_image(img):
+def transform_image_L(img):
     img_new = cv2.cvtColor(img, cv2.COLOR_RGB2LAB)
-    return img_new
+    return img_new[:,:,0]
 
-
-def generate_dataset(path_to_train, path_to_val, path_to_test, path_to_save, batch_size=3):
-    # featurewise_center=True, featurewise_std_normalization=True)
-    # if we want this we need .fit()
-    datagen = ImageDataGenerator(preprocessing_function = transform_image)
-    # load and iterate training dataset
-    train_it = datagen.flow_from_directory(path_to_train, target_size=(224,224), save_to_dir = path_to_save, class_mode=None, batch_size=batch_size) # for class_mode=None we need subfolders in dir?
-    # load and iterate validation dataset
-    val_it = datagen.flow_from_directory(path_to_val, target_size=(224,224), class_mode=None, batch_size=batch_size)
-    # load and iterate test dataset
-    test_it = datagen.flow_from_directory(path_to_test, target_size=(224,224), class_mode=None, batch_size=batch_size)
-
-    # change color space to lab
-    return datagen, train_it, val_it, test_it
+def transform_image_ab(img):
+    img_new = cv2.cvtColor(img, cv2.COLOR_RGB2LAB)
+    return img_new[:,:,1:]
 
 
 if __name__ == "__main__":
 
-<<<<<<< HEAD
-    from PIL import ImageFile
-    ImageFile.LOAD_TRUNCATED_IMAGES = True
-
-    path_to_save = 'C:/Users/schmuri/Desktop/testbilder/save/'
-    path_to_test = 'C:/Users/schmuri/Desktop/testbilder/test/'
-    path_to_train = 'C:/Users/schmuri/Desktop/testbilder/train/'
-    path_to_val = 'C:/Users/schmuri/Desktop/testbilder/validation/'
-=======
     #from PIL import ImageFile
     #ImageFile.LOAD_TRUNCATED_IMAGES = True
 
-    #path_to_save = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/save/'
-    #path_to_test = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/test/'
-    #path_to_train = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/train/'
-    #path_to_val = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/validation/'
-    path_to_train = 'C:/Users/Acer/colorize_images/ex_pics/train/'
->>>>>>> 9b897521d209afdc7850df3887d7322d4be82872
+    path_to_save = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/save/'
+    path_to_test = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/test/'
+    path_to_train = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/train/'
+    path_to_val = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/validation/'
     batch_size = 3
 
     # data generator for large datasets
     # featurewise_center=True, featurewise_std_normalization=True)
     # if we want this we need .fit()
-    datagen = ImageDataGenerator(preprocessing_function = transform_image)
+    datagen_imgs = ImageDataGenerator(preprocessing_function = transform_image_L)
+    # separat generator for labels
+    datagen_target = ImageDataGenerator(preprocessing_function = transform_image_ab)
     # load and iterate training dataset
-    train_it = datagen.flow_from_directory(path_to_train, target_size=(224,224), class_mode=None, batch_size=batch_size) # for class_mode=None we need subfolders in dir?
+    train_it = datagen_imgs.flow_from_directory(path_to_train, target_size=(224,224), save_to_dir = path_to_save, class_mode=None, batch_size=batch_size) # for class_mode=None we need subfolders in dir?
+    target_it = datagen_target.flow_from_directory(path_to_train, target_size=(224,224), class_mode=None, batch_size=batch_size)
     # load and iterate validation dataset
-    val_it = datagen.flow_from_directory(path_to_train, target_size=(224,224), class_mode=None, batch_size=batch_size)
+    #val_it = datagen.flow_from_directory(path_to_val, target_size=(224,224), class_mode=None, batch_size=batch_size)
     # load and iterate test dataset
     #test_it = datagen.flow_from_directory(path_to_test, target_size=(224,224), class_mode=None, batch_size=batch_size)
     # confirm the iterator works
     batchX = train_it.next()
     print('Batch shape=%s, min=%.3f, max=%.3f' % (batchX.shape, batchX.min(), batchX.max()))
-    L, a, b = tf.unstack(batchX, axis = 3)
+    #L, a, b = tf.unstack(batchX, axis = 3)
     #print(L.shape) # (32,224,224)
     #print(a.shape) # (32,224,224)
     #print(b.shape) # (32,224,224)
-    ab = tf.stack([a,b], axis = -1)
+    #ab = tf.stack([a,b], axis = -1)
     #print(ab.shape) # (32,224,224,2)
-    L = tf.expand_dims(L, axis = 3)
+    #L = tf.expand_dims(L, axis = 3)
     #print(L.shape) # (32,224,224,1)
-
+    
     # define model
     model = Sequential()
     # conv1
-    model.add(Conv2D(64, (3,3), padding='same', input_shape=L.shape[1:]))
+    model.add(Conv2D(64, (3,3), padding='same', input_shape=batchX.shape[1:]))
     model.add(Activation('relu'))
     model.add(Conv2D(64, (3,3), strides = 2, padding='same'))
     model.add(Activation('relu'))
@@ -140,23 +121,16 @@ if __name__ == "__main__":
 
     # softmax layer
     model.add(Conv2D(313, (1,1), strides = 1, dilation_rate = 1))
-    #model.add(Multiply())
+    model.add(Multiply())
     model.add(Softmax())
 
     # decoding layer
-<<<<<<< HEAD
-    model.add(Conv2D(2, (1,1), stride = 1, dilation_rate = 1))
-
-=======
     model.add(Conv2D(2, (1,1), strides = 1, dilation_rate = 1))
     
->>>>>>> 9b897521d209afdc7850df3887d7322d4be82872
     # compile model
-    sgd = tf.keras.optimizers.SGD(lr=0.001, momentum=0.9, nesterov=True, clipnorm=5.)
-    model.compile(optimizer=sgd, loss='categorical_crossentropy')
-    print(model.summary())
+    model.compile(optimizer=Adam(0.01))
     # fit model
-    model.fit_generator(train_it, steps_per_epoch=3, validation_data=val_it, validation_steps=8)
+    model.fit_generator(train_it, target_it, steps_per_epoch=16, Epochs = 2)
 
 
     # save weights
