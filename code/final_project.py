@@ -2,11 +2,11 @@ import numpy as np
 import tensorflow as tf 
 from skimage import color
 
-from keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
-from keras.models import Sequential
+from tensorwflow.keras.models import Sequential
 
-from keras.layers import Conv2D, MaxPooling2D, Flatten, Activation, BatchNormalization
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Activation, BatchNormalization
 #from keras.layers import Dense
 
 
