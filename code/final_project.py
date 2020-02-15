@@ -1,6 +1,7 @@
 import numpy as np 
 import tensorflow as tf 
-from skimage import color
+#from skimage import color
+import cv2
 
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
@@ -12,67 +13,20 @@ from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Activation, B
 
 def transform_image(img):
     #img_new = img.copy()
-    img_new = color.rgb2lab(img)
+    img_new = cv2.cvtColor(img, cv2.COLOR_RGB2LAB)
     # for i in range(img.shape[0]):
     #     for j in range(img.shape[1]):
     #         img_new[i,j,:] = rgb_to_lab(img[i,j,:])
-    return img_new
+    L = img_new[:,:,0]
+    a = img_new[:,:,1]
+    b = img_new[:,:,2]
+    return [L, a, b]
 
-def rgb_to_lab(inputColor):
-
-   num = 0
-   RGB = [0, 0, 0]
-
-   for value in inputColor :
-       value = float(value) / 255
-
-       if value > 0.04045 :
-           value = ( ( value + 0.055 ) / 1.055 ) ** 2.4
-       else :
-           value = value / 12.92
-
-       RGB[num] = value * 100
-       num = num + 1
-
-   XYZ = [0, 0, 0,]
-
-   X = RGB [0] * 0.4124 + RGB [1] * 0.3576 + RGB [2] * 0.1805
-   Y = RGB [0] * 0.2126 + RGB [1] * 0.7152 + RGB [2] * 0.0722
-   Z = RGB [0] * 0.0193 + RGB [1] * 0.1192 + RGB [2] * 0.9505
-   XYZ[ 0 ] = round( X, 4 )
-   XYZ[ 1 ] = round( Y, 4 )
-   XYZ[ 2 ] = round( Z, 4 )
-
-   XYZ[ 0 ] = float( XYZ[ 0 ] ) / 95.047         # ref_X =  95.047   Observer= 2°, Illuminant= D65
-   XYZ[ 1 ] = float( XYZ[ 1 ] ) / 100.0          # ref_Y = 100.000
-   XYZ[ 2 ] = float( XYZ[ 2 ] ) / 108.883        # ref_Z = 108.883
-
-   num = 0
-   for value in XYZ :
-
-       if value > 0.008856 :
-           value = value ** ( 0.3333333333333333 )
-       else :
-           value = ( 7.787 * value ) + ( 16 / 116 )
-
-       XYZ[num] = value
-       num = num + 1
-
-   Lab = [0, 0, 0]
-
-   L = ( 116 * XYZ[ 1 ] ) - 16
-   a = 500 * ( XYZ[ 0 ] - XYZ[ 1 ] )
-   b = 200 * ( XYZ[ 1 ] - XYZ[ 2 ] )
-
-   Lab [ 0 ] = round( L, 4 )
-   Lab [ 1 ] = round( a, 4 )
-   Lab [ 2 ] = round( b, 4 )
-
-   return Lab
 
 def generate_dataset(path_to_train, path_to_val, path_to_test, path_to_save, batch_size=3):
-    
-    datagen = ImageDataGenerator(preprocessing_function = transform_image) #featurewise_center=True, featurewise_std_normalization=True)
+    # featurewise_center=True, featurewise_std_normalization=True)
+    # if we want this we need .fit()
+    datagen = ImageDataGenerator(preprocessing_function = transform_image) 
     # load and iterate training dataset
     train_it = datagen.flow_from_directory(path_to_train, target_size=(224,224), save_to_dir = path_to_save, class_mode=None, batch_size=batch_size) # for class_mode=None we need subfolders in dir?
     # load and iterate validation dataset
