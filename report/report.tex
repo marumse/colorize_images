@@ -29,7 +29,11 @@
 %Section-Überschriften
 %\setkomafont{section}{\normalfont \bfseries \Large} 
 %Inhaltsverzeichnis auch mit Serifen
-%\setkomafont{disposition}{\normalcolor\bfseries} 
+%\setkomafont{disposition}{\normalcolor\bfseries}
+
+%for pictures (png)
+\usepackage{graphicx}
+
 %insert hyperlinks
 \usepackage[colorlinks=true, urlcolor=blue, linkcolor=green]{hyperref}
 
@@ -124,6 +128,14 @@ MyClass,__init__
 \subsection{Layer}
 \subsection{Loss-Function}
 \section{Visualization and discussion of your results.}
+oder lieber bilder als screenshot einfügen?\\
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=1.0\textwidth]{bsp.png}
+	\caption{Hier kann man dann auch noch etwas dazu schreiben}
+	\label{fig1}
+\end{figure}
+%\includegraphics{bsp.png}
 \subsection{Training}
 \subsection{Testing}
 	
