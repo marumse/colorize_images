@@ -47,9 +47,10 @@ if __name__ == "__main__":
     print('Batch shape=%s, min=%.3f, max=%.3f' % (batchX.shape, batchX.min(), batchX.max()))
     L, a, b = tf.unstack(batchX, axis = 3)
     print(L.shape)
-    print(tf.shape(a))
-    print(tf.shape(b))
-
+    print(a.shape)
+    print(b.shape)
+    ab = tf.concat([a,b], axis = -1)
+    print(ab.shape)
     
     # # define model
     # model = Sequential()
