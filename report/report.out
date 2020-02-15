@@ -1,10 +1,11 @@
 \BOOKMARK [1][-]{section.1}{Introduction/Motivation}{}% 1
 \BOOKMARK [1][-]{section.2}{Important background knowledge \(including reference to most relevant publications\)}{}% 2
-\BOOKMARK [1][-]{section.3}{The model and the experiment \(MAIN PART\). This part should feature code.}{}% 3
-\BOOKMARK [2][-]{subsection.3.1}{Dataset}{section.3}% 4
-\BOOKMARK [2][-]{subsection.3.2}{Preprocessing}{section.3}% 5
-\BOOKMARK [2][-]{subsection.3.3}{Layer}{section.3}% 6
-\BOOKMARK [2][-]{subsection.3.4}{Loss-Function}{section.3}% 7
-\BOOKMARK [1][-]{section.4}{Visualization and discussion of your results.}{}% 8
-\BOOKMARK [2][-]{subsection.4.1}{Training}{section.4}% 9
-\BOOKMARK [2][-]{subsection.4.2}{Testing}{section.4}% 10
+\BOOKMARK [1][-]{section.3}{``In-text'' listing highlighting}{}% 3
+\BOOKMARK [1][-]{section.4}{The model and the experiment \(MAIN PART\). This part should feature code.}{}% 4
+\BOOKMARK [2][-]{subsection.4.1}{Dataset}{section.4}% 5
+\BOOKMARK [2][-]{subsection.4.2}{Preprocessing}{section.4}% 6
+\BOOKMARK [2][-]{subsection.4.3}{Layer}{section.4}% 7
+\BOOKMARK [2][-]{subsection.4.4}{Loss-Function}{section.4}% 8
+\BOOKMARK [1][-]{section.5}{Visualization and discussion of your results.}{}% 9
+\BOOKMARK [2][-]{subsection.5.1}{Training}{section.5}% 10
+\BOOKMARK [2][-]{subsection.5.2}{Testing}{section.5}% 11

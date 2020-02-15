@@ -29,9 +29,45 @@
 %Section-Überschriften
 %\setkomafont{section}{\normalfont \bfseries \Large} 
 %Inhaltsverzeichnis auch mit Serifen
-%\setkomafont{disposition}{\normalcolor\bfseries} 
+%\setkomafont{disposition}{\normalcolor\bfseries}
 
-\usepackage[ colorlinks=true, urlcolor=blue, linkcolor=green]{hyperref}
+%for pictures (png)
+\usepackage{graphicx}
+
+%insert hyperlinks
+\usepackage[colorlinks=true, urlcolor=blue, linkcolor=green]{hyperref}
+
+%insert codesnippets
+\usepackage{listings}
+\usepackage{xcolor}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+\lstset{ 
+	language=Python, % choose the language of the code
+	commentstyle=\itshape\color{yellow},
+	basicstyle=\fontfamily{pcr}\selectfont\footnotesize\color{white},
+	otherkeywords={self},
+	keywordstyle=\color{violet}\bfseries, % style for keywords
+	emph={MyClass,__init__},          % Custom highlighting
+	emphstyle=\color{cyan},    % Custom highlighting style
+	stringstyle=\color{deepgreen}
+	numbers=none, % where to put the line-numbers
+	numberstyle=\tiny, % the size of the fonts that are used for the line-numbers     
+	backgroundcolor=\color{black},
+	showspaces=false, % show spaces adding particular underscores
+	showstringspaces=false, % underline spaces within strings
+	showtabs=false, % show tabs within strings adding particular underscores
+	frame=single, % adds a frame around the code
+	tabsize=2, % sets default tabsize to 2 spaces
+	rulesepcolor=\color{gray},
+	rulecolor=\color{black},
+	captionpos=b, % sets the caption-position to bottom
+	breaklines=true, % sets automatic line breaking
+	breakatwhitespace=false,
+	stringstyle=\color{orange}
+}
+
 
 %Literaturverzeichnis
 %\usepackage[author year]{natbib} %hier muss noch komme zwischen Autor und Jahr weg
@@ -56,6 +92,23 @@
 - aus dem paper: model enough of the statistical dependencies between semantics and the textures of greyscale images and their color versions in order to produce visually compelling results.\\
 
 \section{Important background knowledge (including reference to most relevant publications)}
+\begin{lstlisting}
+#packages needed
+import numpy as np 
+import tensorflow as tf 
+import cv2
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Activation, BatchNormalization
+	for loop
+'ich bin ein string'
+if
+return
+MyClass,__init__
+\end{lstlisting}
+
+\section{``In-text'' listing highlighting}
+
 - We started looking at this paper: \\
 \url{https://arxiv.org/abs/1603.08511} , \\
 - at their best solution
@@ -75,6 +128,14 @@
 \subsection{Layer}
 \subsection{Loss-Function}
 \section{Visualization and discussion of your results.}
+oder lieber bilder als screenshot einfügen?\\
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=1.0\textwidth]{bsp.png}
+	\caption{Hier kann man dann auch noch etwas dazu schreiben}
+	\label{fig1}
+\end{figure}
+%\includegraphics{bsp.png}
 \subsection{Training}
 \subsection{Testing}
 	
