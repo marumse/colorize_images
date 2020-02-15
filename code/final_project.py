@@ -45,27 +45,31 @@ if __name__ == "__main__":
     # confirm the iterator works
     batchX = train_it.next()
     print('Batch shape=%s, min=%.3f, max=%.3f' % (batchX.shape, batchX.min(), batchX.max()))
-    input_L, output_ab = tf.unstack(batchX, axis = 3)
-    print('input_L: ' + input_l.shape)
-    print('output_ab: ' + output_ab.shape)
-
+    L, a, b = tf.unstack(batchX, axis = 3)
+    #print(L.shape) # (32,224,224)
+    #print(a.shape) # (32,224,224)
+    #print(b.shape) # (32,224,224)
+    ab = tf.stack([a,b], axis = -1)
+    print(ab.shape) # (32,224,224,2)
+    L = tf.expand_dims(L, axis = 3)
+    print(L.shape)
     
-    # # define model
-    # model = Sequential()
-    # model.add(Conv2D(32, (3,3), padding='same', input_shape=batchX.shape[1:]))
-    # model.add(Activation('relu'))
-    # model.add(BatchNormalization())
-    # model.add(MaxPooling2D(pool_size=(2,2)))
-    # model.add(Flatten())
+    # define model
+    model = Sequential()
+    model.add(Conv2D(32, (3,3), padding='same', input_shape=L.shape[1:]))
+    model.add(Activation('relu'))
+    model.add(BatchNormalization())
+    model.add(MaxPooling2D(pool_size=(2,2)))
+    model.add(Flatten())
     
-    # # compile model
-    # model.compile(optimizer='sgd', loss='mean_squared_error', metrics=['accuracy'])
-    # # fit model
+    # compile model
+    model.compile(optimizer='sgd', loss='mean_squared_error', metrics=['accuracy'])
+    # fit model
 
-    # model.fit_generator(train_it, steps_per_epoch=16, validation_data=val_it, validation_steps=8)
-    # # save weights
-    # #model.save_weights('first_try.h5')
-    # # evaluate model
-    # loss = model.evaluate_generator(test_it, steps=24)
-    # # make a prediction
-    # #yhat = model.predict_generator(predict_it, steps=24)
+    model.fit_generator(L, steps_per_epoch=16, validation_data=val_it, validation_steps=8)
+    # save weights
+    #model.save_weights('first_try.h5')
+    # evaluate model
+    #loss = model.evaluate_generator(test_it, steps=24)
+    # make a prediction
+    #yhat = model.predict_generator(predict_it, steps=24)
