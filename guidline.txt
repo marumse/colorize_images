@@ -32,6 +32,7 @@ Z:\net\projects\scratch\winter\valid_until_31_July_2020\asparagus\LabelFiles\col
 
 2.2 preprocessing: cropping, labspace umwandeln (statt RGB) - sophia
 - in lab space umwandeln: mit cv2, angelehnt an diese Funktion: https://medium.com/@halmubarak/changing-color-space-hsv-lab-while-reading-from-directory-in-keras-c8ca243e2d57
+- alternative, die wir aber nicht benutzt haben wäre in scikit https://scikit-image.org/docs/dev/api/skimage.color.html#skimage.color.rgb2lab 
 - labspace ist ein colorspace, luminanca und dann farbe encoden
 -> d.h. erste layer ist greyscale, channel ab ist target
 
