@@ -9,7 +9,7 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 from tensorflow.keras.models import Sequential
 
-from tensorflow.keras.layers import Conv2D, Activation, BatchNormalization, Softmax, Multiply
+from tensorflow.keras.layers import Conv2D, Conv2DTranspose, Activation, BatchNormalization, Softmax, Multiply
 
 from tensorflow.keras.optimizers import Adam
 
@@ -160,10 +160,11 @@ if __name__ == "__main__":
 
     # softmax layer
     model.add(Conv2D(313, (1,1), strides = 1, dilation_rate = 1))
-    model.add(Multiply())
+    #model.add(Multiply())
     model.add(Softmax())
 
     # decoding layer
+    model.add(Conv2DTranspose(313, (4,4), strides = 16, padding = 'same'))
     model.add(Conv2D(2, (1,1), strides = 1, dilation_rate = 1))
     
     # compile model
