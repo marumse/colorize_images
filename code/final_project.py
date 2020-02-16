@@ -13,46 +13,37 @@ from tensorflow.keras.layers import Conv2D, Conv2DTranspose, Activation, BatchNo
 
 from tensorflow.keras.optimizers import Adam
 
+from grid import*
+from submit_model import*
 
-
-
-def transform_image(img):
-    img_new = cv2.cvtColor(img, cv2.COLOR_RGB2LAB)
-    return img_new
-
-
-def generate_dataset(path_to_train, path_to_val, path_to_test, path_to_save, batch_size=3):
-    # featurewise_center=True, featurewise_std_normalization=True)
-    # if we want this we need .fit()
-    datagen = ImageDataGenerator(preprocessing_function = transform_image)
-    # load and iterate training dataset
-    train_it = datagen.flow_from_directory(path_to_train, target_size=(224,224), save_to_dir = path_to_save, class_mode=None, batch_size=batch_size) # for class_mode=None we need subfolders in dir?
-    # load and iterate validation dataset
-    val_it = datagen.flow_from_directory(path_to_val, target_size=(224,224), class_mode=None, batch_size=batch_size)
-    # load and iterate test dataset
-    test_it = datagen.flow_from_directory(path_to_test, target_size=(224,224), class_mode=None, batch_size=batch_size)
-
-    # change color space to lab
-    return datagen, train_it, val_it, test_it
+def list_files(dir):
+    r = []
+    for root, dirs, files in os.walk(dir):
+        for name in files[:10]:
+            r.append(os.path.join(dirs, name))
+    print(len(r))
+    return r
 
 def generate_data(directory, batch_size):
-    """Replaces Keras' native ImageDataGenerator from: https://stackoverflow.com/questions/46493419/use-a-generator-for-keras-model-fit-generator"""
+    """ Replaces Keras' native ImageDataGenerator.
+        code snippet from: https://stackoverflow.com/questions/46493419/use-a-generator-for-keras-model-fit-generator
+    """
     i = 0
-    file_list = os.listdir(directory)
+    file_list = list_files(directory)
     while True:
         image_batch = []
         label_batch = []
         for b in range(batch_size):
             if i == len(file_list):
                 i = 0
-                random.shuffle(file_list)
+                np.random.shuffle(file_list)
             sample = file_list[i]
             i += 1
             #image = cv2.resize(cv2.imread(sample[0]), (224,224))
             image = cv2.resize(cv2.imread(directory + sample), (224,224))
+            image = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
             L = image[:,:,0]
             L = L[:,:,np.newaxis]
-            
             ab = image[:,:,1:]
             image_batch.append(L)
             label_batch.append(ab)
@@ -62,39 +53,12 @@ def generate_data(directory, batch_size):
 
 if __name__ == "__main__":
 
+    args = typecast(sys.argv[1:])
+    path_to_train = args[0]
+    path_to_val = args[1]
 
-    #from PIL import ImageFile
-    #ImageFile.LOAD_TRUNCATED_IMAGES = True
+    batch_size = args[2]
 
-    #path_to_save = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/save/'
-    #path_to_test = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/test/'
-    #path_to_train = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/train/'
-    #path_to_val = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/validation/'
-    path_to_train = 'C:/Users/Acer/colorize_images/ex_pics/train/'
-
-    batch_size = 3
-
-    # data generator for large datasets
-    # featurewise_center=True, featurewise_std_normalization=True)
-    # if we want this we need .fit()
-    datagen = ImageDataGenerator(preprocessing_function = transform_image)
-    # load and iterate training dataset
-    train_it = datagen.flow_from_directory(path_to_train, target_size=(224,224), class_mode=None, batch_size=batch_size) # for class_mode=None we need subfolders in dir?
-    # load and iterate validation dataset
-    val_it = datagen.flow_from_directory(path_to_train, target_size=(224,224), class_mode=None, batch_size=batch_size)
-    # load and iterate test dataset
-    #test_it = datagen.flow_from_directory(path_to_test, target_size=(224,224), class_mode=None, batch_size=batch_size)
-    # confirm the iterator works
-    batchX = train_it.next()
-    print('Batch shape=%s, min=%.3f, max=%.3f' % (batchX.shape, batchX.min(), batchX.max()))
-    L, a, b = tf.unstack(batchX, axis = 3)
-    #print(L.shape) # (32,224,224)
-    #print(a.shape) # (32,224,224)
-    #print(b.shape) # (32,224,224)
-    ab = tf.stack([a,b], axis = -1)
-    #print(ab.shape) # (32,224,224,2)
-    L = tf.expand_dims(L, axis = 3)
-    #print(L.shape) # (32,224,224,1)
 
     # define model
     model = Sequential()
@@ -174,16 +138,14 @@ if __name__ == "__main__":
     #print(model.summary())
 
     # fit model
-    history = model.fit_generator(generate_data(path_to_train, batch_size), steps_per_epoch=1, epochs=2, validation_data=generate_data(path_to_val,batch_size), validation_steps=8)
+    history = model.fit_generator(generate_data(path_to_train, batch_size), steps_per_epoch=400, epochs=5, validation_data=generate_data(path_to_val,batch_size), validation_steps=8)
     print(history.history)
     # save weights
-    #model.save_weights('first_try.h5')
+    model.save_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/first_try.h5')
     # evaluate model
     #loss = model.evaluate_generator(test_it, steps=24)
     # make a prediction
     #yhat = model.predict_generator(predict_it, steps=24)
-<<<<<<< HEAD
-=======
 
     plt.figure(facecolor='white')
 
@@ -199,7 +161,6 @@ if __name__ == "__main__":
     plt.ylim(0)
     plt.xticks(np.arange(0, 3 + 1, 5))
     plt.grid()
-    plt.show()    
-    #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/fig_model1.png')
-    plt.savefig('C:/Users/Acer/colorize_images/code/fig_model1.png')
->>>>>>> ec3c2c0b4f2919f3b44275982a7ef38003840e4f
+    plt.show()
+    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/fig_model1.png')
+    #plt.savefig('C:/Users/Acer/colorize_images/code/fig_model1.png')
