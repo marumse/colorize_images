@@ -52,6 +52,7 @@ def generate_data(directory, batch_size):
             image = cv2.resize(cv2.imread(directory + sample), (224,224))
             L = image[:,:,0]
             L = L[:,:,np.newaxis]
+            
             ab = image[:,:,1:]
             image_batch.append(L)
             label_batch.append(ab)
@@ -169,15 +170,34 @@ if __name__ == "__main__":
     
     # compile model
     sgd = tf.keras.optimizers.SGD(lr=0.001, momentum=0.9, nesterov=True, clipnorm=5.)
-    model.compile(optimizer=sgd, loss='categorical_crossentropy')
-    print(model.summary())
+    mse = tf.keras.losses.MeanSquaredError()
+    model.compile(optimizer=sgd, loss=mse)
+    #print(model.summary())
+
     # fit model
-    model.fit_generator(generate_data(path_to_train, batch_size), steps_per_epoch=3, validation_data=generate_data(path_to_val,batch_size), validation_steps=8)
-
-
+    history = model.fit_generator(generate_data(path_to_train, batch_size), steps_per_epoch=1, epochs=2, validation_data=generate_data(path_to_val,batch_size), validation_steps=8)
+    print(history.history)
     # save weights
     #model.save_weights('first_try.h5')
     # evaluate model
     #loss = model.evaluate_generator(test_it, steps=24)
     # make a prediction
     #yhat = model.predict_generator(predict_it, steps=24)
+
+    plt.figure(facecolor='white')
+
+    plt.plot(history.history['loss'], label="loss", color="blue")
+    plt.plot(history.history['val_loss'], label="val_loss", color="red")
+
+    plt.title('Loss History')
+    plt.ylabel('loss')
+    plt.xlabel('epoch')
+
+    plt.legend(['train', 'valid'], loc='lower left')
+
+    plt.ylim(0)
+    plt.xticks(np.arange(0, 3 + 1, 5))
+    plt.grid()
+    plt.show()    
+    #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/fig_model1.png')
+    plt.savefig('C:/Users/Acer/colorize_images/code/fig_model1.png')
