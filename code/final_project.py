@@ -61,20 +61,7 @@ def generate_data(directory, batch_size):
 
 if __name__ == "__main__":
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    from PIL import ImageFile
-    ImageFile.LOAD_TRUNCATED_IMAGES = True
 
-    path_to_save = 'C:/Users/schmuri/Desktop/testbilder/save/'
-    path_to_test = 'C:/Users/schmuri/Desktop/testbilder/test/'
-    path_to_train = 'C:/Users/schmuri/Desktop/testbilder/train/'
-    path_to_val = 'C:/Users/schmuri/Desktop/testbilder/validation/'
-=======
-=======
-    
-
->>>>>>> 8649602fb18a29295395b26dac6cb243857ca882
     #from PIL import ImageFile
     #ImageFile.LOAD_TRUNCATED_IMAGES = True
 
@@ -82,9 +69,8 @@ if __name__ == "__main__":
     #path_to_test = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/test/'
     #path_to_train = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/train/'
     #path_to_val = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/validation/'
-<<<<<<< HEAD
     path_to_train = 'C:/Users/Acer/colorize_images/ex_pics/train/'
->>>>>>> 9b897521d209afdc7850df3887d7322d4be82872
+
     batch_size = 3
 
     # data generator for large datasets
@@ -109,34 +95,6 @@ if __name__ == "__main__":
     L = tf.expand_dims(L, axis = 3)
     #print(L.shape) # (32,224,224,1)
 
-=======
-    path_to_train = 'C:/Users/Acer/colorize_images/ex_pics/train/train/'
-    path_to_val = 'C:/Users/Acer/colorize_images/ex_pics/validation/validation/'
-    batch_size = 3
-
-    # # data generator for large datasets
-    # # featurewise_center=True, featurewise_std_normalization=True)
-    # # if we want this we need .fit()
-    # datagen = ImageDataGenerator(preprocessing_function = transform_image) 
-    # # load and iterate training dataset
-    # train_it = datagen.flow_from_directory(path_to_train, target_size=(224,224), class_mode=None, batch_size=batch_size) # for class_mode=None we need subfolders in dir?
-    # # load and iterate validation dataset
-    # val_it = datagen.flow_from_directory(path_to_train, target_size=(224,224), class_mode=None, batch_size=batch_size)
-    # # load and iterate test dataset
-    # #test_it = datagen.flow_from_directory(path_to_test, target_size=(224,224), class_mode=None, batch_size=batch_size)
-    # # confirm the iterator works
-    # batchX = train_it.next()
-    # print('Batch shape=%s, min=%.3f, max=%.3f' % (batchX.shape, batchX.min(), batchX.max()))
-    # L, a, b = tf.unstack(batchX, axis = 3)
-    # #print(L.shape) # (32,224,224)
-    # #print(a.shape) # (32,224,224)
-    # #print(b.shape) # (32,224,224)
-    # ab = tf.stack([a,b], axis = -1)
-    # #print(ab.shape) # (32,224,224,2)
-    # L = tf.expand_dims(L, axis = 3)
-    # #print(L.shape) # (32,224,224,1)
-    
->>>>>>> 8649602fb18a29295395b26dac6cb243857ca882
     # define model
     model = Sequential()
     # conv1
@@ -205,17 +163,9 @@ if __name__ == "__main__":
     model.add(Softmax())
 
     # decoding layer
-<<<<<<< HEAD
-<<<<<<< HEAD
-    model.add(Conv2D(2, (1,1), stride = 1, dilation_rate = 1))
-
-=======
-=======
     model.add(Conv2DTranspose(313, (4,4), strides = 16, padding = 'same'))
->>>>>>> 8649602fb18a29295395b26dac6cb243857ca882
     model.add(Conv2D(2, (1,1), strides = 1, dilation_rate = 1))
-    
->>>>>>> 9b897521d209afdc7850df3887d7322d4be82872
+
     # compile model
     sgd = tf.keras.optimizers.SGD(lr=0.001, momentum=0.9, nesterov=True, clipnorm=5.)
     model.compile(optimizer=sgd, loss='categorical_crossentropy')
