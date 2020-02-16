@@ -2,14 +2,18 @@ import numpy as np
 import tensorflow as tf
 #from skimage import color
 import cv2
+import os
+import matplotlib.pyplot as plt
 
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 from tensorflow.keras.models import Sequential
 
-from tensorflow.keras.layers import Conv2D, Activation, BatchNormalization, Softmax
+from tensorflow.keras.layers import Conv2D, Conv2DTranspose, Activation, BatchNormalization, Softmax, Multiply
 
 from tensorflow.keras.optimizers import Adam
+
+
 
 
 def transform_image(img):
@@ -31,9 +35,33 @@ def generate_dataset(path_to_train, path_to_val, path_to_test, path_to_save, bat
     # change color space to lab
     return datagen, train_it, val_it, test_it
 
+def generate_data(directory, batch_size):
+    """Replaces Keras' native ImageDataGenerator from: https://stackoverflow.com/questions/46493419/use-a-generator-for-keras-model-fit-generator"""
+    i = 0
+    file_list = os.listdir(directory)
+    while True:
+        image_batch = []
+        label_batch = []
+        for b in range(batch_size):
+            if i == len(file_list):
+                i = 0
+                random.shuffle(file_list)
+            sample = file_list[i]
+            i += 1
+            #image = cv2.resize(cv2.imread(sample[0]), (224,224))
+            image = cv2.resize(cv2.imread(directory + sample), (224,224))
+            L = image[:,:,0]
+            L = L[:,:,np.newaxis]
+            ab = image[:,:,1:]
+            image_batch.append(L)
+            label_batch.append(ab)
+
+        yield (np.array(image_batch), np.array(label_batch))
+
 
 if __name__ == "__main__":
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     from PIL import ImageFile
     ImageFile.LOAD_TRUNCATED_IMAGES = True
@@ -43,6 +71,10 @@ if __name__ == "__main__":
     path_to_train = 'C:/Users/schmuri/Desktop/testbilder/train/'
     path_to_val = 'C:/Users/schmuri/Desktop/testbilder/validation/'
 =======
+=======
+    
+
+>>>>>>> 8649602fb18a29295395b26dac6cb243857ca882
     #from PIL import ImageFile
     #ImageFile.LOAD_TRUNCATED_IMAGES = True
 
@@ -50,6 +82,7 @@ if __name__ == "__main__":
     #path_to_test = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/test/'
     #path_to_train = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/train/'
     #path_to_val = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/LabelFiles/colorize_images/validation/'
+<<<<<<< HEAD
     path_to_train = 'C:/Users/Acer/colorize_images/ex_pics/train/'
 >>>>>>> 9b897521d209afdc7850df3887d7322d4be82872
     batch_size = 3
@@ -76,10 +109,38 @@ if __name__ == "__main__":
     L = tf.expand_dims(L, axis = 3)
     #print(L.shape) # (32,224,224,1)
 
+=======
+    path_to_train = 'C:/Users/Acer/colorize_images/ex_pics/train/train/'
+    path_to_val = 'C:/Users/Acer/colorize_images/ex_pics/validation/validation/'
+    batch_size = 3
+
+    # # data generator for large datasets
+    # # featurewise_center=True, featurewise_std_normalization=True)
+    # # if we want this we need .fit()
+    # datagen = ImageDataGenerator(preprocessing_function = transform_image) 
+    # # load and iterate training dataset
+    # train_it = datagen.flow_from_directory(path_to_train, target_size=(224,224), class_mode=None, batch_size=batch_size) # for class_mode=None we need subfolders in dir?
+    # # load and iterate validation dataset
+    # val_it = datagen.flow_from_directory(path_to_train, target_size=(224,224), class_mode=None, batch_size=batch_size)
+    # # load and iterate test dataset
+    # #test_it = datagen.flow_from_directory(path_to_test, target_size=(224,224), class_mode=None, batch_size=batch_size)
+    # # confirm the iterator works
+    # batchX = train_it.next()
+    # print('Batch shape=%s, min=%.3f, max=%.3f' % (batchX.shape, batchX.min(), batchX.max()))
+    # L, a, b = tf.unstack(batchX, axis = 3)
+    # #print(L.shape) # (32,224,224)
+    # #print(a.shape) # (32,224,224)
+    # #print(b.shape) # (32,224,224)
+    # ab = tf.stack([a,b], axis = -1)
+    # #print(ab.shape) # (32,224,224,2)
+    # L = tf.expand_dims(L, axis = 3)
+    # #print(L.shape) # (32,224,224,1)
+    
+>>>>>>> 8649602fb18a29295395b26dac6cb243857ca882
     # define model
     model = Sequential()
     # conv1
-    model.add(Conv2D(64, (3,3), padding='same', input_shape=L.shape[1:]))
+    model.add(Conv2D(64, (3,3), padding='same', input_shape=(224,224,1)))
     model.add(Activation('relu'))
     model.add(Conv2D(64, (3,3), strides = 2, padding='same'))
     model.add(Activation('relu'))
@@ -145,9 +206,13 @@ if __name__ == "__main__":
 
     # decoding layer
 <<<<<<< HEAD
+<<<<<<< HEAD
     model.add(Conv2D(2, (1,1), stride = 1, dilation_rate = 1))
 
 =======
+=======
+    model.add(Conv2DTranspose(313, (4,4), strides = 16, padding = 'same'))
+>>>>>>> 8649602fb18a29295395b26dac6cb243857ca882
     model.add(Conv2D(2, (1,1), strides = 1, dilation_rate = 1))
     
 >>>>>>> 9b897521d209afdc7850df3887d7322d4be82872
@@ -156,7 +221,7 @@ if __name__ == "__main__":
     model.compile(optimizer=sgd, loss='categorical_crossentropy')
     print(model.summary())
     # fit model
-    model.fit_generator(train_it, steps_per_epoch=3, validation_data=val_it, validation_steps=8)
+    model.fit_generator(generate_data(path_to_train, batch_size), steps_per_epoch=3, validation_data=generate_data(path_to_val,batch_size), validation_steps=8)
 
 
     # save weights
