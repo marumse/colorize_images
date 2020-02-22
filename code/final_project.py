@@ -52,7 +52,7 @@ def generate_data(directory, batch_size):
 
 
 if __name__ == "__main__":
-
+    tf.debugging.set_log_device_placement(True)
     args = typecast(sys.argv[1:])
     path_to_train = args[0]
     path_to_val = args[1]
