@@ -52,6 +52,7 @@ def generate_data(directory, batch_size):
 
 
 if __name__ == "__main__":
+    print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
     tf.debugging.set_log_device_placement(True)
     args = typecast(sys.argv[1:])
     path_to_train = args[0]
