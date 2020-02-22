@@ -29,7 +29,7 @@ def submit_script(scriptpath, args,  mem = "16G", cuda_cores = 0, jobname = "job
                 + "date \n"
                 + "echo 'Host' \n"
                 + "hostname \n"
-            #    + environment + " \n"
+                + environment + " \n"
                 + 'python3 ' + scriptpath + " " + args_string + "\n"
                 + "echo 'End-time'\n"
                 + "date \n"

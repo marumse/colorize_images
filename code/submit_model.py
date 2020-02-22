@@ -6,6 +6,7 @@ if __name__ == '__main__':
     path_to_val = '/net/projects/data/ImageNet/ILSVRC2012/val'
     batch_size = 25
     args = [path_to_train, path_to_val, batch_size]
-   # env = 'source stack/bin/activate'
 
-    submit_script(path, args)
+    env = 'source /net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sharedConda/bin/activate dataSet'
+
+    submit_script(path, args, env)
