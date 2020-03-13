@@ -21,7 +21,6 @@ def list_files(dir):
     r = []
     for subdir, dirs, files in os.walk(dir):
         print(subdir)
-        print(dirs)
         print(files[:10])
         for file in files[:10]:
             filepath = subdir + '/' + file
