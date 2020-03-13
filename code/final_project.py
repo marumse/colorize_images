@@ -79,7 +79,7 @@ if __name__ == "__main__":
     path_to_val = args[1]
 
     batch_size = args[2]
-
+    print("check1")
     # define model
     model = Sequential()
     # conv1
