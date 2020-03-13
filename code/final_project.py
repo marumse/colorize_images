@@ -19,8 +19,8 @@ from submit_model import*
 def list_files(dir):
     r = []
     for subdir, dirs, files in os.walk(dir):
-        # if len(r)==10:
-        #     break
+        if len(r)==10:
+            break
         for file in files[0]:
             filepath = subdir + '/' + file
             r.append(filepath)
