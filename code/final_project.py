@@ -65,6 +65,7 @@ def generate_data(directory, batch_size):
             L = image[:,:,0]
             L = L[:,:,np.newaxis]
             print("checkpoint3.3.1")
+            print(x)
             ab = image[:,:,1:]
             image_batch.append(L)
             label_batch.append(ab)
