@@ -17,7 +17,7 @@ from grid import*
 from submit_model import*
 
 def list_files(dir):
-    print("check3.1.1")
+
     r = []
     for subdir, dirs, files in os.walk(dir):
         print(subdir)
@@ -25,7 +25,8 @@ def list_files(dir):
         for file in files[:10]:
             filepath = subdir + '/' + file
             r.append(filepath)
-            print(len(r))
+            if len(r)==10:
+                break
 
     # for root, dirs, files in os.walk(dir):
     #     print("check3.1.2")
