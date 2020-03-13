@@ -36,8 +36,7 @@ def list_files(dir):
     #     for name in files[:10]:
     #         print("check3.1.3")
     #         r.append(os.path.join(dirs, name))
-            
-    print(len(r))
+
     return r
 
 def generate_data(directory, batch_size):
@@ -55,7 +54,7 @@ def generate_data(directory, batch_size):
                 np.random.shuffle(file_list)
             sample = file_list[i]
             i += 1
-            print(i)
+            print(sample)
             #image = cv2.resize(cv2.imread(sample[0]), (224,224))
             image = cv2.resize(cv2.imread(sample), (224,224))
             image = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
