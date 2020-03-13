@@ -21,9 +21,13 @@ def list_files(dir):
     r = []
     for root, dirs, files in os.walk(dir):
         print("check3.1.2")
+        print(root)
+        print(dirs)
+        print(files[:10])
         for name in files[:10]:
-            r.append(os.path.join(dirs, name))
             print("check3.1.3")
+            r.append(os.path.join(dirs, name))
+            
     print(len(r))
     return r
 
