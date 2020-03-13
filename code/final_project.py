@@ -17,7 +17,6 @@ from grid import*
 from submit_model import*
 
 def list_files(dir):
-    print("hi")
     r = []
     for subdir, dirs, files in os.walk(dir):
         print(subdir)
@@ -59,11 +58,13 @@ def generate_data(directory, batch_size):
                 np.random.shuffle(file_list)
             sample = file_list[i]
             i += 1
+            print(i)
             #image = cv2.resize(cv2.imread(sample[0]), (224,224))
-            image = cv2.resize(cv2.imread(directory + sample), (224,224))
+            image = cv2.resize(cv2.imread(sample), (224,224))
             image = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
             L = image[:,:,0]
             L = L[:,:,np.newaxis]
+            print("checkpoint3.3.1")
             ab = image[:,:,1:]
             image_batch.append(L)
             label_batch.append(ab)
