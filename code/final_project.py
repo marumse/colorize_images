@@ -19,14 +19,22 @@ from submit_model import*
 def list_files(dir):
     print("check3.1.1")
     r = []
-    for root, dirs, files in os.walk(dir):
-        print("check3.1.2")
-        print(root)
+    for subdir, dirs, files in os.walk(dir):
+        print(subdir)
         print(dirs)
         print(files[:10])
-        for name in files[:10]:
-            print("check3.1.3")
-            r.append(os.path.join(dirs, name))
+        for file in files[:10]:
+            filepath = subdir + '/' + file
+            r.append(filepath)
+
+    # for root, dirs, files in os.walk(dir):
+    #     print("check3.1.2")
+    #     print(root)
+    #     print(dirs)
+    #     print(files[:10])
+    #     for name in files[:10]:
+    #         print("check3.1.3")
+    #         r.append(os.path.join(dirs, name))
             
     print(len(r))
     return r
