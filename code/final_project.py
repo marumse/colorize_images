@@ -17,7 +17,7 @@ from grid import*
 from submit_model import*
 
 def list_files(dir):
-
+    print("hi")
     r = []
     for subdir, dirs, files in os.walk(dir):
         print(subdir)
