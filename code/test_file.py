@@ -31,6 +31,7 @@ def generate_data(directory, batch_size):
     """ Replaces Keras' native ImageDataGenerator.
         code snippet from: https://stackoverflow.com/questions/46493419/use-a-generator-for-keras-model-fit-generator
     """
+    print("hi")
     i = 0
     file_list = list_files(directory)
     while True:
