@@ -69,8 +69,6 @@ def generate_data(directory, batch_size):
                 print(x)
             except:
                 print("x not defined")
-            finally:
-                continue
             ab = image[:,:,1:]
             print("3.3.2")
             image_batch.append(L)
