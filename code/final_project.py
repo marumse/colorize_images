@@ -22,11 +22,12 @@ def list_files(dir):
     for subdir, dirs, files in os.walk(dir):
         print(subdir)
         print(files[:10])
+        if len(r)==10:
+            break
         for file in files[:10]:
             filepath = subdir + '/' + file
             r.append(filepath)
-            if len(r)==10:
-                break
+
 
     # for root, dirs, files in os.walk(dir):
     #     print("check3.1.2")
