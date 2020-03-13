@@ -71,4 +71,5 @@ if __name__ == "__main__":
     print(file_list)
     # fit model
     training_data = generate_data(path_to_train, batch_size)
+    print(training_data)
     print("check")
