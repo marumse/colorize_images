@@ -28,9 +28,12 @@ def generate_data(directory, batch_size):
     """ Replaces Keras' native ImageDataGenerator.
         code snippet from: https://stackoverflow.com/questions/46493419/use-a-generator-for-keras-model-fit-generator
     """
+    print("check3.1")
     i = 0
     file_list = list_files(directory)
+    print("check3.2")
     while True:
+        print("check3.3")
         image_batch = []
         label_batch = []
         for b in range(batch_size):
@@ -47,7 +50,7 @@ def generate_data(directory, batch_size):
             ab = image[:,:,1:]
             image_batch.append(L)
             label_batch.append(ab)
-
+            print("check3.4")
         yield (np.array(image_batch), np.array(label_batch))
 
 
