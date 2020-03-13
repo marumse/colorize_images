@@ -17,10 +17,13 @@ from grid import*
 from submit_model import*
 
 def list_files(dir):
+    print("check3.1.1")
     r = []
     for root, dirs, files in os.walk(dir):
+        print("check3.1.2")
         for name in files[:10]:
             r.append(os.path.join(dirs, name))
+            print("check3.1.3")
     print(len(r))
     return r
 
