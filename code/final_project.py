@@ -155,7 +155,7 @@ if __name__ == "__main__":
     sgd = tf.keras.optimizers.SGD(lr=0.001, momentum=0.9, nesterov=True, clipnorm=5.)
     mse = tf.keras.losses.MeanSquaredError()
     model.compile(optimizer=sgd, loss=mse)
-    #print(model.summary())
+    print(model.summary())
 
     # fit model
     history = model.fit_generator(generate_data(path_to_train, batch_size), steps_per_epoch=400, epochs=5, validation_data=generate_data(path_to_val,batch_size), validation_steps=8)
