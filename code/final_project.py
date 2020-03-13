@@ -19,11 +19,9 @@ from submit_model import*
 def list_files(dir):
     r = []
     for subdir, dirs, files in os.walk(dir):
-        print(subdir)
-        print(files[:10])
         if len(r)==10:
             break
-        for file in files[:10]:
+        for file in files:
             filepath = subdir + '/' + file
             r.append(filepath)
 
@@ -60,8 +58,9 @@ def generate_data(directory, batch_size):
             image = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
             L = image[:,:,0]
             L = L[:,:,np.newaxis]
-            plt.imshow(L)
-            plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/L.png')
+            #plt.imshow(L)
+            #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/L.png')
+            print("check L")
             ab = image[:,:,1:]
             print("check ab")
             image_batch.append(L)
