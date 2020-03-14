@@ -4,7 +4,7 @@ import numpy as np
 import cv2
 import os
 import matplotlib.pyplot as plt
-import keras as K
+import keras.backend as K
 #from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 #from tensorflow.keras.models import Sequential
@@ -80,20 +80,7 @@ def generate_data(directory, batch_size):
             print("check ab appand")
         yield (np.array(image_batch), np.array(label_batch))
 
-
-if __name__ == "__main__":
-    K.clear_session()
-    K.set_learning_phase(0)
-    #print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
-    
-    #tf.debugging.set_log_device_placement(True)
-    args = typecast(sys.argv[1:])
-    path_to_train = args[0]
-    path_to_val = args[1]
-
-    batch_size = args[2]
-    print("check1")
-
+def create_model():
     # define model
     model = Sequential()
     # conv1
@@ -164,6 +151,24 @@ if __name__ == "__main__":
     # decoding layer
     model.add(Conv2DTranspose(313, (3,3), strides = 16, padding = 'same'))
     model.add(Conv2D(2, (1,1), strides = 1, dilation_rate = 1))
+    
+    return model
+
+
+if __name__ == "__main__":
+    K.clear_session()
+    K.set_learning_phase(0)
+    #print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
+    
+    #tf.debugging.set_log_device_placement(True)
+    args = typecast(sys.argv[1:])
+    path_to_train = args[0]
+    path_to_val = args[1]
+
+    batch_size = args[2]
+    print("check1")
+
+    model = create_model()
 
     # compile model
     #sgd = tf.keras.optimizers.SGD(lr=0.001, momentum=0.9, nesterov=True, clipnorm=5.)
