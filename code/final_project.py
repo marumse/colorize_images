@@ -172,12 +172,11 @@ if __name__ == "__main__":
     sgd = keras.optimizers.SGD(lr=0.001, momentum=0.9, nesterov=True, clipnorm=5.)
 
     model.compile(optimizer=sgd, loss=keras.losses.mean_squared_error)
-    print(model.summary())
     training_batch = generate_data(path_to_train, batch_size)
-    print(training_batch)
+    print("check2")
     validation_batch = generate_data(path_to_val,batch_size)
     # fit model
-    history = model.fit_generator(training_batch, steps_per_epoch=400, epochs=5, validation_data=validation_batch, validation_steps=8, use_multiprocessing=False)
+    history = model.fit_generator(training_batch, steps_per_epoch=400, epochs=5, validation_data=validation_batch, validation_steps=8)
     print(history.history)
     # save weights
     model.save_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/first_try.h5')
