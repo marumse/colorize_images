@@ -1,5 +1,5 @@
 import numpy as np
-import tensorflow as tf
+#import tensorflow as tf
 #from skimage import color
 import cv2
 import os
@@ -7,9 +7,15 @@ import matplotlib.pyplot as plt
 
 #from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
-from tensorflow.keras.models import Sequential
+#from tensorflow.keras.models import Sequential
 
-from tensorflow.keras.layers import Conv2D, Conv2DTranspose, Activation, BatchNormalization, Softmax, Multiply
+#from tensorflow.keras.layers import Conv2D, Conv2DTranspose, Activation, BatchNormalization, Softmax, Multiply
+
+from keras.models import Sequential
+
+from keras.layers import Conv2D, Conv2DTranspose, Activation, BatchNormalization, Softmax, Multiply
+from keras.losses import MeanSquaredError
+from keras.optimizers import SGD
 
 #from tensorflow.keras.optimizers import Adam
 
@@ -73,7 +79,7 @@ def generate_data(directory, batch_size):
 if __name__ == "__main__":
     #print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
     
-    tf.debugging.set_log_device_placement(True)
+    #tf.debugging.set_log_device_placement(True)
     args = typecast(sys.argv[1:])
     path_to_train = args[0]
     path_to_val = args[1]
@@ -152,8 +158,10 @@ if __name__ == "__main__":
     model.add(Conv2D(2, (1,1), strides = 1, dilation_rate = 1))
 
     # compile model
-    sgd = tf.keras.optimizers.SGD(lr=0.001, momentum=0.9, nesterov=True, clipnorm=5.)
-    mse = tf.keras.losses.MeanSquaredError()
+    #sgd = tf.keras.optimizers.SGD(lr=0.001, momentum=0.9, nesterov=True, clipnorm=5.)
+    #mse = tf.keras.losses.MeanSquaredError()
+    sgd = SGD(lr=0.001, momentum=0.9, nesterov=True, clipnorm=5.)
+    mse = MeanSquaredError()
     model.compile(optimizer=sgd, loss=mse)
     print(model.summary())
 
