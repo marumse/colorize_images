@@ -23,6 +23,7 @@ from grid import*
 from submit_model import*
 
 def list_files(dir):
+    print("enter the list files function")
     r = []
     for subdir, dirs, files in os.walk(dir):
         if len(r)==10:
@@ -41,18 +42,22 @@ def list_files(dir):
     #         print("check3.1.3")
     #         r.append(os.path.join(dirs, name))
 
+    print(len(r))
     return r
 
 def generate_data(directory, batch_size):
     """ Replaces Keras' native ImageDataGenerator.
         code snippet from: https://stackoverflow.com/questions/46493419/use-a-generator-for-keras-model-fit-generator
     """
+    print("entered the generator")
     i = 0
     file_list = list_files(directory)
     while True:
         image_batch = []
         label_batch = []
+        print("enter while loop")
         for b in range(batch_size):
+            print("enter for loop")
             if i == len(file_list):
                 i = 0
                 np.random.shuffle(file_list)
