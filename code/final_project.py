@@ -94,7 +94,8 @@ def create_model():
     model.add(Activation('relu'))
     model.add(Conv2D(128, (3,3), strides = 2, padding='same'))
     model.add(Activation('relu'))
-    model.add(BatchNormalization())
+    #model.add(BatchNormalization())
+    print("check2")
     # conv3
     model.add(Conv2D(256, (3,3), padding='same'))
     model.add(Activation('relu'))
