@@ -174,6 +174,7 @@ if __name__ == "__main__":
     model.compile(optimizer=sgd, loss=keras.losses.mean_squared_error)
     print(model.summary())
     training_batch = generate_data(path_to_train, batch_size)
+    print(training_batch)
     validation_batch = generate_data(path_to_val,batch_size)
     # fit model
     history = model.fit_generator(training_batch, steps_per_epoch=400, epochs=5, validation_data=validation_batch, validation_steps=8)
