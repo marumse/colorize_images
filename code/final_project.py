@@ -44,13 +44,12 @@ def list_files(dir):
     print(len(r))
     return r
 
-def generate_data(directory, batch_size):
+def generate_data(directory, batch_size, file_list):
     """ Replaces Keras' native ImageDataGenerator.
         code snippet from: https://stackoverflow.com/questions/46493419/use-a-generator-for-keras-model-fit-generator
     """
     print("entered the generator")
     i = 0
-    file_list = list_files(directory)
     print("passed the list file function")
     while True:
         image_batch = []
@@ -166,18 +165,19 @@ if __name__ == "__main__":
 
     batch_size = args[2]
     print("check1")
-
+    # get all the file paths
+    train_files = list_files(path_to_train)
+    val_files = list_files(path_to_val)
+    print("check2")
     model = create_model()
 
     # compile model
     sgd = keras.optimizers.SGD(lr=0.001, momentum=0.9, nesterov=True, clipnorm=5.)
 
     model.compile(optimizer=sgd, loss=keras.losses.mean_squared_error)
-    training_batch = generate_data(path_to_train, batch_size)
-    print("check2")
-    validation_batch = generate_data(path_to_val,batch_size)
+    
     # fit model
-    history = model.fit_generator(training_batch, steps_per_epoch=400, epochs=5, validation_data=validation_batch, validation_steps=8)
+    history = model.fit_generator(generate_data(path_to_train, batch_size, train_files), steps_per_epoch=400, epochs=5, validation_data=generate_data(path_to_val,batch_size, val_files), validation_steps=8)
     print(history.history)
     # save weights
     model.save_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/first_try.h5')
