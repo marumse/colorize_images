@@ -4,7 +4,7 @@ import numpy as np
 import cv2
 import os
 import matplotlib.pyplot as plt
-
+import keras as K
 #from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 #from tensorflow.keras.models import Sequential
@@ -82,6 +82,8 @@ def generate_data(directory, batch_size):
 
 
 if __name__ == "__main__":
+    K.clear_session()
+    K.set_learning_phase(0)
     #print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
     
     #tf.debugging.set_log_device_placement(True)
@@ -91,6 +93,7 @@ if __name__ == "__main__":
 
     batch_size = args[2]
     print("check1")
+
     # define model
     model = Sequential()
     # conv1
@@ -105,53 +108,53 @@ if __name__ == "__main__":
     model.add(Conv2D(128, (3,3), strides = 2, padding='same'))
     model.add(Activation('relu'))
     model.add(BatchNormalization())
-    # # conv3
-    # model.add(Conv2D(256, (3,3), padding='same'))
-    # model.add(Activation('relu'))
-    # model.add(Conv2D(256, (3,3), padding='same'))
-    # model.add(Activation('relu'))
-    # model.add(Conv2D(256, (3,3), strides = 2, padding='same'))
-    # model.add(Activation('relu'))
-    # model.add(BatchNormalization())
-    # # conv4
-    # model.add(Conv2D(512, (3,3), strides = 1, dilation_rate = 1, padding='same'))
-    # model.add(Activation('relu'))
-    # model.add(Conv2D(512, (3,3), strides = 1, dilation_rate = 1, padding='same'))
-    # model.add(Activation('relu'))
-    # model.add(Conv2D(512, (3,3), strides = 1, dilation_rate = 1, padding='same'))
-    # model.add(Activation('relu'))
-    # model.add(BatchNormalization())
-    # # conv5
-    # model.add(Conv2D(512, (3,3), strides = 1, dilation_rate = 2, padding='same'))
-    # model.add(Activation('relu'))
-    # model.add(Conv2D(512, (3,3), strides = 1, dilation_rate = 2, padding='same'))
-    # model.add(Activation('relu'))
-    # model.add(Conv2D(512, (3,3), strides = 1, dilation_rate = 2, padding='same'))
-    # model.add(Activation('relu'))
-    # model.add(BatchNormalization())
-    # # conv6
-    # model.add(Conv2D(512, (3,3), dilation_rate = 2, padding='same'))
-    # model.add(Activation('relu'))
-    # model.add(Conv2D(512, (3,3), dilation_rate = 2, padding='same'))
-    # model.add(Activation('relu'))
-    # model.add(Conv2D(512, (3,3), dilation_rate = 2, padding='same'))
-    # model.add(Activation('relu'))
-    # model.add(BatchNormalization())
-    # # conv7
-    # model.add(Conv2D(512, (3,3), dilation_rate = 1, padding='same'))
-    # model.add(Activation('relu'))
-    # model.add(Conv2D(512, (3,3), dilation_rate = 1, padding='same'))
-    # model.add(Activation('relu'))
-    # model.add(Conv2D(512, (3,3), dilation_rate = 1, padding='same'))
-    # model.add(Activation('relu'))
-    # model.add(BatchNormalization())
-    # # conv8
-    # model.add(Conv2D(256, (3,3), strides = 2, dilation_rate = 1, padding='same'))
-    # model.add(Activation('relu'))
-    # model.add(Conv2D(256, (3,3), dilation_rate = 1, padding='same'))
-    # model.add(Activation('relu'))
-    # model.add(Conv2D(256, (3,3), dilation_rate = 1, padding='same'))
-    # model.add(Activation('relu'))
+    # conv3
+    model.add(Conv2D(256, (3,3), padding='same'))
+    model.add(Activation('relu'))
+    model.add(Conv2D(256, (3,3), padding='same'))
+    model.add(Activation('relu'))
+    model.add(Conv2D(256, (3,3), strides = 2, padding='same'))
+    model.add(Activation('relu'))
+    model.add(BatchNormalization())
+    # conv4
+    model.add(Conv2D(512, (3,3), strides = 1, dilation_rate = 1, padding='same'))
+    model.add(Activation('relu'))
+    model.add(Conv2D(512, (3,3), strides = 1, dilation_rate = 1, padding='same'))
+    model.add(Activation('relu'))
+    model.add(Conv2D(512, (3,3), strides = 1, dilation_rate = 1, padding='same'))
+    model.add(Activation('relu'))
+    model.add(BatchNormalization())
+    # conv5
+    model.add(Conv2D(512, (3,3), strides = 1, dilation_rate = 2, padding='same'))
+    model.add(Activation('relu'))
+    model.add(Conv2D(512, (3,3), strides = 1, dilation_rate = 2, padding='same'))
+    model.add(Activation('relu'))
+    model.add(Conv2D(512, (3,3), strides = 1, dilation_rate = 2, padding='same'))
+    model.add(Activation('relu'))
+    model.add(BatchNormalization())
+    # conv6
+    model.add(Conv2D(512, (3,3), dilation_rate = 2, padding='same'))
+    model.add(Activation('relu'))
+    model.add(Conv2D(512, (3,3), dilation_rate = 2, padding='same'))
+    model.add(Activation('relu'))
+    model.add(Conv2D(512, (3,3), dilation_rate = 2, padding='same'))
+    model.add(Activation('relu'))
+    model.add(BatchNormalization())
+    # conv7
+    model.add(Conv2D(512, (3,3), dilation_rate = 1, padding='same'))
+    model.add(Activation('relu'))
+    model.add(Conv2D(512, (3,3), dilation_rate = 1, padding='same'))
+    model.add(Activation('relu'))
+    model.add(Conv2D(512, (3,3), dilation_rate = 1, padding='same'))
+    model.add(Activation('relu'))
+    model.add(BatchNormalization())
+    # conv8
+    model.add(Conv2D(256, (3,3), strides = 2, dilation_rate = 1, padding='same'))
+    model.add(Activation('relu'))
+    model.add(Conv2D(256, (3,3), dilation_rate = 1, padding='same'))
+    model.add(Activation('relu'))
+    model.add(Conv2D(256, (3,3), dilation_rate = 1, padding='same'))
+    model.add(Activation('relu'))
 
     # softmax layer
     model.add(Conv2D(313, (1,1), strides = 1, dilation_rate = 1))
