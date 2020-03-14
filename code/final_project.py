@@ -14,8 +14,6 @@ from keras import backend as K
 from keras.models import Sequential
 
 from keras.layers import Conv2D, Conv2DTranspose, Activation, BatchNormalization, Softmax, Multiply
-from keras.losses import MeanSquaredError
-from keras.optimizers import SGD
 
 #from tensorflow.keras.optimizers import Adam
 
@@ -94,8 +92,7 @@ def create_model():
     model.add(Activation('relu'))
     model.add(Conv2D(128, (3,3), strides = 2, padding='same'))
     model.add(Activation('relu'))
-    #model.add(BatchNormalization())
-    print("check2")
+    model.add(BatchNormalization())
     # conv3
     model.add(Conv2D(256, (3,3), padding='same'))
     model.add(Activation('relu'))
@@ -103,7 +100,7 @@ def create_model():
     model.add(Activation('relu'))
     model.add(Conv2D(256, (3,3), strides = 2, padding='same'))
     model.add(Activation('relu'))
-    #model.add(BatchNormalization())
+    model.add(BatchNormalization())
     # conv4
     model.add(Conv2D(512, (3,3), strides = 1, dilation_rate = 1, padding='same'))
     model.add(Activation('relu'))
@@ -111,7 +108,7 @@ def create_model():
     model.add(Activation('relu'))
     model.add(Conv2D(512, (3,3), strides = 1, dilation_rate = 1, padding='same'))
     model.add(Activation('relu'))
-    #model.add(BatchNormalization())
+    model.add(BatchNormalization())
     # conv5
     model.add(Conv2D(512, (3,3), strides = 1, dilation_rate = 2, padding='same'))
     model.add(Activation('relu'))
@@ -119,7 +116,7 @@ def create_model():
     model.add(Activation('relu'))
     model.add(Conv2D(512, (3,3), strides = 1, dilation_rate = 2, padding='same'))
     model.add(Activation('relu'))
-    #model.add(BatchNormalization())
+    model.add(BatchNormalization())
     # conv6
     model.add(Conv2D(512, (3,3), dilation_rate = 2, padding='same'))
     model.add(Activation('relu'))
@@ -127,7 +124,7 @@ def create_model():
     model.add(Activation('relu'))
     model.add(Conv2D(512, (3,3), dilation_rate = 2, padding='same'))
     model.add(Activation('relu'))
-    #model.add(BatchNormalization())
+    model.add(BatchNormalization())
     # conv7
     model.add(Conv2D(512, (3,3), dilation_rate = 1, padding='same'))
     model.add(Activation('relu'))
@@ -135,7 +132,7 @@ def create_model():
     model.add(Activation('relu'))
     model.add(Conv2D(512, (3,3), dilation_rate = 1, padding='same'))
     model.add(Activation('relu'))
-    #model.add(BatchNormalization())
+    model.add(BatchNormalization())
     # conv8
     model.add(Conv2D(256, (3,3), strides = 2, dilation_rate = 1, padding='same'))
     model.add(Activation('relu'))
@@ -171,10 +168,9 @@ if __name__ == "__main__":
     model = create_model()
 
     # compile model
-    #sgd = tf.keras.optimizers.SGD(lr=0.001, momentum=0.9, nesterov=True, clipnorm=5.)
-    #mse = tf.keras.losses.MeanSquaredError()
-    sgd = SGD(lr=0.001, momentum=0.9, nesterov=True, clipnorm=5.)
-    mse = MeanSquaredError()
+    sgd = keras.optimizers.SGD(lr=0.001, momentum=0.9, nesterov=True, clipnorm=5.)
+    mse = keras.losses.MeanSquaredError()
+
     model.compile(optimizer=sgd, loss=mse)
     print(model.summary())
 
