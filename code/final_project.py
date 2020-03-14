@@ -141,7 +141,7 @@ if __name__ == "__main__":
     model.add(Activation('relu'))
     model.add(BatchNormalization())
     # conv8
-    model.add(Conv2D(256, (4,4), strides = 2, dilation_rate = 1, padding='same'))
+    model.add(Conv2D(256, (3,3), strides = 2, dilation_rate = 1, padding='same'))
     model.add(Activation('relu'))
     model.add(Conv2D(256, (3,3), dilation_rate = 1, padding='same'))
     model.add(Activation('relu'))
@@ -154,7 +154,7 @@ if __name__ == "__main__":
     model.add(Softmax())
 
     # decoding layer
-    model.add(Conv2DTranspose(313, (4,4), strides = 16, padding = 'same'))
+    model.add(Conv2DTranspose(313, (3,3), strides = 16, padding = 'same'))
     model.add(Conv2D(2, (1,1), strides = 1, dilation_rate = 1))
 
     # compile model
