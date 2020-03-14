@@ -51,6 +51,7 @@ def generate_data(directory, batch_size):
     print("entered the generator")
     i = 0
     file_list = list_files(directory)
+    print("passed the list file function")
     while True:
         image_batch = []
         label_batch = []
