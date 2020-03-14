@@ -103,7 +103,7 @@ def create_model():
     model.add(Activation('relu'))
     model.add(Conv2D(256, (3,3), strides = 2, padding='same'))
     model.add(Activation('relu'))
-    model.add(BatchNormalization())
+    #model.add(BatchNormalization())
     # conv4
     model.add(Conv2D(512, (3,3), strides = 1, dilation_rate = 1, padding='same'))
     model.add(Activation('relu'))
@@ -111,7 +111,7 @@ def create_model():
     model.add(Activation('relu'))
     model.add(Conv2D(512, (3,3), strides = 1, dilation_rate = 1, padding='same'))
     model.add(Activation('relu'))
-    model.add(BatchNormalization())
+    #model.add(BatchNormalization())
     # conv5
     model.add(Conv2D(512, (3,3), strides = 1, dilation_rate = 2, padding='same'))
     model.add(Activation('relu'))
@@ -119,7 +119,7 @@ def create_model():
     model.add(Activation('relu'))
     model.add(Conv2D(512, (3,3), strides = 1, dilation_rate = 2, padding='same'))
     model.add(Activation('relu'))
-    model.add(BatchNormalization())
+    #model.add(BatchNormalization())
     # conv6
     model.add(Conv2D(512, (3,3), dilation_rate = 2, padding='same'))
     model.add(Activation('relu'))
@@ -127,7 +127,7 @@ def create_model():
     model.add(Activation('relu'))
     model.add(Conv2D(512, (3,3), dilation_rate = 2, padding='same'))
     model.add(Activation('relu'))
-    model.add(BatchNormalization())
+    #model.add(BatchNormalization())
     # conv7
     model.add(Conv2D(512, (3,3), dilation_rate = 1, padding='same'))
     model.add(Activation('relu'))
@@ -135,7 +135,7 @@ def create_model():
     model.add(Activation('relu'))
     model.add(Conv2D(512, (3,3), dilation_rate = 1, padding='same'))
     model.add(Activation('relu'))
-    model.add(BatchNormalization())
+    #model.add(BatchNormalization())
     # conv8
     model.add(Conv2D(256, (3,3), strides = 2, dilation_rate = 1, padding='same'))
     model.add(Activation('relu'))
