@@ -155,7 +155,7 @@ def create_model():
 
 
 if __name__ == "__main__":
-    K.set_learning_phase(0)
+    #K.set_learning_phase(0)
     #print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
     
     #tf.debugging.set_log_device_placement(True)
@@ -173,9 +173,10 @@ if __name__ == "__main__":
 
     model.compile(optimizer=sgd, loss=keras.losses.mean_squared_error)
     print(model.summary())
-
+    training_batch = generate_data(path_to_train, batch_size)
+    validation_batch = generate_data(path_to_val,batch_size)
     # fit model
-    history = model.fit_generator(generate_data(path_to_train, batch_size), steps_per_epoch=400, epochs=5, validation_data=generate_data(path_to_val,batch_size), validation_steps=8)
+    history = model.fit_generator(training_batch, steps_per_epoch=400, epochs=5, validation_data=validation_batch, validation_steps=8)
     print(history.history)
     # save weights
     model.save_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/first_try.h5')
