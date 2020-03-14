@@ -156,7 +156,6 @@ def create_model():
 
 
 if __name__ == "__main__":
-    K.clear_session()
     K.set_learning_phase(0)
     #print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
     
