@@ -170,9 +170,8 @@ if __name__ == "__main__":
 
     # compile model
     sgd = keras.optimizers.SGD(lr=0.001, momentum=0.9, nesterov=True, clipnorm=5.)
-    mse = keras.losses.MeanSquaredError()
 
-    model.compile(optimizer=sgd, loss=mse)
+    model.compile(optimizer=sgd, loss=keras.losses.mean_squared_error)
     print(model.summary())
 
     # fit model
