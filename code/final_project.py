@@ -25,9 +25,11 @@ def list_files(dir):
     print("enter the list files function")
     r = []
     for subdir, dirs, files in os.walk(dir):
-        if len(r)==10:
-            break
-        for file in files[0]:
+        # if len(r)==10:
+        #     break
+        print(len(files))
+        for file in files[:1]:
+            print(file)
             filepath = subdir + '/' + file
             r.append(filepath)
 
