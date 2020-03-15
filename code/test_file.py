@@ -45,7 +45,7 @@ def generate_data(file_list, batch_size):
             image = cv2.resize(cv2.imread(sample), (224,224))
             image = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
             L = image[:,:,0]
-            L = L[:,:,np.newaxis]
+            #L = L[:,:,np.newaxis]
             plt.imshow(L)
             plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/L.png')
             ab = image[:,:,1:]
