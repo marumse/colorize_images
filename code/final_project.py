@@ -67,7 +67,7 @@ def generate_data(batch_size, file_list):
             print("check L append")
             label_batch.append(ab)
             print("check ab appand")
-        return (np.array(image_batch), np.array(label_batch))
+    return (np.array(image_batch), np.array(label_batch))
 
 def create_model():
     # define model
