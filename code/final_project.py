@@ -40,7 +40,6 @@ def generate_data(batch_size, file_list):
     """
     print("entered the generator")
     i = 0
-    print("passed the list file function")
     while True:
         image_batch = []
         label_batch = []
@@ -60,13 +59,11 @@ def generate_data(batch_size, file_list):
             L = L[:,:,np.newaxis]
             #plt.imshow(L)
             #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/L.png')
-            print("check L")
             ab = image[:,:,1:]
-            print("check ab")
             image_batch.append(L)
-            print("check L append")
             label_batch.append(ab)
-            print("check ab appand")
+            print("end of foor loop")
+        print("about to yield")
         yield (np.array(image_batch), np.array(label_batch))
 
 def create_model():
@@ -168,6 +165,7 @@ if __name__ == "__main__":
     
     train_gen = generate_data(batch_size, train_files)
     val_gen = generate_data(batch_size, val_files)
+    print("created generator")
     # fit model
     history = model.fit_generator(next(train_gen), steps_per_epoch=400, epochs=5, validation_data=next(val_gen), validation_steps=8)
     print(history.history)
