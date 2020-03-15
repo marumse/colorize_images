@@ -54,7 +54,7 @@ def generate_data(file_list, batch_size):
             print("check L append")
             label_batch.append(ab)
             print("check ab appand")
-        yield (np.array(image_batch), np.array(label_batch))
+        return (np.array(image_batch), np.array(label_batch))
 
 
 if __name__ == "__main__":
