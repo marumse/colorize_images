@@ -6,8 +6,6 @@ import matplotlib.pyplot as plt
 def list_files(dir):
     r = []
     for subdir, dirs, files in os.walk(dir):
-        print(subdir)
-        print(files[:10])
         if len(r)==10:
             break
         for file in files[:10]:
@@ -27,13 +25,12 @@ def list_files(dir):
     print(len(r))
     return r
 
-def generate_data(directory, batch_size):
+def generate_data(file_list, batch_size):
     """ Replaces Keras' native ImageDataGenerator.
         code snippet from: https://stackoverflow.com/questions/46493419/use-a-generator-for-keras-model-fit-generator
     """
-    print("hi")
+    print("entered the generator")
     i = 0
-    file_list = list_files(directory)
     while True:
         image_batch = []
         label_batch = []
@@ -70,6 +67,6 @@ if __name__ == "__main__":
     file_list = list_files(path_to_train)
     print(file_list)
     # fit model
-    training_data = generate_data(path_to_train, batch_size)
+    training_data = generate_data(file_list, batch_size)
     print(training_data)
     print("check")
