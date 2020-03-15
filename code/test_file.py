@@ -46,16 +46,15 @@ def generate_data(file_list, batch_size):
             image = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
             L = image[:,:,0]
             #L = L[:,:,np.newaxis]
-
+            #plt.imshow(L)
+            #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/L.png')
             ab = image[:,:,1:]
-            plt.imshow(ab)
-            plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/ab.png')
             print("check ab")
             image_batch.append(L)
             print("check L append")
             label_batch.append(ab)
             print("check ab appand")
-        return (np.array(image_batch), np.array(label_batch))
+        yield (np.array(image_batch), np.array(label_batch))
 
 
 if __name__ == "__main__":
@@ -66,8 +65,8 @@ if __name__ == "__main__":
     path_to_val = '/net/projects/data/ImageNet/ILSVRC2012/val'
     batch_size = 2
     file_list = list_files(path_to_train)
-    #print(file_list)
+    print(file_list)
     # fit model
     training_data = generate_data(file_list, batch_size)
-    print(training_data)
+    print(next(training_data))
     print("check")
