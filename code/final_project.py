@@ -67,7 +67,7 @@ def generate_data(batch_size, file_list):
             print("check L append")
             label_batch.append(ab)
             print("check ab appand")
-    return (np.array(image_batch), np.array(label_batch))
+        yield (np.array(image_batch), np.array(label_batch))
 
 def create_model():
     # define model
@@ -166,8 +166,10 @@ if __name__ == "__main__":
 
     model.compile(optimizer=sgd, loss=keras.losses.mean_squared_error)
     
+    train_gen = generate_data(batch_size, train_files)
+    val_gen = generate_data(batch_size, val_files)
     # fit model
-    history = model.fit_generator(generate_data(batch_size, train_files), steps_per_epoch=400, epochs=5, validation_data=generate_data(batch_size, val_files), validation_steps=8)
+    history = model.fit_generator(next(train_gen), steps_per_epoch=400, epochs=5, validation_data=next(val_gen), validation_steps=8)
     print(history.history)
     # save weights
     model.save_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/first_try.h5')
