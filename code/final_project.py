@@ -32,10 +32,10 @@ def list_files(dir):
     return r
 
 def generate_test_data(test_batch, file_list):
-    
     i = 0
     image_batch = []
     label_batch = []
+    print(file_list)
     # shuffle data so the test images are always different
     # np.random.shuffle(file_list)
     for b in range(test_batch):
@@ -59,7 +59,6 @@ def generate_data(batch_size, file_list):
         code snippet from: https://stackoverflow.com/questions/46493419/use-a-generator-for-keras-model-fit-generator
     """
     i = 0
-    j = 0
     while True:
         image_batch = []
         label_batch = []
