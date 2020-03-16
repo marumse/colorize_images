@@ -24,7 +24,7 @@ from submit_model import*
 def list_files(dir):
     r = []
     for subdir, dirs, files in os.walk(dir):
-        if len(r)==10:
+        if len(r)==10000:
             break
         for file in files[:1]:
             filepath = subdir + '/' + file
@@ -35,9 +35,8 @@ def generate_test_data(test_batch, file_list):
     i = 0
     image_batch = []
     label_batch = []
-    print(file_list)
     # shuffle data so the test images are always different
-    # np.random.shuffle(file_list)
+    np.random.shuffle(file_list)
     for b in range(test_batch):
         sample = file_list[i]
         i += 1
@@ -45,13 +44,10 @@ def generate_test_data(test_batch, file_list):
         image = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
         L = image[:,:,0]
         L = L[:,:,np.newaxis]
-        #plt.imshow(L)
-        #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/L.png')
         ab = image[:,:,1:]
         image_batch.append(L)
         label_batch.append(ab)
     return np.array(image_batch), np.array(label_batch)
-
 
 
 def generate_data(batch_size, file_list):
@@ -159,6 +155,16 @@ def create_model():
 
     return model
 
+def make_prediction(test_files):
+    # make predictions with the model of a small test sample randomly drawn from the validation set
+    # TODO check whether test data on uni server and use that instead
+    test_in, test_out = generate_test_data(test_batch, test_files)
+    prediction = model.predict_on_batch(test_in)
+    original = np.concatenate((test_in[0], test_out[0]), axis=2)
+    predicted = np.concatenate((test_in[0], prediction[0]), axis=2)
+    plt.imshow(predicted)
+    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/pred_test.png')
+
 
 if __name__ == "__main__":
     # collect arguments from submit_script
@@ -177,37 +183,16 @@ if __name__ == "__main__":
     # generate the data with the costumized generator
     train_gen = generate_data(batch_size, train_files)
     val_gen = generate_data(batch_size, val_files)
-    test_gen = generate_data(batch_size, val_files)
 
     # fit model
-    history = model.fit_generator(train_gen, steps_per_epoch=1, epochs=1, validation_data=val_gen, validation_steps=1)
+    history = model.fit_generator(train_gen, steps_per_epoch=400, epochs=50, validation_data=val_gen, validation_steps=1)
     print(history.history)
 
     # save weights
-    model.save_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/second_try.h5')
-
-    # make predictions with the model of a small test sample randomly drawn from the validation set
-    # TODO check whether test data on uni server and use that instead
-    test_in, test_out = generate_test_data(test_batch, val_files)
-    #print(test_in[0].shape) # (224,224,1)
-    #print(test_out[0].shape) # (224,224,2)
-    prediction = model.predict_on_batch(test_in)
-    #print(prediction.shape) #(1,224,224,2)
-    #print(prediction[1].shape)
-    original = np.concatenate((test_in[0], test_out[0]), axis=2)
-    print(original.shape)
-    predicted = np.concatenate((test_in[0], prediction[0]), axis=2)
-    print(predicted.shape)
-    plt.imshow(predicted)
-    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/pred_test.png')
-
-
-    # save the results of the prediction
-    # for i in range(test_batch)    
-    #     save_to = '/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/predictions/pred_'+str(i)+'.png'
-    #     plt.imshow(pred)
-    #     plt.savefig(save_to)
+    model.save_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/first_real_try.h5')
     
+    # make a prediction and save the image
+    make_prediction(val_files)
     
     # evaluate model
     plt.figure(facecolor='white')
@@ -225,4 +210,4 @@ if __name__ == "__main__":
     plt.xticks(np.arange(0, 3 + 1, 5))
     plt.grid()
     plt.show()
-    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/fig_model2.png')
+    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/fig_model3.png')
