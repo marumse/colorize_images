@@ -29,8 +29,6 @@ def list_files(dir):
         for file in files[:1]:
             filepath = subdir + '/' + file
             r.append(filepath)
-
-    print(len(r))
     return r
 
 def generate_val_data(batch_size, file_list):
@@ -43,7 +41,6 @@ def generate_val_data(batch_size, file_list):
             np.random.shuffle(file_list)
         sample = file_list[i]
         i += 1
-        print(sample)
         #image = cv2.resize(cv2.imread(sample[0]), (224,224))
         image = cv2.resize(cv2.imread(sample), (224,224))
         image = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
@@ -74,7 +71,6 @@ def generate_data(batch_size, file_list):
                 np.random.shuffle(file_list)
             sample = file_list[i]
             i += 1
-            print(sample)
             #image = cv2.resize(cv2.imread(sample[0]), (224,224))
             image = cv2.resize(cv2.imread(sample), (224,224))
             image = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
@@ -191,7 +187,7 @@ if __name__ == "__main__":
 
     prediction = model.predict_generator(test_gen, steps=1, max_queue_size=10)
     test_data = np.array(train_gen)
-    print(test_data[0].shape)
+    print(test_data.shape)
     print(prediction.shape)
     # save weights
     model.save_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/second_try.h5')
