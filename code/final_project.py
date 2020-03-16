@@ -186,10 +186,12 @@ if __name__ == "__main__":
     test_gen = generate_data(batch_size, val_files[:10])
 
     # fit model
-    history = model.fit_generator(train_gen, steps_per_epoch=40, epochs=1, validation_data=val_gen, validation_steps=1)
+    history = model.fit_generator(train_gen, steps_per_epoch=10, epochs=1, validation_data=val_gen, validation_steps=1)
     print(history.history)
 
     prediction = model.predict_generator(test_gen, steps=1, max_queue_size=10)
+    test_data = np.array(train_gen)
+    print(test_data[0].shape)
     print(prediction.shape)
     # save weights
     model.save_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/second_try.h5')
