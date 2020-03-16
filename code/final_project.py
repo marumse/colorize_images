@@ -177,7 +177,7 @@ if __name__ == "__main__":
     # generate the data with the costumized generator
     train_gen = generate_data(batch_size, train_files)
     val_gen = generate_data(batch_size, val_files)
-    #test_gen = generate_data(batch_size, val_files)
+    test_gen = generate_data(batch_size, val_files)
 
     # fit model
     history = model.fit_generator(train_gen, steps_per_epoch=1, epochs=1, validation_data=val_gen, validation_steps=1)
@@ -189,9 +189,9 @@ if __name__ == "__main__":
     # make predictions with the model of a small test sample randomly drawn from the validation set
     # TODO check whether test data on uni server and use that instead
     test_in, test_out = generate_test_data(test_batch, val_files)
-    print(test_in.shape)
+    print(test_in[0].shape)
     print(test_out.shape)
-    prediction = model.predict((test_in, test_out), steps=1)
+    prediction = model.predict(test_gen, steps=1)
     print(prediction.shape)
     print(prediction[1].shape)
 
