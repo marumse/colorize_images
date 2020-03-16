@@ -31,17 +31,15 @@ def list_files(dir):
             r.append(filepath)
     return r
 
-def generate_val_data(batch_size, file_list):
+def generate_test_data(batch_size, file_list):
     i = 0
     image_batch = []
     label_batch = []
+    # shuffle data so the test images are always different
+    np.random.shuffle(file_list)
     for b in range(batch_size):
-        if i == len(file_list):
-            i = 0
-            np.random.shuffle(file_list)
         sample = file_list[i]
         i += 1
-        #image = cv2.resize(cv2.imread(sample[0]), (224,224))
         image = cv2.resize(cv2.imread(sample), (224,224))
         image = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
         L = image[:,:,0]
@@ -51,7 +49,7 @@ def generate_val_data(batch_size, file_list):
         ab = image[:,:,1:]
         image_batch.append(L)
         label_batch.append(ab)
-    return (np.array(image_batch), np.array(label_batch))
+    return np.array(image_batch), np.array(label_batch)
 
 
 
@@ -179,18 +177,16 @@ if __name__ == "__main__":
     # generate the data with the costumized generator
     train_gen = generate_data(batch_size, train_files)
     val_gen = generate_data(batch_size, val_files)
-    test_gen = generate_data(batch_size, val_files[:10])
+    test_gen = generate_data(batch_size, val_files)
 
     # fit model
     history = model.fit_generator(train_gen, steps_per_epoch=10, epochs=1, validation_data=val_gen, validation_steps=1)
     print(history.history)
 
     prediction = model.predict_generator(test_gen, steps=3, max_queue_size=10)
-    test_data = np.array(train_gen)
-    print(test_data.shape)
-    test_in = test_data[0,:,:,:]
+    test_in, test_out = generate_test_data(batch_size, val_files)
     print(test_in.shape)
-    test_out = test_data[1,:,:,:]
+    print(test_out.shape)
 
     print(prediction.shape)
     # save weights
