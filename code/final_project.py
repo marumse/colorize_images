@@ -22,7 +22,6 @@ from grid import*
 from submit_model import*
 
 def list_files(dir):
-    print("enter the list files function")
     r = []
     for subdir, dirs, files in os.walk(dir):
         if len(r)==10:
@@ -35,7 +34,6 @@ def list_files(dir):
     return r
 
 def generate_val_data(batch_size, file_list):
-    print("entered validation builder")
     i = 0
     image_batch = []
     label_batch = []
@@ -56,7 +54,6 @@ def generate_val_data(batch_size, file_list):
         ab = image[:,:,1:]
         image_batch.append(L)
         label_batch.append(ab)
-    print("about to return")
     return (np.array(image_batch), np.array(label_batch))
 
 
@@ -65,14 +62,13 @@ def generate_data(batch_size, file_list):
     """ Replaces Keras' native ImageDataGenerator.
         code snippet from: https://stackoverflow.com/questions/46493419/use-a-generator-for-keras-model-fit-generator
     """
-    print("entered the generator")
     i = 0
+    j = 0
     while True:
         image_batch = []
         label_batch = []
-        print("enter while loop")
+
         for b in range(batch_size):
-            print("enter for loop")
             if i == len(file_list):
                 i = 0
                 np.random.shuffle(file_list)
@@ -82,15 +78,12 @@ def generate_data(batch_size, file_list):
             #image = cv2.resize(cv2.imread(sample[0]), (224,224))
             image = cv2.resize(cv2.imread(sample), (224,224))
             image = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
+            # split the image into the L layer for the input and ab layers for the target 
             L = image[:,:,0]
             L = L[:,:,np.newaxis]
-            #plt.imshow(L)
-            #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/L.png')
             ab = image[:,:,1:]
             image_batch.append(L)
             label_batch.append(ab)
-            print("end of foor loop")
-        print("about to yield")
         yield (np.array(image_batch), np.array(label_batch))
 
 def create_model():
@@ -165,40 +158,42 @@ def create_model():
     model.add(Conv2DTranspose(313, (3,3), strides = 16, padding = 'same'))
     model.add(Conv2D(2, (1,1), strides = 1, dilation_rate = 1))
     
-    return model
-
-
-if __name__ == "__main__":
-    #K.set_learning_phase(0)
-    #print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
-    
-    #tf.debugging.set_log_device_placement(True)
-    args = typecast(sys.argv[1:])
-    path_to_train = args[0]
-    path_to_val = args[1]
-
-    batch_size = args[2]
-    print("check1")
-    # get all the file paths
-    train_files = list_files(path_to_train)
-    val_files = list_files(path_to_val)
-    print(val_files)
-    model = create_model()
-
     # compile model
     sgd = keras.optimizers.SGD(lr=0.001, momentum=0.9, nesterov=True, clipnorm=5.)
 
     model.compile(optimizer=sgd, loss=keras.losses.mean_squared_error)
+
+    return model
+
+
+if __name__ == "__main__":
+    # collect arguments from submit_script
+    args = typecast(sys.argv[1:])
+    path_to_train = args[0]
+    path_to_val = args[1]
+    batch_size = args[2]
+
+    # get all the file paths to the train and validation images
+    train_files = list_files(path_to_train)
+    val_files = list_files(path_to_val)
     
+    # create the model
+    model = create_model()
+    
+    # generate the data with the costumized generator
     train_gen = generate_data(batch_size, train_files)
     val_gen = generate_data(batch_size, val_files)
-    #val_data = generate_val_data(batch_size, val_files)
-    print("created generator")
+    test_gen = generate_data(batch_size, val_files[:10])
+
     # fit model
-    history = model.fit_generator(train_gen, steps_per_epoch=400, epochs=5, validation_data=val_gen, validation_steps=8)
+    history = model.fit_generator(train_gen, steps_per_epoch=40, epochs=1, validation_data=val_gen, validation_steps=1)
     print(history.history)
+
+    prediction = model.predict_generator(test_gen, max_queue_size=10)
+    print(prediction.shape)
     # save weights
-    model.save_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/first_try.h5')
+    model.save_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/second_try.h5')
+    
     # evaluate model
     plt.figure(facecolor='white')
 
@@ -215,5 +210,4 @@ if __name__ == "__main__":
     plt.xticks(np.arange(0, 3 + 1, 5))
     plt.grid()
     plt.show()
-    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/fig_model1.png')
-    #plt.savefig('C:/Users/Acer/colorize_images/code/fig_model1.png')
+    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/fig_model2.png')
