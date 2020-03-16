@@ -199,7 +199,7 @@ if __name__ == "__main__":
     predicted = np.concatenate((test_in[0], prediction[0]), axis=2)
     print(predicted.shape)
     plt.imshow(predicted)
-    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/predictions/pred_test.png')
+    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/pred_test.png')
 
 
     # save the results of the prediction
