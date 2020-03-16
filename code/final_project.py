@@ -34,6 +34,33 @@ def list_files(dir):
     print(len(r))
     return r
 
+def generate_val_data(batch_size, file_list):
+    print("entered validation builder")
+    i = 0
+    image_batch = []
+    label_batch = []
+    for b in range(batch_size):
+        if i == len(file_list):
+            i = 0
+            np.random.shuffle(file_list)
+        sample = file_list[i]
+        i += 1
+        print(sample)
+        #image = cv2.resize(cv2.imread(sample[0]), (224,224))
+        image = cv2.resize(cv2.imread(sample), (224,224))
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
+        L = image[:,:,0]
+        L = L[:,:,np.newaxis]
+        #plt.imshow(L)
+        #plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/L.png')
+        ab = image[:,:,1:]
+        image_batch.append(L)
+        label_batch.append(ab)
+    print("about to return")
+    return (np.array(image_batch), np.array(label_batch))
+
+
+
 def generate_data(batch_size, file_list):
     """ Replaces Keras' native ImageDataGenerator.
         code snippet from: https://stackoverflow.com/questions/46493419/use-a-generator-for-keras-model-fit-generator
@@ -164,8 +191,8 @@ if __name__ == "__main__":
     model.compile(optimizer=sgd, loss=keras.losses.mean_squared_error)
     
     train_gen = generate_data(batch_size, train_files)
-    val_gen = generate_data(batch_size, val_files)
-    val_data = np.array(next(val_gen))
+    #val_gen = generate_data(batch_size, val_files)
+    val_data = generate_val_data(batch_size, val_files)
     print("created generator")
     # fit model
     history = model.fit_generator(next(train_gen), steps_per_epoch=400, epochs=5, validation_data=val_data, validation_steps=8)
