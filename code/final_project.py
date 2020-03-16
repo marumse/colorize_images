@@ -180,7 +180,7 @@ if __name__ == "__main__":
     #test_gen = generate_data(batch_size, val_files)
 
     # fit model
-    history = model.fit_generator(train_gen, steps_per_epoch=3, epochs=1, validation_data=val_gen, validation_steps=1)
+    history = model.fit_generator(train_gen, steps_per_epoch=1, epochs=1, validation_data=val_gen, validation_steps=1)
     print(history.history)
 
     # save weights
@@ -189,11 +189,12 @@ if __name__ == "__main__":
     # make predictions with the model of a small test sample randomly drawn from the validation set
     # TODO check whether test data on uni server and use that instead
     test_in, test_out = generate_test_data(test_batch, val_files)
-    prediction = model.predict((test_in, test_out), steps=1, max_queue_size=10)
-    print(prediction.shape)
-    print(prediction[1].shape)
     print(test_in.shape)
     print(test_out.shape)
+    prediction = model.predict((test_in, test_out), steps=1)
+    print(prediction.shape)
+    print(prediction[1].shape)
+
 
     # save the results of the prediction
     # for i in range(test_batch)    
