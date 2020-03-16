@@ -189,11 +189,11 @@ if __name__ == "__main__":
     # make predictions with the model of a small test sample randomly drawn from the validation set
     # TODO check whether test data on uni server and use that instead
     test_in, test_out = generate_test_data(test_batch, val_files)
-    print(test_in[0].shape)
-    print(test_out.shape)
-    prediction = model.predict(test_gen, steps=1)
+    print(test_in[0].shape) # (224,224,1)
+    print(test_out[0].shape)
+    prediction = model.predict_on_batch(test_in)
     print(prediction.shape)
-    print(prediction[1].shape)
+    #print(prediction[1].shape)
 
 
     # save the results of the prediction
