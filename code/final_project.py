@@ -166,7 +166,7 @@ if __name__ == "__main__":
     path_to_train = args[0]
     path_to_val = args[1]
     batch_size = args[2]
-    test_batch = 2
+    test_batch = 1
     # get all the file paths to the train and validation images
     train_files = list_files(path_to_train)
     val_files = list_files(path_to_val)
