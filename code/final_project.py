@@ -155,7 +155,7 @@ if __name__ == "__main__":
     # get all the file paths
     train_files = list_files(path_to_train)
     val_files = list_files(path_to_val)
-    print("check2")
+    print(val_files)
     model = create_model()
 
     # compile model
@@ -165,9 +165,10 @@ if __name__ == "__main__":
     
     train_gen = generate_data(batch_size, train_files)
     val_gen = generate_data(batch_size, val_files)
+    val_data = np.array(next(val_gen))
     print("created generator")
     # fit model
-    history = model.fit_generator(next(train_gen), steps_per_epoch=400, epochs=5, validation_data=next(val_gen), validation_steps=8)
+    history = model.fit_generator(next(train_gen), steps_per_epoch=400, epochs=5, validation_data=val_data, validation_steps=8)
     print(history.history)
     # save weights
     model.save_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/first_try.h5')
