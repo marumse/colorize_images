@@ -24,7 +24,7 @@ from submit_model import*
 def list_files(dir):
     r = []
     for subdir, dirs, files in os.walk(dir):
-        if len(r)==10000:
+        if len(r)==8000:
             break
         for file in files[:1]:
             filepath = subdir + '/' + file
@@ -188,8 +188,9 @@ if __name__ == "__main__":
     history = model.fit_generator(train_gen, steps_per_epoch=400, epochs=50, validation_data=val_gen, validation_steps=1)
     print(history.history)
 
+
     # save weights
-    model.save_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/first_real_try.h5')
+    model.save_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/small_batch.h5')
     
     # make a prediction and save the image
     make_prediction(val_files)
@@ -210,4 +211,12 @@ if __name__ == "__main__":
     plt.xticks(np.arange(0, 3 + 1, 5))
     plt.grid()
     plt.show()
-    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/fig_model3.png')
+    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/fig_small_batch.png')
+
+    # convert the history.history dict to a pandas DataFrame   
+    hist_df = pd.DataFrame(history.history) 
+
+    # and save to csv
+    hist_csv_file = 'history_small_batch.csv'
+    with open(hist_csv_file, mode='w') as f:
+        hist_df.to_csv(f)
