@@ -163,7 +163,7 @@ def make_prediction(test_files):
     original = np.concatenate((test_in[0], test_out[0]), axis=2)
     predicted = np.concatenate((test_in[0], prediction[0]), axis=2)
     plt.imshow(predicted)
-    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/pred_test.png')
+    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/pred_short_test.png')
 
 
 if __name__ == "__main__":
@@ -185,12 +185,12 @@ if __name__ == "__main__":
     val_gen = generate_data(batch_size, val_files)
 
     # fit model
-    history = model.fit_generator(train_gen, steps_per_epoch=400, epochs=50, validation_data=val_gen, validation_steps=1)
+    history = model.fit_generator(train_gen, steps_per_epoch=400, epochs=5, validation_data=val_gen, validation_steps=1)
     print(history.history)
 
 
     # save weights
-    model.save_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/small_batch.h5')
+    model.save_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/small_batch_few_epochs.h5')
     
     # make a prediction and save the image
     make_prediction(val_files)
@@ -211,12 +211,12 @@ if __name__ == "__main__":
     plt.xticks(np.arange(0, 3 + 1, 5))
     plt.grid()
     plt.show()
-    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/fig_small_batch.png')
+    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/fig_small_batch_few_epochs.png')
 
     # convert the history.history dict to a pandas DataFrame   
     hist_df = pd.DataFrame(history.history) 
 
     # and save to csv
-    hist_csv_file = 'history_small_batch.csv'
+    hist_csv_file = 'history_small_batch_few_epochs.csv'
     with open(hist_csv_file, mode='w') as f:
         hist_df.to_csv(f)
