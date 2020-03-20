@@ -161,6 +161,8 @@ def make_prediction(test_files):
     test_in, test_out = generate_test_data(test_batch, test_files)
     prediction = model.predict_on_batch(test_in)
     original = np.concatenate((test_in[0], test_out[0]), axis=2)
+    plt.imshow(original)
+    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/orig_short_test.png')
     predicted = np.concatenate((test_in[0], prediction[0]), axis=2)
     plt.imshow(predicted)
     plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/pred_short_test.png')
@@ -185,7 +187,7 @@ if __name__ == "__main__":
     val_gen = generate_data(batch_size, val_files)
 
     # fit model
-    history = model.fit_generator(train_gen, steps_per_epoch=400, epochs=5, validation_data=val_gen, validation_steps=1)
+    history = model.fit_generator(train_gen, steps_per_epoch=5, epochs=1, validation_data=val_gen, validation_steps=1)
     print(history.history)
 
 
