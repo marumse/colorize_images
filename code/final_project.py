@@ -159,11 +159,15 @@ def make_prediction(test_files):
     # make predictions with the model of a small test sample randomly drawn from the validation set
     # TODO check whether test data on uni server and use that instead
     test_in, test_out = generate_test_data(test_batch, test_files)
+    print(test_in.shape)
+    print(test_out.shape)
     prediction = model.predict_on_batch(test_in)
     original = np.concatenate((test_in[0], test_out[0]), axis=2)
+    print(original.shape)
     plt.imshow(original)
     plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/orig_short_test.png')
     predicted = np.concatenate((test_in[0], prediction[0]), axis=2)
+    print(predicted.shape)
     plt.imshow(predicted)
     plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/pred_short_test.png')
 
