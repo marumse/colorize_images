@@ -216,7 +216,7 @@ if __name__ == "__main__":
     
     # create the model
     model = create_model()
-    model.load_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/small_batch_few_epochs.h5')
+    model.load_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/first_try.h5')
     
     # generate the data with the costumized generator
     #train_gen = generate_data(batch_size, train_files)
