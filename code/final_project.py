@@ -1,6 +1,5 @@
 import numpy as np
 #import tensorflow as tf
-#from skimage import color
 import cv2
 import os
 import matplotlib.pyplot as plt
@@ -43,7 +42,7 @@ def generate_test_data(test_batch, file_list):
         sample = file_list[i]
         i += 1
         image = cv2.resize(cv2.imread(sample), (224,224))
-        image = cv2.cvtColor(image, cv2.COLOR_RGB2LAB)
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
         L = image[:,:,0]
         L = L[:,:,np.newaxis]
         ab = image[:,:,1:]
@@ -163,10 +162,13 @@ def make_prediction(test_files):
     test_in, test_out = generate_test_data(test_batch, test_files)
     prediction = model.predict_on_batch(test_in)
     original = np.concatenate((test_in[0], test_out[0]), axis=2)
-    #plt.imshow((original*255).astype(np.uint8))
-    cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/orig_313_cv2.png', original)
+    # save the image in BGR color space in order to display it straight away
+    original_BGR = cv2.cvtColor(original, cv2.COLOR_LAB2BGR)
+    cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/orig_313_BGR.png', original_BGR)
     predicted = np.concatenate((test_in[0], prediction[0]), axis=2)
-    cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/pred_313_test.png', prediction)
+    # same for the predicted image
+    predicted_BGR = cv2.cvtColor(predicted, cv2.COLOR_LAB2BGR)
+    cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/pred_313_BGR.png', prediction_BGR)
 
 def plot_history(history):
     
