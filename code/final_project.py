@@ -211,7 +211,7 @@ if __name__ == "__main__":
     # get all the file paths to the train and validation images
     train_files = list_files(path_to_train)
     val_files = list_files(path_to_val)
-    val_test = val_files[-1]
+    val_test = val_files[:-3]
     
     # create the model
     model = create_model()
