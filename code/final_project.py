@@ -165,7 +165,8 @@ def make_prediction(test_files):
     # save the image in BGR color space in order to display it straight away
     original_BGR = cv2.cvtColor(original, cv2.COLOR_LAB2BGR)
     cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/orig_313_BGR.png', original_BGR)
-    predicted = np.concatenate((test_in[0], prediction[0]), axis=2)
+    pred = prediction[0]*255
+    predicted = np.concatenate((test_in[0], pred), axis=2)
     # same for the predicted image
     predicted_BGR = cv2.cvtColor(predicted, cv2.COLOR_LAB2BGR)
     cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/pred_313_LAB.png', predicted)
