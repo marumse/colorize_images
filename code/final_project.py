@@ -169,6 +169,7 @@ def make_prediction(test_files):
     # same for the predicted image
     predicted_BGR = cv2.cvtColor(predicted, cv2.COLOR_LAB2BGR)
     cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/pred_313_LAB.png', predicted)
+    cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/pred_313_BGR.png', predicted_BGR)
 
 def plot_history(history):
     
