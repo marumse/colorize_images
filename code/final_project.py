@@ -165,9 +165,9 @@ def make_prediction(test_files):
     # save the image in BGR color space in order to display it straight away
     original_BGR = cv2.cvtColor(original, cv2.COLOR_LAB2BGR)
     cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/orig_313_BGR.png', original_BGR)
-    pred = prediction[0]*255
-    predicted = np.concatenate((test_in[0], pred), axis=2)
+    predicted = np.concatenate((test_in[0], prediction[0]), axis=2)
     # same for the predicted image
+    # for some reason this yields a black BGR image - save the LAB image, load it again and then transform it to BGR works fine
     predicted_BGR = cv2.cvtColor(predicted, cv2.COLOR_LAB2BGR)
     cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/pred_313_LAB.png', predicted)
     cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/pred_313_BGR.png', predicted_BGR)
@@ -228,7 +228,7 @@ if __name__ == "__main__":
     #model.save_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/small_batch_few_epochs.h5')
     
     # make a prediction and save the image
-    make_prediction(val_files)
+    make_prediction(val_files[100:120])
 
     # plot and save the accuracy and loss values
     #plot_history(history)
