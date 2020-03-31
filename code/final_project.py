@@ -6,7 +6,7 @@ import os
 import matplotlib.pyplot as plt
 import keras
 from keras import backend as K
-from skimage.color import lab2rgb
+#from skimage.color import lab2rgb
 
 #from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
