@@ -161,11 +161,11 @@ def make_prediction(test_files):
     test_in, test_out = generate_test_data(test_batch, test_files)
     prediction = model.predict_on_batch(test_in)
     original = np.concatenate((test_in[0], test_out[0]), axis=2)
-    plt.imshow(original)
+    plt.imshow((original*255).astype(np.uint8))
     print(original.shape)
     plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/orig_313_test.png')
     predicted = np.concatenate((test_in[0], prediction[0]), axis=2)
-    plt.imshow(predicted)
+    plt.imshow((predicted*255).astype(np.uint8))
     print(predicted.shape)
     plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/pred_313_test.png')
 
