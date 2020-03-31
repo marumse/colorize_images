@@ -5,7 +5,9 @@ import cv2
 import os
 import matplotlib.pyplot as plt
 import keras
-from keras import backend as K 
+from keras import backend as K
+from skimage.color import lab2rgb
+
 #from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 #from tensorflow.keras.models import Sequential
@@ -161,13 +163,40 @@ def make_prediction(test_files):
     test_in, test_out = generate_test_data(test_batch, test_files)
     prediction = model.predict_on_batch(test_in)
     original = np.concatenate((test_in[0], test_out[0]), axis=2)
-    plt.imshow((original*255).astype(np.uint8))
-    print(original.shape)
-    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/orig_313_test.png')
+    plt.imshow(test_in[0])
+    #plt.imshow((original*255).astype(np.uint8))
+    plt.imsave('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/orig_313_test.png', test_in[0])
     predicted = np.concatenate((test_in[0], prediction[0]), axis=2)
     plt.imshow((predicted*255).astype(np.uint8))
-    print(predicted.shape)
-    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/pred_313_test.png')
+    plt.imsave('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/pred_313_test.png')
+
+def plot_history(history):
+    
+    plt.figure(facecolor='white')
+
+    plt.plot(history.history['loss'], label="loss", color="blue")
+    plt.plot(history.history['val_loss'], label="val_loss", color="red")
+
+    plt.title('Loss History')
+    plt.ylabel('loss')
+    plt.xlabel('epoch')
+
+    plt.legend(['train', 'valid'], loc='lower left')
+
+    plt.ylim(0)
+    plt.xticks(np.arange(0, 3 + 1, 5))
+    plt.grid()
+    plt.show()
+    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/fig_small_batch_few_epochs.png')
+
+def save_history(history):
+    #convert the history.history dict to a pandas DataFrame   
+    hist_df = pd.DataFrame(history.history) 
+
+    # and save to csv
+    hist_csv_file = 'history_small_batch_few_epochs.csv'
+    with open(hist_csv_file, mode='w') as f:
+        hist_df.to_csv(f)
 
 
 if __name__ == "__main__":
@@ -193,35 +222,13 @@ if __name__ == "__main__":
     #history = model.fit_generator(train_gen, steps_per_epoch=5, epochs=1, validation_data=val_gen, validation_steps=1)
     #print(history.history)
 
-
     # save weights
     #model.save_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/small_batch_few_epochs.h5')
     
     # make a prediction and save the image
     make_prediction(val_files)
-    
-    # evaluate model
-    # plt.figure(facecolor='white')
 
-    # plt.plot(history.history['loss'], label="loss", color="blue")
-    # plt.plot(history.history['val_loss'], label="val_loss", color="red")
-
-    # plt.title('Loss History')
-    # plt.ylabel('loss')
-    # plt.xlabel('epoch')
-
-    # plt.legend(['train', 'valid'], loc='lower left')
-
-    # plt.ylim(0)
-    # plt.xticks(np.arange(0, 3 + 1, 5))
-    # plt.grid()
-    # plt.show()
-    # plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/fig_small_batch_few_epochs.png')
-
-    # convert the history.history dict to a pandas DataFrame   
-    # hist_df = pd.DataFrame(history.history) 
-
-    # # and save to csv
-    # hist_csv_file = 'history_small_batch_few_epochs.csv'
-    # with open(hist_csv_file, mode='w') as f:
-    #     hist_df.to_csv(f)
+    # plot and save the accuracy and loss values
+    #plot_history(history)
+    # save history too
+    #save_history(history)
