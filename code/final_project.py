@@ -160,6 +160,7 @@ def make_prediction(test_files):
     # make predictions with the model of a small test sample randomly drawn from the validation set
     # TODO check whether test data on uni server and use that instead
     test_in, test_out = generate_test_data(test_batch, test_files)
+    print(test_in.shape)
     prediction = model.predict_on_batch(test_in)
     original = np.concatenate((test_in[0], test_out[0]), axis=2)
     # save the image in BGR color space in order to display it straight away
