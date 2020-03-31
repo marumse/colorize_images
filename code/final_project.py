@@ -163,13 +163,10 @@ def make_prediction(test_files):
     test_in, test_out = generate_test_data(test_batch, test_files)
     prediction = model.predict_on_batch(test_in)
     original = np.concatenate((test_in[0], test_out[0]), axis=2)
-    #plt.imshow(np.squeeze(test_in[0]))
     #plt.imshow((original*255).astype(np.uint8))
-    cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/orig_313_cv2.png', test_in[0])
-    plt.imsave('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/orig_313_plt.png', test_in[0], cmap='gray')
+    cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/orig_313_cv2.png', original)
     predicted = np.concatenate((test_in[0], prediction[0]), axis=2)
-    plt.imshow((predicted*255).astype(np.uint8))
-    plt.imsave('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/pred_313_test.png')
+    cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/pred_313_test.png', prediction)
 
 def plot_history(history):
     
