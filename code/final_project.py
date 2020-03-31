@@ -45,7 +45,7 @@ def generate_test_data(test_batch, file_list):
         image = cv2.resize(cv2.imread(sample), (224,224))
         image = cv2.cvtColor(image, cv2.COLOR_RGB2LAB)
         L = image[:,:,0]
-        L = L[:,:,np.newaxis]
+        #L = L[:,:,np.newaxis]
         ab = image[:,:,1:]
         image_batch.append(L)
         label_batch.append(ab)
