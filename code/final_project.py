@@ -228,7 +228,7 @@ if __name__ == "__main__":
     #model.save_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/small_batch_few_epochs.h5')
     
     # make a prediction and save the image
-    make_prediction(val_files[100:120])
+    make_prediction(val_files[2])
 
     # plot and save the accuracy and loss values
     #plot_history(history)
