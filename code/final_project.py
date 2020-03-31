@@ -159,17 +159,15 @@ def make_prediction(test_files):
     # make predictions with the model of a small test sample randomly drawn from the validation set
     # TODO check whether test data on uni server and use that instead
     test_in, test_out = generate_test_data(test_batch, test_files)
-    print(test_in.shape)
-    print(test_out.shape)
     prediction = model.predict_on_batch(test_in)
     original = np.concatenate((test_in[0], test_out[0]), axis=2)
-    print(original.shape)
     plt.imshow(original)
-    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/orig_short_test.png')
+    print(original.shape)
+    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/orig_313_test.png')
     predicted = np.concatenate((test_in[0], prediction[0]), axis=2)
-    print(predicted.shape)
     plt.imshow(predicted)
-    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/pred_short_test.png')
+    print(predicted.shape)
+    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/pred_313_test.png')
 
 
 if __name__ == "__main__":
@@ -185,44 +183,45 @@ if __name__ == "__main__":
     
     # create the model
     model = create_model()
+    model.load_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/small_batch_few_epochs.h5')
     
     # generate the data with the costumized generator
-    train_gen = generate_data(batch_size, train_files)
-    val_gen = generate_data(batch_size, val_files)
+    #train_gen = generate_data(batch_size, train_files)
+    #val_gen = generate_data(batch_size, val_files)
 
     # fit model
-    history = model.fit_generator(train_gen, steps_per_epoch=5, epochs=1, validation_data=val_gen, validation_steps=1)
-    print(history.history)
+    #history = model.fit_generator(train_gen, steps_per_epoch=5, epochs=1, validation_data=val_gen, validation_steps=1)
+    #print(history.history)
 
 
     # save weights
-    model.save_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/small_batch_few_epochs.h5')
+    #model.save_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/small_batch_few_epochs.h5')
     
     # make a prediction and save the image
     make_prediction(val_files)
     
     # evaluate model
-    plt.figure(facecolor='white')
+    # plt.figure(facecolor='white')
 
-    plt.plot(history.history['loss'], label="loss", color="blue")
-    plt.plot(history.history['val_loss'], label="val_loss", color="red")
+    # plt.plot(history.history['loss'], label="loss", color="blue")
+    # plt.plot(history.history['val_loss'], label="val_loss", color="red")
 
-    plt.title('Loss History')
-    plt.ylabel('loss')
-    plt.xlabel('epoch')
+    # plt.title('Loss History')
+    # plt.ylabel('loss')
+    # plt.xlabel('epoch')
 
-    plt.legend(['train', 'valid'], loc='lower left')
+    # plt.legend(['train', 'valid'], loc='lower left')
 
-    plt.ylim(0)
-    plt.xticks(np.arange(0, 3 + 1, 5))
-    plt.grid()
-    plt.show()
-    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/fig_small_batch_few_epochs.png')
+    # plt.ylim(0)
+    # plt.xticks(np.arange(0, 3 + 1, 5))
+    # plt.grid()
+    # plt.show()
+    # plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/fig_small_batch_few_epochs.png')
 
     # convert the history.history dict to a pandas DataFrame   
-    hist_df = pd.DataFrame(history.history) 
+    # hist_df = pd.DataFrame(history.history) 
 
-    # and save to csv
-    hist_csv_file = 'history_small_batch_few_epochs.csv'
-    with open(hist_csv_file, mode='w') as f:
-        hist_df.to_csv(f)
+    # # and save to csv
+    # hist_csv_file = 'history_small_batch_few_epochs.csv'
+    # with open(hist_csv_file, mode='w') as f:
+    #     hist_df.to_csv(f)
