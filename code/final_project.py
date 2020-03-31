@@ -25,9 +25,9 @@ from submit_model import*
 def list_files(dir):
     r = []
     for subdir, dirs, files in os.walk(dir):
-        if len(r)==8000:
+        if len(r)==8: #set to 8 for prediction only!
             break
-        for file in files[:2]:
+        for file in files[:1]:
             filepath = subdir + '/' + file
             r.append(filepath)
     return r
