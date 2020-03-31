@@ -45,7 +45,7 @@ def generate_test_data(test_batch, file_list):
         image = cv2.resize(cv2.imread(sample), (224,224))
         image = cv2.cvtColor(image, cv2.COLOR_RGB2LAB)
         L = image[:,:,0]
-        #L = L[:,:,np.newaxis]
+        L = L[:,:,np.newaxis]
         ab = image[:,:,1:]
         image_batch.append(L)
         label_batch.append(ab)
@@ -163,7 +163,7 @@ def make_prediction(test_files):
     test_in, test_out = generate_test_data(test_batch, test_files)
     prediction = model.predict_on_batch(test_in)
     original = np.concatenate((test_in[0], test_out[0]), axis=2)
-    plt.imshow(test_in[0])
+    plt.imshow(np.squeeze(test_in[0]))
     #plt.imshow((original*255).astype(np.uint8))
     plt.imsave('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/orig_313_test.png', test_in[0])
     predicted = np.concatenate((test_in[0], prediction[0]), axis=2)
