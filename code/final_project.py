@@ -1,31 +1,26 @@
 import numpy as np
-#import tensorflow as tf
 import cv2
 import os
 import matplotlib.pyplot as plt
 import keras
 from keras import backend as K
-#from skimage.color import lab2rgb
-
-#from tensorflow.keras.preprocessing.image import ImageDataGenerator
-
-#from tensorflow.keras.models import Sequential
-
-#from tensorflow.keras.layers import Conv2D, Conv2DTranspose, Activation, BatchNormalization, Softmax, Multiply
 
 from keras.models import Sequential
 
 from keras.layers import Conv2D, Conv2DTranspose, Activation, BatchNormalization, Softmax, Multiply
 
-#from tensorflow.keras.optimizers import Adam
-
 from grid import*
 from submit_model import*
 
 def list_files(dir):
+    '''
+    List all files in a given directory including all subdirectories.
+    Args:       path to a directory
+    Return:     list with all complete file paths
+    '''
     r = []
     for subdir, dirs, files in os.walk(dir):
-        for file in files:
+        for file in files[:1]:
             filepath = subdir + '/' + file
             r.append(filepath)
             if len(r)==7: #set to 7 for prediction only!
@@ -169,13 +164,13 @@ def make_prediction(test_batch, test_files):
     original = np.concatenate((test_in[0], test_out[0]), axis=2)
     # save the image in BGR color space in order to display it straight away
     original_BGR = cv2.cvtColor(original, cv2.COLOR_LAB2BGR)
-    cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/orig_1_BGR.png', original_BGR)
+    cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predicitons/orig_1_BGR.png', original_BGR)
     predicted = np.concatenate((test_in[0], prediction[0]), axis=2)
     # same for the predicted image
     # for some reason this yields a black BGR image - save the LAB image, load it again and then transform it to BGR works fine
     predicted_BGR = cv2.cvtColor(predicted, cv2.COLOR_LAB2BGR)
-    cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/pred_1_LAB.png', predicted)
-    cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/pred_1_BGR.png', predicted_BGR)
+    cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predictions/pred_1_LAB.png', predicted)
+    cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predictions/pred_1_BGR.png', predicted_BGR)
 
 def plot_history(history):
     
@@ -194,7 +189,7 @@ def plot_history(history):
     plt.xticks(np.arange(0, 3 + 1, 5))
     plt.grid()
     plt.show()
-    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/fig_small_batch_few_epochs.png')
+    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/figures/fig_small_batch_few_epochs.png')
 
 def save_history(history):
     #convert the history.history dict to a pandas DataFrame   
@@ -207,6 +202,7 @@ def save_history(history):
 
 
 if __name__ == "__main__":
+    
     # collect arguments from submit_script
     args = typecast(sys.argv[1:])
     path_to_train = args[0]
@@ -214,7 +210,8 @@ if __name__ == "__main__":
     path_to_test = args[2]
     batch_size = args[3]
     test_batch = 5
-    # get all the file paths to the train and validation images as well as test images
+
+    # collect all file paths to the train, validation and test images
     train_files = list_files(path_to_train)
     val_files = list_files(path_to_val)
     test_files = list_files(path_to_test)
