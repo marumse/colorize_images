@@ -174,19 +174,18 @@ def make_prediction(test_batch, test_files):
     """
     # make predictions of a small test sample
     test_in, test_out = generate_test_data(test_batch, test_files)
-    print(test_in.shape)
     prediction = model.predict_on_batch(test_in)
-    print(prediction.shape)
-    original = np.concatenate((test_in[0], test_out[0]), axis=2)
-    # save the image in BGR color space in order to display it straight away
-    original_BGR = cv2.cvtColor(original, cv2.COLOR_LAB2BGR)
-    cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predictions/orig_1_BGR.png', original_BGR)
-    predicted = np.concatenate((test_in[0], prediction[0]), axis=2)
-    # same for the predicted image
-    # for some reason this yields a black BGR image - save the LAB image, load it again and then transform it to BGR works fine
-    predicted_BGR = cv2.cvtColor(predicted, cv2.COLOR_LAB2BGR)
-    cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predictions/pred_1_LAB.png', predicted)
-    cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predictions/pred_1_BGR.png', predicted_BGR)
+    for i in range(test_batch):
+        original = np.concatenate((test_in[i], test_out[i]), axis=2)
+        # save the image in BGR color space in order to display it straight away
+        original_BGR = cv2.cvtColor(original, cv2.COLOR_LAB2BGR)
+        cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predictions/orig_'+ str(i) +'_BGR.png', original_BGR)
+        predicted = np.concatenate((test_in[i], prediction[i]), axis=2)
+        # same for the predicted image
+        # for some reason this yields a black BGR image - save the LAB image, load it again and then transform it to BGR works fine
+        predicted_BGR = cv2.cvtColor(predicted, cv2.COLOR_LAB2BGR)
+        cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predictions/pred_' + str(i) +'_LAB.png', predicted)
+        #cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predictions/pred_1_BGR.png', predicted_BGR)
 
 def plot_history(history):
     
