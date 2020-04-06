@@ -212,8 +212,8 @@ if __name__ == "__main__":
     test_batch = 5
 
     # collect all file paths to the train, validation and test images
-    train_files = list_files(path_to_train)
-    val_files = list_files(path_to_val)
+    #train_files = list_files(path_to_train)
+    #val_files = list_files(path_to_val)
     test_files = list_files(path_to_test)
     print(test_files)
     
