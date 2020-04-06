@@ -57,13 +57,16 @@ def generate_data(batch_size, file_list):
         yield (np.array(image_batch), np.array(label_batch))
 
 def generate_test_data(test_batch, file_list):
-    """
-
+    """ Data generator for the test dataset.
+        This functions works very similar to the generate_data funtion only adjusted for the test data, which is only used for prediction.
+        Args:       test_batch how many predictions do we want to make
+                    file_list containing all image paths
+        Return:     a tuple containing a numpy array with the inputs and a second numpy array with the targets
     """
     i = 0
     image_batch = []
     label_batch = []
-    # shuffle data so the test images are always different
+    # shuffle data to get different test images each time
     np.random.shuffle(file_list)
     for b in range(test_batch):
         sample = file_list[i]
@@ -82,6 +85,10 @@ def generate_test_data(test_batch, file_list):
     return np.array(image_batch), np.array(label_batch)
 
 def create_model():
+    """ Built the model and compile it.
+        Args:       None
+        Return:     the compiled model
+    """
     # define model
     model = Sequential()
     # conv1
@@ -146,7 +153,6 @@ def create_model():
 
     # softmax layer
     model.add(Conv2D(313, (1,1), strides = 1, dilation_rate = 1))
-    #model.add(Multiply())
     model.add(Softmax())
 
     # decoding layer
@@ -155,12 +161,17 @@ def create_model():
     
     # compile model
     sgd = keras.optimizers.SGD(lr=0.001, momentum=0.9, nesterov=True, clipnorm=5.)
-
     model.compile(optimizer=sgd, loss=keras.losses.mean_squared_error)
 
     return model
 
 def make_prediction(test_batch, test_files):
+    """ Make a predition for an unseen batch of test images.
+        Predictions are made with the model after it was trained and then saed for visual inspection.
+        Args:       test_batch how many predictions do we want to make
+                    file_list containing all image paths
+        Return:     None
+    """
     # make predictions of a small test sample
     test_in, test_out = generate_test_data(test_batch, test_files)
     print(test_in.shape)
@@ -169,7 +180,7 @@ def make_prediction(test_batch, test_files):
     original = np.concatenate((test_in[0], test_out[0]), axis=2)
     # save the image in BGR color space in order to display it straight away
     original_BGR = cv2.cvtColor(original, cv2.COLOR_LAB2BGR)
-    cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predicitons/orig_1_BGR.png', original_BGR)
+    cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predictions/orig_1_BGR.png', original_BGR)
     predicted = np.concatenate((test_in[0], prediction[0]), axis=2)
     # same for the predicted image
     # for some reason this yields a black BGR image - save the LAB image, load it again and then transform it to BGR works fine
