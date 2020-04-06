@@ -13,21 +13,53 @@ from grid import*
 from submit_model import*
 
 def list_files(dir):
-    '''
-    List all files in a given directory including all subdirectories.
+    """List all files in a given directory including all subdirectories.
     Args:       path to a directory
     Return:     list with all complete file paths
-    '''
+    """
     r = []
     for subdir, dirs, files in os.walk(dir):
-        for file in files[:1]:
+        for file in files[:10]:
             filepath = subdir + '/' + file
             r.append(filepath)
             if len(r)==7: #set to 7 for prediction only!
                 break
     return r
 
+def generate_data(batch_size, file_list):
+    """ Replaces Keras' native ImageDataGenerator.
+        This function is a data generator that loads a costumized version of some data. More precisely, it loads images,
+        tranforms them into LAB color space and returns the first layer as the input and the other two layers as the target for the model.
+        Args:       batch_size 
+                    file_list containing all image paths
+        Return:     a tuple containing a numpy array with the inputs and a second numpy array with the targets
+    """
+    i = 0
+    while True:
+        image_batch = []
+        label_batch = []
+
+        for b in range(batch_size):
+            if i == len(file_list):
+                i = 0
+                np.random.shuffle(file_list)
+            sample = file_list[i]
+            i += 1
+            image = cv2.resize(cv2.imread(sample), (224,224))
+            image = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
+            # split the image into the L layer for the input and ab layers for the target 
+            L = image[:,:,0]
+            L = L[:,:,np.newaxis]
+            ab = image[:,:,1:]
+            # append both to the corresponding lists
+            image_batch.append(L)
+            label_batch.append(ab)
+        yield (np.array(image_batch), np.array(label_batch))
+
 def generate_test_data(test_batch, file_list):
+    """
+
+    """
     i = 0
     image_batch = []
     label_batch = []
@@ -48,33 +80,6 @@ def generate_test_data(test_batch, file_list):
         image_batch.append(L)
         label_batch.append(ab)
     return np.array(image_batch), np.array(label_batch)
-
-
-def generate_data(batch_size, file_list):
-    """ Replaces Keras' native ImageDataGenerator.
-        code snippet from: https://stackoverflow.com/questions/46493419/use-a-generator-for-keras-model-fit-generator
-    """
-    i = 0
-    while True:
-        image_batch = []
-        label_batch = []
-
-        for b in range(batch_size):
-            if i == len(file_list):
-                i = 0
-                np.random.shuffle(file_list)
-            sample = file_list[i]
-            i += 1
-            #image = cv2.resize(cv2.imread(sample[0]), (224,224))
-            image = cv2.resize(cv2.imread(sample), (224,224))
-            image = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
-            # split the image into the L layer for the input and ab layers for the target 
-            L = image[:,:,0]
-            L = L[:,:,np.newaxis]
-            ab = image[:,:,1:]
-            image_batch.append(L)
-            label_batch.append(ab)
-        yield (np.array(image_batch), np.array(label_batch))
 
 def create_model():
     # define model
