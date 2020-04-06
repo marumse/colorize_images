@@ -25,11 +25,11 @@ from submit_model import*
 def list_files(dir):
     r = []
     for subdir, dirs, files in os.walk(dir):
-        if len(r)==5: #set to 5 for prediction only!
-            break
-        for file in files[:1]:
+        for file in files:
             filepath = subdir + '/' + file
             r.append(filepath)
+            if len(r)==7: #set to 7 for prediction only!
+                break
     return r
 
 def generate_test_data(test_batch, file_list):
@@ -41,11 +41,15 @@ def generate_test_data(test_batch, file_list):
     for b in range(test_batch):
         sample = file_list[i]
         i += 1
+        # read in the image and convert it to LAB color space
         image = cv2.resize(cv2.imread(sample), (224,224))
         image = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
+        # the first layer of the image will be the input
         L = image[:,:,0]
         L = L[:,:,np.newaxis]
+        # the last two layers will be the output or target
         ab = image[:,:,1:]
+        # append both to the corresponding lists
         image_batch.append(L)
         label_batch.append(ab)
     return np.array(image_batch), np.array(label_batch)
@@ -156,9 +160,8 @@ def create_model():
 
     return model
 
-def make_prediction(test_files):
-    # make predictions with the model of a small test sample randomly drawn from the validation set
-    # TODO check whether test data on uni server and use that instead
+def make_prediction(test_batch, test_files):
+    # make predictions of a small test sample
     test_in, test_out = generate_test_data(test_batch, test_files)
     print(test_in.shape)
     prediction = model.predict_on_batch(test_in)
@@ -233,7 +236,7 @@ if __name__ == "__main__":
     #model.save_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/small_batch_few_epochs.h5')
     
     # make a prediction and save the image
-    make_prediction(test_files)
+    make_prediction(test_batch, test_files)
 
     # plot and save the accuracy and loss values
     #plot_history(history)
