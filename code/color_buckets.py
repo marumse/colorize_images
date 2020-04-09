@@ -40,10 +40,10 @@ def list_files(dir):
     """
     r = []
     for subdir, dirs, files in os.walk(dir):
-        for file in files[:10]:      # set higher for prediction
+        for file in files[:1]:      # set higher for prediction
             filepath = subdir + '/' + file
             r.append(filepath)
-            if len(r)==1000:           #set to smaller for prediction only!
+            if len(r)==10000:           #set to smaller for prediction only!
                 break
     return r
 
@@ -254,29 +254,29 @@ if __name__ == "__main__":
     test_batch = 5
 
     # collect all file paths to the train, validation and test images
-    #train_files = list_files(path_to_train)
-    #val_files = list_files(path_to_val)
+    train_files = list_files(path_to_train)
+    val_files = list_files(path_to_val)
     test_files = list_files(path_to_test)
     
     # create the model
     model = create_model()
-    model.load_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/color_buckets.h5')
+    #model.load_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/color_buckets.h5')
     
     # generate the data with the costumized generator
-    #train_gen = generate_data(batch_size, train_files)
-    #val_gen = generate_data(batch_size, val_files)
+    train_gen = generate_data(batch_size, train_files)
+    val_gen = generate_data(batch_size, val_files)
 
     # fit model
-    #history = model.fit_generator(train_gen, steps_per_epoch=5, epochs=1, validation_data=val_gen, validation_steps=1)
-    #print(history.history)
+    history = model.fit_generator(train_gen, steps_per_epoch=100, epochs=20, validation_data=val_gen, validation_steps=1)
+    print(history.history)
 
     # save weights
-    #model.save_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/color_buckets.h5')
+    model.save_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/color_buckets.h5')
     
     # make a prediction and save the image
-    make_prediction(test_batch, test_files)
+    #make_prediction(test_batch, test_files)
 
     # plot and save the accuracy and loss values
-    #plot_history(history)
+    plot_history(history)
     # save history too
-    #save_history(history)
+    save_history(history)
