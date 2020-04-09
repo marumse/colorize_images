@@ -40,7 +40,7 @@ def list_files(dir):
     """
     r = []
     for subdir, dirs, files in os.walk(dir):
-        for file in files[:1]:      # set higher for prediction
+        for file in files[:10]:      # set higher for prediction
             filepath = subdir + '/' + file
             r.append(filepath)
             if len(r)==1000:           #set to smaller for prediction only!
