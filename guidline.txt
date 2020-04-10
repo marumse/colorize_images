@@ -1,10 +1,10 @@
 Project Guidline:
 
 Paper: https://arxiv.org/abs/1603.08511
-- we will only look at their best resulte
+- we will only look at their best results
 - classes sind farbwerte
 - 10x10 große bins: gucke wie oft die einzelnen farbwerte in dem bins vorkommen
--> das benutzen um zu reweighten
+-> das benutzen um zu reweighten (das haben wir nicht gemacht - next steps?)
 
 1. Dataset suchen (mehrere Vorschläge willkommen)
 -> cifar(zu wenig klassen), und verschiedene Varianten von imagenet auf dem
@@ -20,12 +20,13 @@ Paper: https://arxiv.org/abs/1603.08511
   SUN2012: 16,873 images, Also available in PASCAL format (ist das also nur ein format?)
 - "Though our model was trained on object-centric ImageNet dataset, we demonstrate
 that it nonetheless remains effective for photos from the scene-centric SUN dataset" (p. 23)
+--> ImageNet 2012 chosen, 1000 classes with 1300 images each, for training we used 5 image from each class = 5000 images, more was not possible because of time and computational power constraints
 
 2. Bilder in lab und greyscale
 2.1 große Mengen an Bildern (1 Mio) handeln (lade problem?)
 - skript, dass das datenset generiert (1000 bilder pro 1000 klassen ist zu groß)
-- ziel mindestens 100.000
-- als numpy oder image date?
+- ziel mindestens 100.000 (das haben wir leider nicht)
+- als numpy oder image data?
 
 2.2 kleineres datenset zum debuggen etc erstellen - selbe klasse 100 bilder
 Z:\net\projects\scratch\winter\valid_until_31_July_2020\asparagus\LabelFiles\colorize_images
@@ -35,14 +36,14 @@ Z:\net\projects\scratch\winter\valid_until_31_July_2020\asparagus\LabelFiles\col
 - alternative, die wir aber nicht benutzt haben wäre in scikit https://scikit-image.org/docs/dev/api/skimage.color.html#skimage.color.rgb2lab 
 - labspace ist ein colorspace, luminanca und dann farbe encoden
 -> d.h. erste layer ist greyscale, channel ab ist target
-
+- the preprocessing is included in the data generator (what is a generator, how does it generally work, how does our own implementation work)
 
 2.3. trenne datenset in l und ab
-- cropping of L und ab mit dieser Funktion tf.unstack(lab, axis=2) https://github.com/xahidbuffon/rgb-lab-conv/blob/master/rgb_lab_formulation.py 
+- cropping of L und ab mit dieser Funktion tf.unstack(lab, axis=2) https://github.com/xahidbuffon/rgb-lab-conv/blob/master/rgb_lab_formulation.py (siehe preprocessor/generator)
 
 2.4 loss function schreiben (caffe) - from original paper versuchen anzupassen? - malin
-- annealed mean?
-- reweightender einzelnen bins
+- annealed mean? 
+- reweightender einzelnen bins (nicht gemacht)
 
 3. lege report als texfile an (maren)
 
@@ -83,21 +84,36 @@ https://arxiv.org/abs/1603.08511
 - at their best solution
 
 3. The model and the experiment (MAIN PART). This part should feature code.
+- layers as in the paper
+- 8 groups of conv layers with 2 or 3 con layers, relu activateion and batch normalization at the end, same padding, sometimes strides (nicht so detailiert sondern auf code verweisen)
+- the decoding layer is conv2Dtranspose to 313 neurons as in paper (nochmal nachlesen warim 313)
+- sgd optimizer with learning rate 0.001 and momentom 0.9
+- MSE loss, should be replaced by costum loss, taking the mean loss leads to sepia-colored images (theory behind this)
+- 10 epochs, batch size 20, 5000 images ---> should be more/longer but time constraints/computational power
+- evalutation of results with loss values and visiual inspection of results --> make predictions for unseen images
+- idea: achieve better results by reducing the number of colors, didn't help
 
 3.1 Dataset
 - loading large amount of data
 https://machinelearningmastery.com/how-to-load-large-datasets-from-directories-for-deep-learning-with-keras/
 - we decided to take Imagenet as we have it on the IKW server and it provides a lot of images
+- Data generator
+  There are inbuilt data generators for large amount of data and also for images specifically, but we do not want to classify images (input:    image, output: label) but colorize them. Therefore, we wrote our own image generator.
+  Images are loaded and transformed from BGR to LAB color space, the first layer (luminance) which displayes most of the structure, is  separted from the other two and used as the input, the ab layers, which encode the color information of the images, are used as the target  of the model. Slightly different version to generate the test data, because they have a different folder structure and there the whole batch  should be taken at once.
 
 3.2 Preprocessing
 - image preprocessing documentation
 https://keras.io/preprocessing/image/#imagedatagenerator-class
+(preprocessing happens in generator)
 
 3.3 Layer
 
 3.4 Loss-Function
+- MSE loss should be costumized loss with weighting by occurance of the color values
 
 4. Visualization and discussion of your results.
+- original and predicted in comparison (side by side) maybe with their results too to see how good we wanted to get?
+- loss curve
 
 4.1 Training
 
