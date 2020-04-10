@@ -1,12 +1,13 @@
 Project Guidline:
 
-Paper: https://arxiv.org/abs/1603.08511
+Paper: https://arxiv.org/abs/1603.08511 \citep{Zhang.2016}
 - we will only look at their best results
 - classes sind farbwerte
 - 10x10 große bins: gucke wie oft die einzelnen farbwerte in dem bins vorkommen
 -> das benutzen um zu reweighten (das haben wir nicht gemacht - next steps?)
 
 1. Dataset suchen (mehrere Vorschläge willkommen)
+!!! dataset quellen sind bis jetzt nicht in der bibfile, falls wir die doch irgendwo citen, sagt bescheid!!!
 -> cifar(zu wenig klassen), und verschiedene Varianten von imagenet auf dem
   Server
 -> im paper PASCAL dataset (http://host.robots.ox.ac.uk/pascal/VOC/)
@@ -32,28 +33,29 @@ that it nonetheless remains effective for photos from the scene-centric SUN data
 Z:\net\projects\scratch\winter\valid_until_31_July_2020\asparagus\LabelFiles\colorize_images
 
 2.2 preprocessing: cropping, labspace umwandeln (statt RGB) - sophia
-- in lab space umwandeln: mit cv2, angelehnt an diese Funktion: https://medium.com/@halmubarak/changing-color-space-hsv-lab-while-reading-from-directory-in-keras-c8ca243e2d57
-- alternative, die wir aber nicht benutzt haben wäre in scikit https://scikit-image.org/docs/dev/api/skimage.color.html#skimage.color.rgb2lab 
+- in lab space umwandeln: mit cv2, angelehnt an diese Funktion: https://medium.com/@halmubarak/changing-color-space-hsv-lab-while-reading-from-directory-in-keras-c8ca243e2d57 \citep{Almubarak.2018}
+- alternative, die wir aber nicht benutzt haben wäre in scikit https://scikit-image.org/docs/dev/api/skimage.color.html#skimage.color.rgb2lab \citep{vanderWalt2014} - über einige umwege habe ich hier ein paper gefunden, dass man citen soll, falls man das project useful findet.. alternative wäre \citep{scikit-image}
 - labspace ist ein colorspace, luminanca und dann farbe encoden
 -> d.h. erste layer ist greyscale, channel ab ist target
 - the preprocessing is included in the data generator (what is a generator, how does it generally work, how does our own implementation work)
 
 2.3. trenne datenset in l und ab
-- cropping of L und ab mit dieser Funktion tf.unstack(lab, axis=2) https://github.com/xahidbuffon/rgb-lab-conv/blob/master/rgb_lab_formulation.py (siehe preprocessor/generator)
+- cropping of L und ab mit dieser Funktion tf.unstack(lab, axis=2) https://github.com/xahidbuffon/rgb-lab-conv/blob/master/rgb_lab_formulation.py \citep{buffon.2018} (siehe preprocessor/generator)
 
 2.4 loss function schreiben (caffe) - from original paper versuchen anzupassen? - malin
-- annealed mean? 
+- annealed mean?
 - reweightender einzelnen bins (nicht gemacht)
 
 3. lege report als texfile an (maren)
 
 4. layer nachbauen
 - do we use keras, tf1 or tf2(with keras), how can we use what code?
-  blogpost on difference: https://www.pyimagesearch.com/2019/10/21/keras-vs-tf-keras-whats-the-difference-in-tensorflow-2-0/
+  blogpost on difference: https://www.pyimagesearch.com/2019/10/21/keras-vs-tf-keras-whats-the-difference-in-tensorflow-2-0/ \citep{Rosebrock.2019}
   some info found in this book:  (specifically p.109 and surrounding ones for model and keras writing for preprocessing of dataGenerator) https://books.google.de/books?id=l86PDwAAQBAJ&pg=PA109&lpg=PA109&dq=keras.preprocessing.image.ImageDataGenerator(featurewise_center%3DFalse,+samplewise_center%3DFalse,+featurewise_std_normalization%3DFalse,+samplewise_std_normalization%3DFalse,+zca_whitening%3DFalse,+zca_epsilon%3D1e-06,+rotation_range%3D0,+width_shift_range%3D0.0,+height_shift_range%3D0.0,+brightness_range%3DNone,+shear_range%3D0.0,+zoom_range%3D0.0,+channel_shift_range%3D0.0,+fill_mode%3D%27nearest%27,+cval%3D0.0,+horizontal_flip%3DFalse,+vertical_flip%3DFalse,+rescale%3DNone,+preprocessing_function%3DNone,+data_format%3D%27channels_last%27,+validation_split%3D0.0,+interpolation_order%3D1,+dtype%3D%27float32%27)+in+tf+2.0&source=bl&ots=4PaPUc1vta&sig=ACfU3U2jvCN8UW4dirz_NtwMcQGAq4Gugg&hl=de&sa=X&ved=2ahUKEwjyx4n10tHnAhXCfZoKHfAjBikQ6AEwAXoECAoQAQ#v=onepage&q=keras.preprocessing.image.ImageDataGenerator(featurewise_center%3DFalse%2C%20samplewise_center%3DFalse%2C%20featurewise_std_normalization%3DFalse%2C%20samplewise_std_normalization%3DFalse%2C%20zca_whitening%3DFalse%2C%20zca_epsilon%3D1e-06%2C%20rotation_range%3D0%2C%20width_shift_range%3D0.0%2C%20height_shift_range%3D0.0%2C%20brightness_range%3DNone%2C%20shear_range%3D0.0%2C%20zoom_range%3D0.0%2C%20channel_shift_range%3D0.0%2C%20fill_mode%3D'nearest'%2C%20cval%3D0.0%2C%20horizontal_flip%3DFalse%2C%20vertical_flip%3DFalse%2C%20rescale%3DNone%2C%20preprocessing_function%3DNone%2C%20data_format%3D'channels_last'%2C%20validation_split%3D0.0%2C%20interpolation_order%3D1%2C%20dtype%3D'float32')%20in%20tf%202.0&f=false
+  \citep{holdroyd2019}
 - conv layer same padding in tensorflow und in dem model ist pad: 1 steht und in caffe
 -> für conv layer 5 und 6 benutzten die caffe pad: 2: um das umzusetzen müssten wir eine neue pad funktion schreiben
-daher weichen wir erstmal vom code ab, falls das nicht funktioniert (hier in irgendeinem ordner https://github.com/richzhang/colorization/blob/master/interactive-deep-colorization/data/lab_gamut.py)
+daher weichen wir erstmal vom code ab, falls das nicht funktioniert (hier in irgendeinem ordner https://github.com/richzhang/colorization/blob/master/interactive-deep-colorization/data/lab_gamut.py) - das ist das github vom ersten artikel, daher einfach das paper citen?
 
 
 5. training
@@ -80,7 +82,7 @@ REPORT:
 
 2. Important background knowledge (including reference to most relevant publications)
 - We started looking at this paper:
-https://arxiv.org/abs/1603.08511
+https://arxiv.org/abs/1603.08511 \citep{Zhang.2016}
 - at their best solution
 
 3. The model and the experiment (MAIN PART). This part should feature code.
@@ -95,7 +97,7 @@ https://arxiv.org/abs/1603.08511
 
 3.1 Dataset
 - loading large amount of data
-https://machinelearningmastery.com/how-to-load-large-datasets-from-directories-for-deep-learning-with-keras/
+https://machinelearningmastery.com/how-to-load-large-datasets-from-directories-for-deep-learning-with-keras/ \citep{Brownlee.2019}
 - we decided to take Imagenet as we have it on the IKW server and it provides a lot of images
 - Data generator
   There are inbuilt data generators for large amount of data and also for images specifically, but we do not want to classify images (input:    image, output: label) but colorize them. Therefore, we wrote our own image generator.
@@ -103,7 +105,7 @@ https://machinelearningmastery.com/how-to-load-large-datasets-from-directories-f
 
 3.2 Preprocessing
 - image preprocessing documentation
-https://keras.io/preprocessing/image/#imagedatagenerator-class
+https://keras.io/preprocessing/image/#imagedatagenerator-class \citep{chollet2015keras}
 (preprocessing happens in generator)
 
 3.3 Layer
