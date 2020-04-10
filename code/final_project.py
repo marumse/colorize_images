@@ -19,10 +19,10 @@ def list_files(dir):
     """
     r = []
     for subdir, dirs, files in os.walk(dir):
-        for file in files[:10]:
+        for file in files[:5]:
             filepath = subdir + '/' + file
             r.append(filepath)
-            if len(r)==7: #set to 7 for prediction only!
+            if len(r)==5000: #set to 7 for prediction only!
                 break
     return r
 
@@ -179,12 +179,12 @@ def make_prediction(test_batch, test_files):
         original = np.concatenate((test_in[i], test_out[i]), axis=2)
         # save the image in BGR color space in order to display it straight away
         original_BGR = cv2.cvtColor(original, cv2.COLOR_LAB2BGR)
-        cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predictions/orig_'+ str(i) +'_BGR.png', original_BGR)
+        cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predictions/orig_'+ str(i) +'_BGR1.png', original_BGR)
         predicted = np.concatenate((test_in[i], prediction[i]), axis=2)
         # same for the predicted image
         # for some reason this yields a black BGR image - save the LAB image, load it again and then transform it to BGR works fine
         predicted_BGR = cv2.cvtColor(predicted, cv2.COLOR_LAB2BGR)
-        cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predictions/pred_' + str(i) +'_LAB.png', predicted)
+        cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predictions/pred_' + str(i) +'_LAB1.png', predicted)
         #cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predictions/pred_1_BGR.png', predicted_BGR)
 
 def plot_history(history):
@@ -204,14 +204,14 @@ def plot_history(history):
     plt.xticks(np.arange(0, 3 + 1, 5))
     plt.grid()
     plt.show()
-    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/figures/fig_small_batch_few_epochs.png')
+    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/figures/all_colors.png')
 
 def save_history(history):
     #convert the history.history dict to a pandas DataFrame   
     hist_df = pd.DataFrame(history.history) 
 
     # and save to csv
-    hist_csv_file = 'history_small_batch_few_epochs.csv'
+    hist_csv_file = 'all_colors.csv'
     with open(hist_csv_file, mode='w') as f:
         hist_df.to_csv(f)
 
@@ -227,30 +227,29 @@ if __name__ == "__main__":
     test_batch = 5
 
     # collect all file paths to the train, validation and test images
-    #train_files = list_files(path_to_train)
-    #val_files = list_files(path_to_val)
-    test_files = list_files(path_to_test)
-    print(test_files)
-    
+    train_files = list_files(path_to_train)
+    val_files = list_files(path_to_val)
+    #test_files = list_files(path_to_test)
+
     # create the model
     model = create_model()
-    model.load_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/small_batch_few_epochs.h5')
+    #model.load_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/small_batch_few_epochs.h5')
     
     # generate the data with the costumized generator
-    #train_gen = generate_data(batch_size, train_files)
-    #val_gen = generate_data(batch_size, val_files)
+    train_gen = generate_data(batch_size, train_files)
+    val_gen = generate_data(batch_size, val_files)
 
     # fit model
-    #history = model.fit_generator(train_gen, steps_per_epoch=5, epochs=1, validation_data=val_gen, validation_steps=1)
+    history = model.fit_generator(train_gen, steps_per_epoch=250, epochs=10, validation_data=val_gen, validation_steps=1)
     #print(history.history)
 
     # save weights
-    #model.save_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/small_batch_few_epochs.h5')
+    model.save_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/all_colors.h5')
     
     # make a prediction and save the image
-    make_prediction(test_batch, test_files)
+    #make_prediction(test_batch, test_files)
 
     # plot and save the accuracy and loss values
-    #plot_history(history)
+    plot_history(history)
     # save history too
-    #save_history(history)
+    save_history(history)
