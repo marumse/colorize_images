@@ -1,0 +1,22 @@
+\begin{thebibliography}{}
+
+\bibitem[\protect\astroncite{Cheng et~al.}{2015}]{Cheng_2015}
+Cheng, Z., Yang, Q., and Sheng, B. (2015).
+\newblock Deep colorization.
+\newblock {\em 2015 IEEE International Conference on Computer Vision (ICCV)}.
+
+\bibitem[\protect\astroncite{Dahl}{}]{Dahl.2016}
+Dahl, R.
+
+\bibitem[\protect\astroncite{Jia et~al.}{2014}]{jia2014caffe}
+Jia, Y., Shelhamer, E., Donahue, J., Karayev, S., Long, J., Girshick, R.,
+  Guadarrama, S., and Darrell, T. (2014).
+\newblock Caffe: Convolutional architecture for fast feature embedding.
+\newblock {\em arXiv preprint arXiv:1408.5093}.
+
+\bibitem[\protect\astroncite{Zhang et~al.}{2016}]{Zhang.2016}
+Zhang, R., Isola, P., and Efros, A.~A. (2016).
+\newblock Colorful image colorization.
+\newblock {\em CoRR}, abs/1603.08511.
+
+\end{thebibliography}
