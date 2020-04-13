@@ -48,8 +48,7 @@ def generate_data(batch_size, file_list):
             image = cv2.resize(cv2.imread(sample), (224,224))
             image = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
             # split the image into the L layer for the input and ab layers for the target 
-            L = image[:,:,0]
-            L = L[:,:,np.newaxis]
+            L = image[:,:,0][:,:,np.newaxis]
             ab = image[:,:,1:]
             # append both to the corresponding lists
             image_batch.append(L)
@@ -75,8 +74,7 @@ def generate_test_data(test_batch, file_list):
         image = cv2.resize(cv2.imread(sample), (224,224))
         image = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
         # the first layer of the image will be the input
-        L = image[:,:,0]
-        L = L[:,:,np.newaxis]
+        L = image[:,:,0][:,:,np.newaxis]
         # the last two layers will be the output or target
         ab = image[:,:,1:]
         # append both to the corresponding lists
@@ -204,7 +202,7 @@ def plot_history(history):
     plt.xticks(np.arange(0, 3 + 1, 5))
     plt.grid()
     plt.show()
-    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/figures/all_colors.png')
+    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/all_colors.png')
 
 def save_history(history):
     #convert the history.history dict to a pandas DataFrame   
