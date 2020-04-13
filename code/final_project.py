@@ -238,7 +238,7 @@ if __name__ == "__main__":
     val_gen = generate_data(batch_size, val_files)
 
     # fit model
-    history = model.fit_generator(train_gen, steps_per_epoch=250, epochs=10, validation_data=val_gen, validation_steps=1)
+    history = model.fit_generator(train_gen, steps_per_epoch=250, epochs=4, validation_data=val_gen, validation_steps=1)
     #print(history.history)
 
     # save weights
