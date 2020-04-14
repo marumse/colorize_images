@@ -187,12 +187,12 @@ def make_prediction(test_batch, test_files):
         original = np.concatenate((test_in[i], test_out[i]), axis=2)
         # save the image in BGR color space in order to display it straight away
         original_BGR = cv2.cvtColor(original, cv2.COLOR_LAB2BGR)
-        cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predictions/orig_'+ str(i) +'_reduced.png', original_BGR)
+        cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predictions/orig_'+ str(i) +'_reduced2.png', original_BGR)
         predicted = np.concatenate((test_in[i], prediction[i]), axis=2)
         # same for the predicted image
         # for some reason this yields a black BGR image - save the LAB image, load it again and then transform it to BGR works fine
         predicted_BGR = cv2.cvtColor(predicted, cv2.COLOR_LAB2BGR)
-        cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predictions/pred_' + str(i) +'_reduced.png', predicted)
+        cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predictions/pred_' + str(i) +'_reduced2.png', predicted)
         #cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predictions/pred_1_BGR.png', predicted_BGR)
 
 def plot_history(history):
@@ -212,14 +212,14 @@ def plot_history(history):
     plt.xticks(np.arange(0, 3 + 1, 5))
     plt.grid()
     plt.show()
-    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/reduced.png')
+    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/reduced2.png')
 
 def save_history(history):
     #convert the history.history dict to a pandas DataFrame   
     hist_df = pd.DataFrame(history.history) 
 
     # and save to csv
-    hist_csv_file = 'reduced.csv'
+    hist_csv_file = 'reduced2.csv'
     with open(hist_csv_file, mode='w') as f:
         hist_df.to_csv(f)
 
@@ -252,7 +252,7 @@ if __name__ == "__main__":
     #print(history.history)
 
     # save weights
-    model.save_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/reduced.h5')
+    model.save_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/reduced2.h5')
     
     # make a prediction and save the image
     #make_prediction(test_batch, test_files)
