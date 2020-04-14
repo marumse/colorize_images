@@ -169,7 +169,7 @@ def create_model():
     
     # compile model
     sgd = keras.optimizers.SGD(lr=0.001, momentum=0.9, nesterov=True, clipnorm=5.)
-    model.compile(optimizer=sgd, loss=keras.losses.mean_squared_error)
+    model.compile(optimizer=sgd, loss=keras.losses.categorical_crossentropy)
 
     return model
 
