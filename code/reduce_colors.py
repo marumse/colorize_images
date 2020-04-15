@@ -8,7 +8,7 @@ from keras import backend as K
 
 from keras.models import Sequential
 
-from keras.activation import softmax
+from keras.activations import softmax
 
 from keras.layers import Conv2D, Conv2DTranspose, Activation, BatchNormalization, Softmax, Multiply
 
