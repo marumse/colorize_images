@@ -35,7 +35,7 @@
 \usepackage{graphicx}
 
 %insert hyperlinks
-\usepackage[colorlinks=true, urlcolor=blue, linkcolor=green]{hyperref}
+\usepackage[colorlinks=true, urlcolor=blue, linkcolor=black, citecolor = black]{hyperref}
 \usepackage{url}
 
 %Literaturverzeichnis
@@ -122,10 +122,20 @@ MyClass,__init__
 \url{https://arxiv.org/abs/1603.08511} , \\
 - at their best solution
 \section{The model and the experiment (MAIN PART). This part should feature code.}
+- Image colorization in general\\
+- the model of the original paper\\
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=1.0\textwidth]{layer.png}
+	\caption{The network architecture of Zhang et al. (2016). }
+	\label{fig1}
+\end{figure}
+- theoretical basis:\\
+
 \subsection{Dataset}
 - loading large amount of data\\
 \url{https://machinelearningmastery.com/how-to-load-large-datasets-from-directories-for-deep-learning-with-keras/}\\
-- 
+das ist \citep{Brownlee.2019}
 \subsection{Preprocessing}
 - image preprocessing documentation\\
 \url{https://keras.io/preprocessing/image/#imagedatagenerator-class}\\
@@ -135,6 +145,9 @@ MyClass,__init__
 - classmode: none -> is for predictions\\
 
 \subsection{Layer}
+- built the same layers aas Zhang et al, but no probability distribution\\
+-networkstructure and design\\
+
 \subsection{Loss-Function}
 \section{Visualization and discussion of your results.}
 oder lieber bilder als screenshot einfügen?\\
@@ -142,7 +155,7 @@ oder lieber bilder als screenshot einfügen?\\
 	\centering
 	\includegraphics[width=1.0\textwidth]{bsp.png}
 	\caption{Hier kann man dann auch noch etwas dazu schreiben}
-	\label{fig1}
+	\label{bsp}
 \end{figure}
 %\includegraphics{bsp.png}
 \subsection{Training}

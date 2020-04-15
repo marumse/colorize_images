@@ -1,5 +1,12 @@
 \begin{thebibliography}{}
 
+\bibitem[\protect\astroncite{Brownlee}{2019}]{Brownlee.2019}
+Brownlee, J. (2019).
+\newblock How to load large datasets from directories for deep learning in
+  keras.
+\newblock
+  https://machinelearningmastery.com/how-to-load-large-datasets-from-directories-for-deep-learning-with-keras/.
+
 \bibitem[\protect\astroncite{Cheng et~al.}{2015}]{Cheng_2015}
 Cheng, Z., Yang, Q., and Sheng, B. (2015).
 \newblock Deep colorization.
