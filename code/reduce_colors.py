@@ -25,7 +25,7 @@ def list_files(dir):
         for file in files[:5]:
             filepath = subdir + '/' + file
             r.append(filepath)
-            if len(r)==5000: #set to 7 for prediction only!
+            if len(r)==5000: # set lower for prediction 
                 break
     return r
 
@@ -112,13 +112,17 @@ def generate_test_data(test_batch, file_list):
         ab = image[:,:,1:]
         # reduce the number of colors to 121 (11 different a and b values respectively)
         ab = (ab//25)*25
+        # use cantor pairing to combine layer a and b
+        cantor = cantor_pairing(ab)
+        # make a one-hot-encoding out of the cantor labels
+        hot = one_hot_encoding(cantor)
         # append both to the corresponding lists
         image_batch.append(L)
-        label_batch.append(ab)
+        label_batch.append(hot)
     return np.array(image_batch), np.array(label_batch)
 
 def softMaxAxis2(x):
-    return softmax(x,axis=2)
+    return softmax(x, axis=2)
 
 def create_model():
     """ Built the model and compile it.
@@ -193,7 +197,7 @@ def create_model():
 
     # decoding layer
     model.add(Conv2DTranspose(121, (3,3), strides = 16, padding = 'same'))
-    model.add(Conv2D(121, (1,1), strides = 1, dilation_rate = 1), activation = softMaxAxis2)
+    model.add(Conv2D(121, (1,1), strides = 1, dilation_rate = 1, activation = softMaxAxis2))
     
     # compile model
     sgd = keras.optimizers.SGD(lr=0.001, momentum=0.9, nesterov=True, clipnorm=5.)
