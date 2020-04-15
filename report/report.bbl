@@ -5,8 +5,10 @@ Cheng, Z., Yang, Q., and Sheng, B. (2015).
 \newblock Deep colorization.
 \newblock {\em 2015 IEEE International Conference on Computer Vision (ICCV)}.
 
-\bibitem[\protect\astroncite{Dahl}{}]{Dahl.2016}
-Dahl, R.
+\bibitem[\protect\astroncite{Dahl}{2016}]{Dahl.2016}
+Dahl, R. (2016).
+\newblock Automatic colorization.
+\newblock \url{https://tinyclouds.org/colorize/}.
 
 \bibitem[\protect\astroncite{Jia et~al.}{2014}]{jia2014caffe}
 Jia, Y., Shelhamer, E., Donahue, J., Karayev, S., Long, J., Girshick, R.,

@@ -6,12 +6,4 @@ I was expecting a `,' or a `}'---line 62 of file lit.bib
  : title = {GitHub: xahidbuffon/rgb-lab-conv}
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-Warning--entry type for "Dahl.2016" isn't style-file defined
---line 103 of file lit.bib
-I was expecting a `,' or a `}'---line 105 of file lit.bib
- : 
- : title = {Automatic colorization}
-(Error may have been on previous line)
-I'm skipping whatever remains of this entry
-Warning--empty year in Dahl.2016
-(There were 2 error messages)
+(There was 1 error message)
