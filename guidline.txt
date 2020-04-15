@@ -102,6 +102,8 @@ This involves first creating a dataset based on pictures that are converted into
 - We started looking at this paper:
 https://arxiv.org/abs/1603.08511 \citep{Zhang.2016}
 - at their best solution
+- vielleicht andere color problems und wo deren schwachstellen sind?
+- und dann sozusagen, was das coole an dem paper ist, das wir haben.
 
 3. The model and the experiment (MAIN PART). This part should feature code.
 - layers as in the paper
