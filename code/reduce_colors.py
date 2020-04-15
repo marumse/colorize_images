@@ -292,6 +292,6 @@ if __name__ == "__main__":
         # create and compile the model
         model = create_model()
         # load the weights with which the predictions should be done
-        model.load_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/'+ name'.h5')        
+        model.load_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/'+ name +'.h5')        
         # make a prediction and save the image
         make_prediction(test_batch, test_files, name)
