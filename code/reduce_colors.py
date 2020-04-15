@@ -8,6 +8,8 @@ from keras import backend as K
 
 from keras.models import Sequential
 
+from keras.activation import softmax
+
 from keras.layers import Conv2D, Conv2DTranspose, Activation, BatchNormalization, Softmax, Multiply
 
 from grid import*
@@ -80,10 +82,8 @@ def generate_data(batch_size, file_list):
             ab = (ab//25)*25
             # use cantor pairing to combine layer a and b
             cantor = cantor_pairing(ab)
-            print(cantor.shape)
             # make a one-hot-encoding out of the cantor labels
             hot = one_hot_encoding(cantor)
-            print(hot.shape)
             # append both to the corresponding lists
             image_batch.append(L)
             label_batch.append(hot)
@@ -116,6 +116,9 @@ def generate_test_data(test_batch, file_list):
         image_batch.append(L)
         label_batch.append(ab)
     return np.array(image_batch), np.array(label_batch)
+
+def softMaxAxis2(x):
+    return softmax(x,axis=2)
 
 def create_model():
     """ Built the model and compile it.
@@ -185,12 +188,12 @@ def create_model():
     model.add(Activation('relu'))
 
     # softmax layer
-    model.add(Conv2D(313, (1,1), strides = 1, dilation_rate = 1))
+    model.add(Conv2D(121, (1,1), strides = 1, dilation_rate = 1))
     model.add(Softmax())
 
     # decoding layer
-    model.add(Conv2DTranspose(313, (3,3), strides = 16, padding = 'same'))
-    model.add(Conv2D(121, (1,1), strides = 1, dilation_rate = 1))
+    model.add(Conv2DTranspose(121, (3,3), strides = 16, padding = 'same'))
+    model.add(Conv2D(121, (1,1), strides = 1, dilation_rate = 1), activation = softMaxAxis2)
     
     # compile model
     sgd = keras.optimizers.SGD(lr=0.001, momentum=0.9, nesterov=True, clipnorm=5.)
