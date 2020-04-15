@@ -101,6 +101,12 @@ we want to built a network that can colorize images\\
 - aus dem paper: model enough of the statistical dependencies between semantics and the textures of greyscale images and their color versions in order to produce visually compelling results.\\
 
 \section{Important background knowledge (including reference to most relevant publications)}
+- what is CNN for image colorization?\\
+- was ist colorization\\
+- wie ist der status quo: -- related work\\
+- was sind die schwierigkeiten von den colorization sachen\\
+- was hat Zhang gemacht - was hat er besser gemacht\\
+
 \begin{lstlisting}
 #packages needed
 import numpy as np 
@@ -116,12 +122,13 @@ return
 MyClass,__init__
 \end{lstlisting}
 
-\section{``In-text'' listing highlighting}
+%\section{``In-text'' listing highlighting}
 
 - We started looking at this paper: \\
 \url{https://arxiv.org/abs/1603.08511} , \\
 - at their best solution
 \section{The model and the experiment (MAIN PART). This part should feature code.}
+- hier nur erklären was wir machen\\
 - Image colorization in general\\
 - the model of the original paper\\
 \begin{figure}[ht]
@@ -144,11 +151,15 @@ das ist \citep{Brownlee.2019}
 - featurewise-center and featurewise std\\
 - classmode: none -> is for predictions\\
 
+\subsection{Modelstructure}
+- besser hier layer und loss-function
 \subsection{Layer}
 - built the same layers aas Zhang et al, but no probability distribution\\
 -networkstructure and design\\
 
 \subsection{Loss-Function}
+- the original loss-function\\
+- we tried what loss function?\\
 \section{Visualization and discussion of your results.}
 oder lieber bilder als screenshot einfügen?\\
 \begin{figure}[ht]
@@ -160,6 +171,9 @@ oder lieber bilder als screenshot einfügen?\\
 %\includegraphics{bsp.png}
 \subsection{Training}
 \subsection{Testing}
+
+\subsection{Conclusion and Future Work}
+- vergleich ziehen zu Zhang\\
 
 \section{Literaturverzeichnis}
 \label{Lit}
