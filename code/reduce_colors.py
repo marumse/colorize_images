@@ -29,19 +29,36 @@ def list_files(dir):
                 break
     return r
 
+def cantor_pairing_dict():
+    """ Create dictionary that pairs the values from the cantor pairing with indices for the one hot encoding.
+    Args:       None
+    Return:     the dict for possible cantor values (121 different combinations possible)
+    """
+    possible_a = list(range(0,255,25))
+    possible_b = list(range(0,255,25))
+    i = 0
+    dicts = {}
+    for a in possible_a:
+        for b in possible_b:
+            pairing = ((a + b) * (a + b + 1)) / 2 + b
+            dicts[pairing] = i
+            i += 1
+    return dicts
+
 def one_hot_encoding(cantor):
     """ Get one-hot-encoding for ab target image.
-    Args:       cantor combination from a and b layers
+    Args:       ab layers from input images
     Return:     one-hot-encoding with shape width x height x number of colors (224 x 224 x 121)
     """
     one_hot = np.zeros((cantor.shape[0], cantor.shape[1], 121))
     for i, unique_value in enumerate(np.unique(cantor)):
-        one_hot[:, :, i][cantor == unique_value] = 1
+        index = dicts[unique_value]
+        one_hot[:, :, index][cantor == unique_value] = 1
     return one_hot
 
 def cantor_pairing(ab):
-    a = ab[:,:,0]
-    b = ab[:,:,1]
+    a = ab[:,:,0].astype(np.uint32)
+    b = ab[:,:,1].astype(np.uint32)
     c = ((a + b) * (a + b + 1)) / 2 + b
     return c
 
@@ -269,6 +286,9 @@ if __name__ == "__main__":
     name = args[4]
     mode = args[5]
     test_batch = 5
+    global dicts
+    # create dictionary for cantor values and one-hot-indices
+    dicts = cantor_pairing_dict()
 
     if mode == 'train':
         # collect all file paths to the train, validation and test images

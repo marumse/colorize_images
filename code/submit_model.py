@@ -6,7 +6,7 @@ if __name__ == '__main__':
     path_to_val = '/net/projects/data/ImageNet/ILSVRC2012/val'
     path_to_test = '/net/projects/data/ImageNet/ILSVRC2012/test'
     batch_size = 10
-    name = 'reduced_newer' # the name under which all the files/images should be saved
+    name = 'global_dict' # the name under which all the files/images should be saved
     mode = 'train' # 'predict' # choose between train and predict
     args = [path_to_train, path_to_val, path_to_test, batch_size, name, mode]
 
