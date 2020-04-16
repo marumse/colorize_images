@@ -219,7 +219,7 @@ def create_model():
 
     # softmax layer
     model.add(Conv2D(121, (1,1), strides = 1, dilation_rate = 1))
-    model.add(Softmax())
+    model.add(Activation('relu'))
 
     # decoding layer
     model.add(Conv2DTranspose(121, (3,3), strides = 16, padding = 'same'))
