@@ -8,8 +8,8 @@ if __name__ == '__main__':
     batch_size = 10
     #name = 'relu' # the name under which all the files/images should be saved
     mode = 'train' # 'predict' # choose between train and predict
-    learning_rates = [0.1, 0.01, 0.05, 0.08, 0.001]
-    names = ['0.1', '0.01', '0.05','0.08', '0.001']
+    learning_rates = [0.1] #, 0.01, 0.05, 0.08, 0.001]
+    names = ['0.1'] #, '0.01', '0.05','0.08', '0.001']
 
     env = 'source /net/projects/scratch/winter/valid_until_31_July_2020/asparagus/sharedConda/bin/activate MultiLabel'
 
