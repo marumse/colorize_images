@@ -61,7 +61,7 @@ def one_hot_encoding(cantor):
 def decode_one_hot(hot):
     decode = np.zeros((hot.shape[0], hot.shape[1]))
     for pos, val in np.ndenumerate(decode):
-        index = np.argmax(hot[pos])
+        index = np.nanargmax(hot[pos])
         decode[pos] = index_to_pair[index]
     return decode
 
