@@ -32,7 +32,7 @@ def list_files(dir):
 def cantor_pairing_dict():
     """ Create dictionary that pairs the values from the cantor pairing with indices for the one hot encoding.
     Args:       None
-    Return:     the dict for possible cantor values (121 different combinations possible)
+    Return:     the dicts for possible cantor values (121 different combinations possible) in both directions
     """
     possible_a = list(range(0,255,25))
     possible_b = list(range(0,255,25))
@@ -48,8 +48,8 @@ def cantor_pairing_dict():
     return pair_to_index, index_to_pair
 
 def one_hot_encoding(cantor):
-    """ Get one-hot-encoding for ab target image.
-    Args:       ab layers from input images
+    """ Get one-hot-encoding for cantor target image.
+    Args:       cantor transformed ab layers from input images
     Return:     one-hot-encoding with shape width x height x number of colors (224 x 224 x 121)
     """
     one_hot = np.zeros((cantor.shape[0], cantor.shape[1], 121))
@@ -59,6 +59,10 @@ def one_hot_encoding(cantor):
     return one_hot
 
 def decode_one_hot(hot):
+    """ Decode an array with one hot encoding back to the ab cantor values.
+    Args:       one hot encoded array of shape (224,224,121)
+    Returns:    array with cantor values of shape (224,224)
+    """
     decode = np.zeros((hot.shape[0], hot.shape[1]))
     for pos, val in np.ndenumerate(decode):
         index = np.nanargmax(hot[pos])
@@ -66,12 +70,20 @@ def decode_one_hot(hot):
     return decode
 
 def cantor_pairing(ab):
+    """ Cantor pairing calculates a deterministic and unique number for a pair of positive integers.
+    Args:       two arrays of integers in our case the a and b color channels
+    Return:     the corresponding array with unique values
+    """
     a = ab[:,:,0].astype(np.uint32)
     b = ab[:,:,1].astype(np.uint32)
     c = ((a + b) * (a + b + 1)) / 2 + b
     return c
 
 def reverse_cantor(pairing):
+    """ Reverse the cantor pairing calculation to get ab values again.
+    Args:       the cantor values
+    Returns:    the corresponding ab values
+    """
     t = np.floor((-1 + np.sqrt(1 + 8 * pairing))/2)
     x = t * (t + 3) / 2 - pairing
     y = pairing - t * (t + 1) / 2
@@ -148,7 +160,11 @@ def generate_test_data(test_batch, file_list):
     return np.array(image_batch), np.array(label_batch)
 
 def softMaxAxis2(x):
-    return softmax(x, axis=2)
+    """ Softmax activation function on axis 2.
+    Args:       x the output of the last layer
+    Returns:    softmax activation applied to the input
+    """
+    return softmax(x, axis=-1)
 
 def create_model():
     """ Built the model and compile it.
@@ -245,13 +261,14 @@ def make_prediction(test_batch, test_files, name):
     test_in, test_out = generate_test_data(test_batch, test_files)
     prediction = model.predict_on_batch(test_in)
     for i in range(test_batch):
+        # first the ab layers have to be reconstructed from the one-hot-encoded cantor values
         orig_out = decode_one_hot(test_out[i])
         orig_out = reverse_cantor(orig_out)
         original = np.concatenate((test_in[i], orig_out), axis=2)
         # save the image in BGR color space in order to display it straight away
         original_BGR = cv2.cvtColor(original, cv2.COLOR_LAB2BGR)
         cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predictions/orig_'+ str(i) + name +'.png', original_BGR)
-        
+        # again the ab layers have to be reconstructed from the one-hot-encoded cantor values
         pred_out = decode_one_hot(prediction[i])
         pred_out = reverse_cantor(pred_out)
         predicted = np.concatenate((test_in[i], pred_out), axis=2)
