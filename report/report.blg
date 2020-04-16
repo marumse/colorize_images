@@ -6,4 +6,7 @@ I was expecting a `,' or a `}'---line 62 of file lit.bib
  : title = {GitHub: xahidbuffon/rgb-lab-conv}
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
+Warning--I didn't find a database entry for "geron2019hands"
+Warning--I didn't find a database entry for "bishop2006pattern"
+Warning--I didn't find a database entry for "lecun1995convolutional"
 (There was 1 error message)
