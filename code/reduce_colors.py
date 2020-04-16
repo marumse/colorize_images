@@ -37,13 +37,15 @@ def cantor_pairing_dict():
     possible_a = list(range(0,255,25))
     possible_b = list(range(0,255,25))
     i = 0
-    dicts = {}
+    pair_to_index = {}
+    index_to_pair = {}
     for a in possible_a:
         for b in possible_b:
             pairing = ((a + b) * (a + b + 1)) / 2 + b
-            dicts[pairing] = i
+            pair_to_index[pairing] = i
+            index_to_pair[i] = pairing
             i += 1
-    return dicts
+    return pair_to_index, index_to_pair
 
 def one_hot_encoding(cantor):
     """ Get one-hot-encoding for ab target image.
@@ -52,9 +54,16 @@ def one_hot_encoding(cantor):
     """
     one_hot = np.zeros((cantor.shape[0], cantor.shape[1], 121))
     for i, unique_value in enumerate(np.unique(cantor)):
-        index = dicts[unique_value]
+        index = pair_to_index[unique_value]
         one_hot[:, :, index][cantor == unique_value] = 1
     return one_hot
+
+def decode_one_hot(hot):
+    decode = np.zeros((hot.shape[0], hot.shape[1]))
+    for pos, val in np.ndenumerate(decode):
+        index = np.argmax(hot[pos])
+        decode[pos] = index_to_pair[index]
+    return decode
 
 def cantor_pairing(ab):
     a = ab[:,:,0].astype(np.uint32)
@@ -62,12 +71,12 @@ def cantor_pairing(ab):
     c = ((a + b) * (a + b + 1)) / 2 + b
     return c
 
-def reverse_cantor(z):
-    t = np.floor((-1 + np.sqrt(1 + 8 * z))/2)
-    x = t * (t + 3) / 2 - z
-    y = z - t * (t + 1) / 2
-    x = x[:,:,np.newaxis]
-    y = y[:,:,np.newaxis]
+def reverse_cantor(pairing):
+    t = np.floor((-1 + np.sqrt(1 + 8 * pairing))/2)
+    x = t * (t + 3) / 2 - pairing
+    y = pairing - t * (t + 1) / 2
+    x = x[:,:,np.newaxis].astype(np.uint8)
+    y = y[:,:,np.newaxis].astype(np.uint8)
     return np.concatenate((x, y), axis=2)
 
 def generate_data(batch_size, file_list):
@@ -235,11 +244,16 @@ def make_prediction(test_batch, test_files, name):
     test_in, test_out = generate_test_data(test_batch, test_files)
     prediction = model.predict_on_batch(test_in)
     for i in range(test_batch):
-        original = np.concatenate((test_in[i], test_out[i]), axis=2)
+        orig_out = decode_one_hot(test_out[i])
+        orig_out = reverse_cantor(orig_out)
+        original = np.concatenate((test_in[i], orig_out), axis=2)
         # save the image in BGR color space in order to display it straight away
         original_BGR = cv2.cvtColor(original, cv2.COLOR_LAB2BGR)
         cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predictions/orig_'+ str(i) + name +'.png', original_BGR)
-        predicted = np.concatenate((test_in[i], prediction[i]), axis=2)
+        
+        pred_out = decode_one_hot(prediction[i])
+        pred_out = reverse_cantor(pred_out)
+        predicted = np.concatenate((test_in[i], pred_out), axis=2)
         # same for the predicted image
         # for some reason this yields a black BGR image - save the LAB image, load it again and then transform it to BGR works fine
         predicted_BGR = cv2.cvtColor(predicted, cv2.COLOR_LAB2BGR)
@@ -286,9 +300,10 @@ if __name__ == "__main__":
     name = args[4]
     mode = args[5]
     test_batch = 5
-    global dicts
+    global pair_to_index
+    global index_to_pair
     # create dictionary for cantor values and one-hot-indices
-    dicts = cantor_pairing_dict()
+    pair_to_index, index_to_pair = cantor_pairing_dict()
 
     if mode == 'train':
         # collect all file paths to the train, validation and test images
