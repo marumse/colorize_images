@@ -99,6 +99,12 @@ This involves first creating a dataset based on pictures that are converted into
 - haben wir noch relaated work???
 
 2. Important background knowledge (including reference to most relevant publications)
+- was ist colorization\\
+- what is CNN for image colorization?\\
+- wie ist der status quo: -- related work\\
+- was sind die schwierigkeiten von den colorization sache (sepia ding)\\
+- was hat Zhang gemacht - was hat er besser gemacht\\
+
 - We started looking at this paper:
 https://arxiv.org/abs/1603.08511 \citep{Zhang.2016}
 - at their best solution
@@ -106,6 +112,7 @@ https://arxiv.org/abs/1603.08511 \citep{Zhang.2016}
 - und dann sozusagen, was das coole an dem paper ist, das wir haben.
 
 3. The model and the experiment (MAIN PART). This part should feature code.
+- hier nur erklären was wir machen\\
 - layers as in the paper
 - 8 groups of conv layers with 2 or 3 con layers, relu activateion and batch normalization at the end, same padding, sometimes strides (nicht so detailiert sondern auf code verweisen)
 - the decoding layer is conv2Dtranspose to 313 neurons as in paper (nochmal nachlesen warim 313)
@@ -128,9 +135,10 @@ https://machinelearningmastery.com/how-to-load-large-datasets-from-directories-f
 https://keras.io/preprocessing/image/#imagedatagenerator-class \citep{chollet2015keras}
 (preprocessing happens in generator)
 
-3.3 Layer
-
-3.4 Loss-Function
+3.3 Modelstructure
+- besser hier layer und loss-function
+- built the same layers aas Zhang et al, but no probability distribution\\
+-networkstructure and design\\
 - MSE loss should be costumized loss with weighting by occurance of the color values
 
 4. Visualization and discussion of your results.
