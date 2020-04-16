@@ -102,13 +102,15 @@ we want to built a network that can colorize images\\
 
 \section{Important background knowledge (including reference to most relevant publications)}
 - was ist colorization\\
+- people use photoshop to add color 
 - what is CNN for image colorization?\\
 In image classification, usually convolutional neural networks (CNNs) are used, which are inspired by the visual cortex of the brain. The idea is that highly specialized components or, in the case of CNNs, filters learn a very specific task, which is similar to the receptive fields of neurons in the visual cortex (QUELLE https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1359523/ ). These components can then be combined to high-level features, which can then in turn be combined to objects that can be used for classification. In CNNs this concept is implemented by several successive convolutional layers in which one or more filters are slid over the input generating so-called feature maps. Each unit in one feature map looks for the same feature but in different locations of the input. In recent years, CNNs became so good that they outperform humans in many classification tasks (QUELLE http://karpathy.github.io/2014/09/02/what-i-learned-from-competing-against-a-convnet-on-imagenet/ , QUELLE https://arxiv.org/abs/1409.0575 ). Although machine learning exhibits very promising results and a lot of research and literature is available on the topic, many branches of industry still rely on traditional computer vision techniques in their implementation of image classification.\\
 
 CNN apply trainable filtering kernels to extract features from an input image and project these features onto feature maps ~\citep{geron2019hands} ~\citep{bishop2006pattern} ~\citep{lecun1995convolutional}. Based on these maps, the label is predicted by a standard fully-connected layer.
 Though using a CNN on the raw data images seemed promising, the results were only slightly better than chance level for the training accuracy.\\
+
 - wie ist der status quo: -- related work\\
-- was sind die schwierigkeiten von den colorization sachen\\
+- was sind die schwierigkeiten von den colorization sache (sepia ding)\\
 - was hat Zhang gemacht - was hat er besser gemacht\\
 
 \begin{lstlisting}
