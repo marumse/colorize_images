@@ -5,6 +5,7 @@ import os
 import matplotlib.pyplot as plt
 import keras
 from keras import backend as K
+from keras.callbacks import ModelCheckpoint
 
 from keras.models import Sequential
 
@@ -25,7 +26,7 @@ def list_files(dir):
         for file in files[:5]:
             filepath = subdir + '/' + file
             r.append(filepath)
-            if len(r)==2000: # set lower for prediction 
+            if len(r)==2000: # set lower for prediction to reduce runtime
                 break
     return r
 
@@ -336,9 +337,9 @@ if __name__ == "__main__":
         # generate the data with the costumized generator
         train_gen = generate_data(batch_size, train_files)
         val_gen = generate_data(batch_size, val_files)
-
+        checkpoint = ModelCheckpoint("best_model.hdf5", monitor='loss', verbose=1, save_best_only=True, mode='auto', period=1)
         # fit model
-        history = model.fit_generator(train_gen, steps_per_epoch=200, epochs=6, validation_data=val_gen, validation_steps=1)
+        history = model.fit_generator(train_gen, steps_per_epoch=200, epochs=10, validation_data=val_gen, validation_steps=1, callbacks=[checkpoint])
 
         # save weights
         model.save_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/'+ name +'.h5')
