@@ -25,7 +25,7 @@ def list_files(dir):
         for file in files[:5]:
             filepath = subdir + '/' + file
             r.append(filepath)
-            if len(r)==5000: # set lower for prediction 
+            if len(r)==2000: # set lower for prediction 
                 break
     return r
 
@@ -226,8 +226,9 @@ def create_model():
     model.add(Conv2D(121, (1,1), strides = 1, dilation_rate = 1, activation = softMaxAxis2))
     
     # compile model
-    sgd = keras.optimizers.SGD(lr=0.001, momentum=0.9, nesterov=True, clipnorm=5.)
-    model.compile(optimizer=sgd, loss=keras.losses.categorical_crossentropy)
+    #sgd = keras.optimizers.SGD(lr=0.001, momentum=0.9, nesterov=True, clipnorm=5.)
+    adam = keras.optimizers.Adam(lr=learning_rate)
+    model.compile(optimizer=adam, loss=keras.losses.categorical_crossentropy)
 
     model.summary()
 
@@ -299,6 +300,8 @@ if __name__ == "__main__":
     batch_size = args[3]
     name = args[4]
     mode = args[5]
+    global learning_rate
+    learning_rate = args[6]
     test_batch = 5
     global pair_to_index
     global index_to_pair
@@ -318,7 +321,7 @@ if __name__ == "__main__":
         val_gen = generate_data(batch_size, val_files)
 
         # fit model
-        history = model.fit_generator(train_gen, steps_per_epoch=250, epochs=4, validation_data=val_gen, validation_steps=1)
+        history = model.fit_generator(train_gen, steps_per_epoch=200, epochs=6, validation_data=val_gen, validation_steps=1)
 
         # save weights
         model.save_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/'+ name +'.h5')
