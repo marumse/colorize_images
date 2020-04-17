@@ -101,31 +101,23 @@ Other project have trained convolutional neural networks (CNNs) on the color pre
 \section{Important background knowledge (including reference to most relevant publications)}
 Image colorization is for example made with photoshop. By colorizing old black and white pictures (\url{https://www.reddit.com/r/Colorization/}), images become more vivid and modern. The TV-series \emph{Greatest Events of WWII in Colour} (\url{https://www.imdb.com/title/tt9103932/}) used colorized footage in order to make the events more contemporary.\\
 Automating the colorization problem with deep learning seems to be achievable, as training data is easy to get.\\
-
 - wie ist der status quo: -- related work\\
-- aus zhang:
-automatic approaches solving the colorization problem mostly differ in acquisition and handling of the data in order to model the accurate correspondence \citep{Zhang.2016}.
-- prior algos differ in ways how obtain and treat data for modelin correspondence between grayscale and color
-- non-parametric methods: given input grayscale image - first define one or more color reference image (provided by user or automatically) as source data
-- image analogie framework, color is transferred onto input image from analog reference images
- (example-based colorization)
- am ende auch welsh für transfer
-- parametric methods: learn prediction functions from large dataset of color images at training time -> posing problem as regression (onto continous color space) or classification of quantized color values
+Automatic approaches solving the colorization problem mostly differ in acquisition and handling of the data in order to model the accurate correspondence \citep{Zhang.2016}. Non-parametric methods predict colors based on one or more reference images. These source data is provided by the user (e.g. Scribble-based colorization by \cite{Levin.2004}, example-based colorization e.g. by \cite{Welsh.2002}) or automatically. From the provided data, more precise from a analog reference image, the color is transfered to the target grayscale image. In these methods, the outcome depends heavily on the provided data \cite{Cheng_2015}.\\
+Parametric methods on the other hands, learn prediction functions from large datasets of color images. The problem can be posed as regression or classification of quantized color values \citep{Zhang.2016}.
 
-Scribble-based colorization Levin et al. [3] propose an
-- scribble-based colorization (e.g. Levin et al. \citep{Levin2004}): effective approach, requires user to provide colorful scribbles on greyscale target image - these scribbles are then propagated to rest of target image (through least-scare optimization).\\
-- there are some adaptions and improvements to this methods (e.g. Huang et al - edge detection, Yatziv et al. - colorize pixel using weighted combination...texture feature Qu et al) - in the end großer aufwand
-- Example-based colorization: transfer color information from reference image to target greyscale image (can be devided up into 1. colorization using user-supplied examples - user needs to provide suitable reference images (image analougies, find similar pixel in ref to image) Welsh et al. - colorization quality relies heavily on suitable images picked finding good ref is difficult
-2- colorization using web-supplied examples - Liu et al. used image data on internet - compute intrinsic image using a set of similar reference images - robust to illumination difference - requires the image to contain identical objects/scenes for precise per-pixel regristration)
-- last one can not colorize dynamic factors (e.g. persons or cars) - these factors are excluded for intrinsic image computation -limited to static scenes
-- learning based framework by Deshpande et al.: formulates problem as quadratic objective function. histogram correction - a suitable histogram is required in refinement step - low speed
-- Cheng: fully automatic using deep neural network, involvong large set of reference images from different scenes with objects (This paper formulates image colorization as a regression problem and deep neural networks
-are used to solve the problem.)
-- The state-of-theart colorization methods normally require matching between the target and reference images and thus are slow.
-It has recently been demonstrated that high-level understanding of an image is of great use for low-level vision
-problems (e.g. image enhancement [18], edge detection [19]).
-Because image colorization is typically semantic-aware, we
-propose a new semantic feature descriptor to incorporate the semantic-awareness into our colorization model.
+
+%- parametric methods: learn prediction functions from large dataset of color images at training time -> posing problem as regression (onto continous color space) or classification of quantized color values
+
+%Scribble-based colorization Levin et al. [3] propose an
+%- scribble-based colorization (e.g. Levin et al. \citep{Levin2004}): effective approach, requires user to provide colorful scribbles on greyscale target image - these scribbles are then propagated to rest of target image (through least-scare optimization).\\
+%- there are some adaptions and improvements to this methods (e.g. Huang et al - edge detection, Yatziv et al. - colorize pixel using weighted combination...texture feature Qu et al) - in the end großer aufwand
+%- Example-based colorization: transfer color information from reference image to target greyscale image (can be devided up into 1. colorization using user-supplied examples - user needs to provide suitable reference images (image analougies, find similar pixel in ref to image) Welsh et al. - colorization quality relies heavily on suitable images picked finding good ref is difficult
+%2- colorization using web-supplied examples - Liu et al. used image data on internet - compute intrinsic image using a set of similar reference images - robust to illumination difference - requires the image to contain identical objects/scenes for precise per-pixel regristration)
+%- last one can not colorize dynamic factors (e.g. persons or cars) - these factors are excluded for intrinsic image computation -limited to static scenes
+%- learning based framework by Deshpande et al.: formulates problem as quadratic objective function. histogram correction - a suitable histogram is required in refinement step - low speed
+%- Cheng: fully automatic using deep neural network, involvong large set of reference images from different scenes with objects (This paper formulates image colorization as a regression problem and deep neural networks are used to solve the problem.)
+%- The state-of-theart colorization methods normally require matching between the target and reference images and thus are slow.
+%It has recently been demonstrated that high-level understanding of an image is of great use for low-level visionproblems (e.g. image enhancement [18], edge detection [19]). Because image colorization is typically semantic-aware, we propose a new semantic feature descriptor to incorporate the semantic-awareness into our colorization model.
 
 - what is CNN for image colorization?\\
 In image classification mostly convolutional neural networks (CNNs) are used. They are inspired by the visual cortex of the brain. The idea is that highly specialized components learn a very specific task, which is similar to the receptive fields of neurons in the visual cortex \citep{Hubel1962}. These components can be combined to high-level features, which again can be merged to classes. In CNNs this concept is implemented by several successive convolutional layers: a weight kernel moves over the two-dimensional input image. For each pixel, the kernel also \enquote{scans} the neighboring pixel. After all being multiplied by the weights and summed they form the new pixelvalue. Different kernels can generate different so-called feature maps. One feature map targets the same feature (e.g. edges) in different imagesections. In this manner, CNN can store spatial information about pixel and features. In a subsequent pooling layer dimensions are reduces by summarizing over the imagesection (e.g. max pooling takes the highest value of a certain imagesection - that can be 1x1 pixel). This facilitates the computation and drops unnecessary information \citep{Lecture.2019}. In recent years, CNNs improved such that they outperform humans in many classification tasks \citep{Russakovsky.2014}.\\
