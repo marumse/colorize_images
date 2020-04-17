@@ -105,6 +105,24 @@ This involves first creating a dataset based on pictures that are converted into
 - was sind die schwierigkeiten von den colorization sache (sepia ding)\\
 - was hat Zhang gemacht - was hat er besser gemacht\\
 
+
+
+hang and colleagues propose a fully automatic approach to colorize grayscale images. They choose
+to solve this task with a feed-forward CNN as a classification task with a classification loss and class-rebalancing at training time in order to increase the
+diversity of the colours in the finals result. This is implemented as a feed-forward pass in a CNN at test-time and trained over a million color images. Concerning the
+CNN architecture, they use a single-stream, VGG-styled network with added depth and dilated convolutions. The network consists of eight convolution blocks, of which each consists
+of two or three repeated convolutions and ReLU layers, followed by a BatchNorm layer. The network has no pooling layers. Changes in resolution are achieved only by spatial up- and
+downsampling between the convolutional blocks. The network is trained on ImageNet.
+The mapping, which Zhang and colleagues aim to learn, results out of the previously mentioned information of the Lab colourspace: The input is the L lightness channel, the target channels
+are the a and b color channels. First, Zhang and colleagues used the Euclidean loss. As the Euclidean loss favours the mean, this leads to overall grayish colors.
+Therefore, Zhang and colleagues choise to treat the problem as multinomial classification task. The ab output space is therefore divided into bins of grid size 10, and the 313 color values in-gamut
+span the 313 possible color combinations. Following, for each input, a mapping to a probability distribution over all 313 possible colors is learned.  Further, the ground truth color
+is converted to a vector, using a soft-encoding scheme and a multinomial cross entropy loss, which is responsible for the class-rebalancing. Thereafter, they map the probability
+distribution to the color values. The class-rebalancing operates pixel-wise. The loss of each pixel is re-weighted at training time, based on how often the color occurs. Moreover, the network
+used the ADAM optimization algorithm. Zhang and colleagues compared their approach to different intermediate steps.
+
+
+
 - We started looking at this paper:
 https://arxiv.org/abs/1603.08511 \citep{Zhang.2016}
 - at their best solution
