@@ -102,21 +102,15 @@ Other project have trained convolutional neural networks (CNNs) on the color pre
 Image colorization is for example made with photoshop. By colorizing old black and white pictures (\url{https://www.reddit.com/r/Colorization/}), images become more vivid and modern. The TV-series \emph{Greatest Events of WWII in Colour} (\url{https://www.imdb.com/title/tt9103932/}) used colorized footage in order to make the events more contemporary.\\
 Automating the colorization problem with deep learning seems to be achievable, as training data is easy to get.\\
 
-
 - wie ist der status quo: -- related work\\
-
-- aus zhang: Prior work on colorization Colorization algorithms mostly differ in the
-ways they obtain and treat the data for modeling the correspondence between
-grayscale and color. Non-parametric methods, given an input grayscale image,
-first define one or more color reference images (provided by a user or retrieved
-automatically) to be used as source data. Then, following the Image Analogies
-framework [17], color is transferred onto the input image from analogous regions
-of the reference image(s) [18,19,20,21]. Parametric methods, on the other hand,
-learn prediction functions from large datasets of color images at training time,
-posing the problem as either regression onto continuous color space [22,1,2] or
-classification of quantized color values [3]. Our method also learns to classify
-colors, but does so with a larger model, trained on more data, and with several
-innovations in the loss function and mapping to a final continuous output.
+- aus zhang:
+automatic approaches solving the colorization problem mostly differ in acquisition and handling of the data in order to model the accurate correspondence \citep{Zhang.2016}.
+- prior algos differ in ways how obtain and treat data for modelin correspondence between grayscale and color
+- non-parametric methods: given input grayscale image - first define one or more color reference image (provided by user or automatically) as source data
+- image analogie framework, color is transferred onto input image from analog reference images
+ (example-based colorization)
+ am ende auch welsh für transfer
+- parametric methods: learn prediction functions from large dataset of color images at training time -> posing problem as regression (onto continous color space) or classification of quantized color values
 
 Scribble-based colorization Levin et al. [3] propose an
 - scribble-based colorization (e.g. Levin et al. \citep{Levin2004}): effective approach, requires user to provide colorful scribbles on greyscale target image - these scribbles are then propagated to rest of target image (through least-scare optimization).\\
@@ -182,9 +176,6 @@ As previously mentioned we re-implemented the main ideas from the paper by Zhang
 To train our model we used images from the ImageNet2012 challenge, which were also used in the paper by Zhang et al. and which were available to us through the university server. As we were working with a large amount of data in each batch, it would have been impossible to load the whole dataset at once, hence we used a data generator to load the input and target images successively for each batch. Although there are inbuilt data generators available from keras that allow for some means of data augmentation, we built our costum generator to ensure the functionality we were aiming at. The generator takes the batch size and a list which contains the paths to the images that should be used. Besides the functionalities that one would expect, like shuffling after the whole training set has been seen, the generator further creates the input and target arrays as described in the following.
 First, the images are loaded and resized to a uniform shape of (224, 224, 3), which corresponds to the height, the width and the number of the color channels, respectively. Then the images are transformed from BGR to LAB color space. The luminance layer (L layer) which displays most of the structure, is separated from the other two and used as the input for our model.  The remaining two layers (ab layers) encode the color information of the images and are used as the target of the model in the first approach. In the second approach, these first steps remain the same, but additionally the target arrays are transformed to match a classification task.\\
 This is done in three main steps. The first step is to discretize the continuous color space and reduce the number of possible colors by quantizing the a and b color ranges into 11 bins. This yields a total of 121 possible colors by combining the a and b layers. In the second step, the a and b layers are combined into a single layer, which keeps the same height and width dimensions as before. This means the color information of each pixel is now encoded in a single number rather than two. Cantor pairing is used to generate a unique and deterministic number from the two a and b values of each pixel. As cantor pairing is reversible, one can easily translate the pairing result back to the original color values with no loss of information. Now that there is a single value for each pixel that encodes its color, the third and last step is to translate this value into a one-hot encoding. With the help of a dictionary, the cantor values are translated to the numbers from 0 to 120. These numbers then serve as the index in the one hot encoding. Hence, color values that were previously represented in two values (a and b color channels) are now encoded by the index within the one-hot encoding. The target array has a shape of (224, 224, 121) and at each pixel position lies a one hot vector.\\
-
-
-
 - loading large amount of data\\
 \url{https://machinelearningmastery.com/how-to-load-large-datasets-from-directories-for-deep-learning-with-keras/}\\
 das ist \citep{Brownlee.2019}
@@ -211,7 +202,6 @@ In the first approach, a stochastic gradient descent optimizer (SGD optimizer) w
 - we tried what loss function?\\
 \section{Visualization and discussion of your results.}
 oder lieber bilder als screenshot einfügen?\\
-%\includegraphics{bsp.png}
 \subsection{Training}
 The models were trained on the grid of the institute of cognitive science at Osnabrueck University. A helper script was written that distributed several grid jobs on different computers in order to experiment with the hyperparameters such as the learning rate and the batch size. Through this script, one can easily change these parameters as well as select the data set and the environment and switch between the training mode and the prediction mode. The models were trained with 2000 images and batch sizes of 10 or 20 images. The learning rate varied from 0.1 to 0.001.
 
@@ -222,7 +212,8 @@ For the second approach, three decoding steps are necessary before yielding huma
 
 \subsection{Conclusion and Future Work}
 - vergleich ziehen zu Zhang\\
-
+\newpage
+\thispagestyle{empty}
 \section{Literature}
 \label{Lit}
 \bibliographystyle{apa}
