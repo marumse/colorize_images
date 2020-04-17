@@ -23,10 +23,10 @@ def list_files(dir):
     """
     r = []
     for subdir, dirs, files in os.walk(dir):
-        for file in files[:5]:
+        for file in files[:10]:
             filepath = subdir + '/' + file
             r.append(filepath)
-            if len(r)==2000: # set lower for prediction to reduce runtime
+            if len(r)==20: # set lower for prediction to reduce runtime
                 break
     return r
 
@@ -320,7 +320,7 @@ if __name__ == "__main__":
     mode = args[5]
     global learning_rate
     learning_rate = args[6]
-    test_batch = 5
+    test_batch = 10
     global pair_to_index
     global index_to_pair
     # create dictionary for cantor values and one-hot-indices
@@ -342,7 +342,7 @@ if __name__ == "__main__":
         history = model.fit_generator(train_gen, steps_per_epoch=200, epochs=10, validation_data=val_gen, validation_steps=1, callbacks=[checkpoint])
 
         # save weights
-        model.save_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/'+ name +'.h5')
+        model.save_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/'+ str(name) +'.h5')
 
         # plot and save the accuracy and loss values
         plot_history(history, name)
@@ -355,6 +355,6 @@ if __name__ == "__main__":
         # create and compile the model
         model = create_model()
         # load the weights with which the predictions should be done
-        model.load_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/'+ name +'.h5')        
+        model.load_weights('/home/student/s/sschulzewedd/best_model.hdf5')        
         # make a prediction and save the image
         make_prediction(test_batch, test_files, name)
