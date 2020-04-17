@@ -1,14 +1,14 @@
 \select@language {english}
 \contentsline {section}{\numberline {1}Introduction/Motivation}{3}{section.1}
 \contentsline {section}{\numberline {2}Important background knowledge (including reference to most relevant publications)}{3}{section.2}
-\contentsline {section}{\numberline {3}The model and the experiment (MAIN PART). This part should feature code.}{5}{section.3}
-\contentsline {subsection}{\numberline {3.1}The Data}{5}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}The Model}{7}{subsection.3.2}
-\contentsline {subsection}{\numberline {3.3}Modelstructure}{7}{subsection.3.3}
-\contentsline {subsection}{\numberline {3.4}Layer}{7}{subsection.3.4}
-\contentsline {subsection}{\numberline {3.5}Loss-Function}{8}{subsection.3.5}
-\contentsline {section}{\numberline {4}Visualization and discussion of your results.}{8}{section.4}
-\contentsline {subsection}{\numberline {4.1}Training}{8}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}Testing}{8}{subsection.4.2}
-\contentsline {subsection}{\numberline {4.3}Conclusion and Future Work}{9}{subsection.4.3}
-\contentsline {section}{\numberline {5}Literature}{9}{section.5}
+\contentsline {section}{\numberline {3}The model and the experiment (MAIN PART). This part should feature code.}{6}{section.3}
+\contentsline {subsection}{\numberline {3.1}The Data}{7}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}The Model}{8}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Modelstructure}{8}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}Layer}{8}{subsection.3.4}
+\contentsline {subsection}{\numberline {3.5}Loss-Function}{9}{subsection.3.5}
+\contentsline {section}{\numberline {4}Visualization and discussion of your results.}{9}{section.4}
+\contentsline {subsection}{\numberline {4.1}Training}{9}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Testing}{9}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Conclusion and Future Work}{10}{subsection.4.3}
+\contentsline {section}{\numberline {5}Literature}{10}{section.5}

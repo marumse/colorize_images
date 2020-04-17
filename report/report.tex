@@ -102,14 +102,51 @@ Other project have trained convolutional neural networks (CNNs) on the color pre
 Image colorization is for example made with photoshop. By colorizing old black and white pictures (\url{https://www.reddit.com/r/Colorization/}), images become more vivid and modern. The TV-series \emph{Greatest Events of WWII in Colour} (\url{https://www.imdb.com/title/tt9103932/}) used colorized footage in order to make the events more contemporary.\\
 Automating the colorization problem with deep learning seems to be achievable, as training data is easy to get.\\
 
-- what is CNN for image colorization?\\
-
-In image classification, usually convolutional neural networks (CNNs) are used, which are inspired by the visual cortex of the brain. The idea is that highly specialized components or, in the case of CNNs, filters learn a very specific task, which is similar to the receptive fields of neurons in the visual cortex (QUELLE https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1359523/ ). These components can then be combined to high-level features, which can then in turn be combined to objects that can be used for classification. In CNNs this concept is implemented by several successive convolutional layers in which one or more filters are slid over the input generating so-called feature maps. Each unit in one feature map looks for the same feature but in different locations of the input. In recent years, CNNs became so good that they outperform humans in many classification tasks (QUELLE http://karpathy.github.io/2014/09/02/what-i-learned-from-competing-against-a-convnet-on-imagenet/ , QUELLE https://arxiv.org/abs/1409.0575 ). Although machine learning exhibits very promising results and a lot of research and literature is available on the topic, many branches of industry still rely on traditional computer vision techniques in their implementation of image classification.\\
-
-CNN apply trainable filtering kernels to extract features from an input image and project these features onto feature maps ~\citep{geron2019hands} ~\citep{bishop2006pattern} ~\citep{lecun1995convolutional}. Based on these maps, the label is predicted by a standard fully-connected layer.
-Though using a CNN on the raw data images seemed promising, the results were only slightly better than chance level for the training accuracy.\\
 
 - wie ist der status quo: -- related work\\
+
+- aus zhang: Prior work on colorization Colorization algorithms mostly differ in the
+ways they obtain and treat the data for modeling the correspondence between
+grayscale and color. Non-parametric methods, given an input grayscale image,
+first define one or more color reference images (provided by a user or retrieved
+automatically) to be used as source data. Then, following the Image Analogies
+framework [17], color is transferred onto the input image from analogous regions
+of the reference image(s) [18,19,20,21]. Parametric methods, on the other hand,
+learn prediction functions from large datasets of color images at training time,
+posing the problem as either regression onto continuous color space [22,1,2] or
+classification of quantized color values [3]. Our method also learns to classify
+colors, but does so with a larger model, trained on more data, and with several
+innovations in the loss function and mapping to a final continuous output.
+
+Scribble-based colorization Levin et al. [3] propose an
+- scribble-based colorization (e.g. Levin et al. \citep{Levin2004}): effective approach, requires user to provide colorful scribbles on greyscale target image - these scribbles are then propagated to rest of target image (through least-scare optimization).\\
+- there are some adaptions and improvements to this methods (e.g. Huang et al - edge detection, Yatziv et al. - colorize pixel using weighted combination...texture feature Qu et al) - in the end großer aufwand
+- Example-based colorization: transfer color information from reference image to target greyscale image (can be devided up into 1. colorization using user-supplied examples - user needs to provide suitable reference images (image analougies, find similar pixel in ref to image) Welsh et al. - colorization quality relies heavily on suitable images picked finding good ref is difficult
+2- colorization using web-supplied examples - Liu et al. used image data on internet - compute intrinsic image using a set of similar reference images - robust to illumination difference - requires the image to contain identical objects/scenes for precise per-pixel regristration)
+- last one can not colorize dynamic factors (e.g. persons or cars) - these factors are excluded for intrinsic image computation -limited to static scenes
+- learning based framework by Deshpande et al.: formulates problem as quadratic objective function. histogram correction - a suitable histogram is required in refinement step - low speed
+- Cheng: fully automatic using deep neural network, involvong large set of reference images from different scenes with objects (This paper formulates image colorization as a regression problem and deep neural networks
+are used to solve the problem.)
+- The state-of-theart colorization methods normally require matching between the target and reference images and thus are slow.
+It has recently been demonstrated that high-level understanding of an image is of great use for low-level vision
+problems (e.g. image enhancement [18], edge detection [19]).
+Because image colorization is typically semantic-aware, we
+propose a new semantic feature descriptor to incorporate the semantic-awareness into our colorization model.
+
+- what is CNN for image colorization?\\
+In image classification mostly convolutional neural networks (CNNs) are used. They are inspired by the visual cortex of the brain. The idea is that highly specialized components learn a very specific task, which is similar to the receptive fields of neurons in the visual cortex \citep{Hubel1962}. These components can be combined to high-level features, which again can be merged to classes. In CNNs this concept is implemented by several successive convolutional layers: a weight kernel moves over the two-dimensional input image. For each pixel, the kernel also \enquote{scans} the neighboring pixel. After all being multiplied by the weights and summed they form the new pixelvalue. Different kernels can generate different so-called feature maps. One feature map targets the same feature (e.g. edges) in different imagesections. In this manner, CNN can store spatial information about pixel and features. In a subsequent pooling layer dimensions are reduces by summarizing over the imagesection (e.g. max pooling takes the highest value of a certain imagesection - that can be 1x1 pixel). This facilitates the computation and drops unnecessary information \citep{Lecture.2019}. In recent years, CNNs improved such that they outperform humans in many classification tasks \citep{Russakovsky.2014}.\\
+- in our case we dont need the spatial information that much, but we benefit from the 2D input? or warum?
+
+%lukes:\\
+%feed-foward neural networks: supervised learning method: input vector, applay number of non-linear functions to it depends on number of neurons, output a classification or refression of the input.\\
+%- output random at beginning, improves over time through backpropagation
+%- algorithm fonds a rate of change for each weight in order to reduce the cost of the network
+%- gradient descent alters each neurons weight anteil von dem change amount
+%- am ende: all neuron push the output into a intendet direction (hopefully the label)
+%- local minimum is reached over time - this minimum can solve the problem (braun, 2017)\\
+%- feed forward networks have no spatial knowledge
+%-> can not handle image data as good, as they only take vectors -> therefore looses spatial component of pixel
+
 - was sind die schwierigkeiten von den colorization sache (sepia ding)\\
 - was hat Zhang gemacht - was hat er besser gemacht\\
 Zhang and colleagues (2016) propose a fully automatic approach to colorize grayscale images. They choose

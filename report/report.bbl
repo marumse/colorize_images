@@ -17,11 +17,32 @@ Dahl, R. (2016).
 \newblock Automatic colorization.
 \newblock \url{https://tinyclouds.org/colorize/}.
 
+\bibitem[\protect\astroncite{Effenberg}{2019}]{Lecture.2019}
+Effenberg, L. (2019).
+\newblock Implementing anns with tensorflow.
+
+\bibitem[\protect\astroncite{Hubel and Wiesel}{1962}]{Hubel1962}
+Hubel, D.~H. and Wiesel, T.~N. (1962).
+\newblock Receptive fields, binocular interaction and functional architecture
+  in the cat{\textquotesingle}s visual cortex.
+\newblock {\em The Journal of Physiology}, 160(1):106--154.
+
 \bibitem[\protect\astroncite{Jia et~al.}{2014}]{jia2014caffe}
 Jia, Y., Shelhamer, E., Donahue, J., Karayev, S., Long, J., Girshick, R.,
   Guadarrama, S., and Darrell, T. (2014).
 \newblock Caffe: Convolutional architecture for fast feature embedding.
 \newblock {\em arXiv preprint arXiv:1408.5093}.
+
+\bibitem[\protect\astroncite{Levin et~al.}{2004}]{Levin2004}
+Levin, A., Lischinski, D., and Weiss, Y. (2004).
+\newblock Colorization using optimization.
+\newblock {\em {ACM} Transactions on Graphics}, 23(3):689.
+
+\bibitem[\protect\astroncite{Russakovsky et~al.}{2014}]{Russakovsky.2014}
+Russakovsky, O., Deng, J., Su, H., Krause, J., Satheesh, S., Ma, S., Huang, Z.,
+  Karpathy, A., Khosla, A., Bernstein, M.~S., Berg, A.~C., and Li, F. (2014).
+\newblock Imagenet large scale visual recognition challenge.
+\newblock {\em CoRR}, abs/1409.0575.
 
 \bibitem[\protect\astroncite{Zhang et~al.}{2016}]{Zhang.2016}
 Zhang, R., Isola, P., and Efros, A.~A. (2016).
