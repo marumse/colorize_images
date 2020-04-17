@@ -268,7 +268,7 @@ def make_prediction(test_batch, test_files, name):
         original = np.concatenate((test_in[i], orig_out), axis=2)
         # save the image in BGR color space in order to display it straight away
         original_BGR = cv2.cvtColor(original, cv2.COLOR_LAB2BGR)
-        cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predictions/orig_'+ str(i) + name +'.png', original_BGR)
+        cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predictions/orig_'+ str(i) + str(name) +'.png', original_BGR)
         # again the ab layers have to be reconstructed from the one-hot-encoded cantor values
         pred_out = decode_one_hot(prediction[i])
         pred_out = reverse_cantor(pred_out)
@@ -276,7 +276,7 @@ def make_prediction(test_batch, test_files, name):
         # same for the predicted image
         # for some reason this yields a black BGR image - save the LAB image, load it again and then transform it to BGR works fine
         predicted_BGR = cv2.cvtColor(predicted, cv2.COLOR_LAB2BGR)
-        cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predictions/pred_' + str(i) + name +'.png', predicted)
+        cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predictions/pred_' + str(i) + str(name) +'.png', predicted)
         #cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predictions/pred_1_BGR.png', predicted_BGR)
 
 def plot_history(history, name):
@@ -296,14 +296,14 @@ def plot_history(history, name):
     plt.xticks(np.arange(0, 3 + 1, 5))
     plt.grid()
     plt.show()
-    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/'+ name +'.png')
+    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/'+ str(name) +'.png')
 
 def save_history(history, name):
     #convert the history.history dict to a pandas DataFrame   
     hist_df = pd.DataFrame(history.history) 
 
     # and save to csv
-    hist_csv_file = name +'.csv'
+    hist_csv_file = str(name) +'.csv'
     with open(hist_csv_file, mode='w') as f:
         hist_df.to_csv(f)
 
