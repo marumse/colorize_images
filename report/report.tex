@@ -103,6 +103,7 @@ Image colorization is for example made with photoshop. By colorizing old black a
 Automating the colorization problem with deep learning seems to be achievable, as training data is easy to get.\\
 
 - what is CNN for image colorization?\\
+
 In image classification, usually convolutional neural networks (CNNs) are used, which are inspired by the visual cortex of the brain. The idea is that highly specialized components or, in the case of CNNs, filters learn a very specific task, which is similar to the receptive fields of neurons in the visual cortex (QUELLE https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1359523/ ). These components can then be combined to high-level features, which can then in turn be combined to objects that can be used for classification. In CNNs this concept is implemented by several successive convolutional layers in which one or more filters are slid over the input generating so-called feature maps. Each unit in one feature map looks for the same feature but in different locations of the input. In recent years, CNNs became so good that they outperform humans in many classification tasks (QUELLE http://karpathy.github.io/2014/09/02/what-i-learned-from-competing-against-a-convnet-on-imagenet/ , QUELLE https://arxiv.org/abs/1409.0575 ). Although machine learning exhibits very promising results and a lot of research and literature is available on the topic, many branches of industry still rely on traditional computer vision techniques in their implementation of image classification.\\
 
 CNN apply trainable filtering kernels to extract features from an input image and project these features onto feature maps ~\citep{geron2019hands} ~\citep{bishop2006pattern} ~\citep{lecun1995convolutional}. Based on these maps, the label is predicted by a standard fully-connected layer.
@@ -111,32 +112,27 @@ Though using a CNN on the raw data images seemed promising, the results were onl
 - wie ist der status quo: -- related work\\
 - was sind die schwierigkeiten von den colorization sache (sepia ding)\\
 - was hat Zhang gemacht - was hat er besser gemacht\\
-
-\begin{lstlisting}
-#packages needed
-import numpy as np 
-import tensorflow as tf 
-import cv2
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Activation, BatchNormalization
-	for loop
-'ich bin ein string'
-if
-return
-MyClass,__init__
-\end{lstlisting}
-
-%\section{``In-text'' listing highlighting}
-
-- We started looking at this paper: \\
-\url{https://arxiv.org/abs/1603.08511} , \\
-- at their best solution
+Zhang and colleagues (2016) propose a fully automatic approach to colorize grayscale images. They choose
+to solve this task with a feed-forward CNN as a classification task with a classification loss and class-rebalancing at training time in order to increase the
+diversity of the colours in the finals result. This is implemented as a feed-forward pass in a CNN at test-time and trained over a million color images. Concerning the
+CNN architecture, they use a single-stream, VGG-styled network with added depth and dilated convolutions. The network consists of eight convolution blocks, of which each consists
+of two or three repeated convolutions and ReLU layers, followed by a BatchNorm layer. The network has no pooling layers. Changes in resolution are achieved only by spatial up- and
+downsampling between the convolutional blocks. The network is trained on ImageNet.\\
+The mapping, which Zhang and colleagues aim to learn, results out of the previously mentioned information of the Lab colourspace: The input is the L lightness channel, the target channels
+are the a and b color channels. First, Zhang and colleagues used the Euclidean loss. As the Euclidean loss favors the mean, this leads to overall grayish colors.
+Therefore, Zhang and colleagues choise to treat the problem as multinomial classification task. The ab output space is therefore divided into bins of grid size 10, and the 313 color values in-gamut
+span the 313 possible color combinations. Following, for each input, a mapping to a probability distribution over all 313 possible colors is learned.  Further, the ground truth color
+is converted to a vector, using a soft-encoding scheme and a multinomial cross entropy loss, which is responsible for the class-rebalancing. Thereafter, they map the probability
+distribution to the color values. The class-rebalancing operates pixel-wise. The loss of each pixel is re-weighted at training time, based on how often the color occurs. Moreover, the network
+used the ADAM optimization algorithm. Zhang and colleagues compared their approach to different intermediate steps.
 \section{The model and the experiment (MAIN PART). This part should feature code.}
-As previously mentioned we re-implemented the main ideas from the paper by Zhang et al. This was done with two approaches, which are going to be explained in more detail in this chapter. In both approaches the ImageNet2012 dataset was used. Firstly, we implemented the model structure as described in the paper (see figure 1) and trained the model with the color layers of the input images as the target. Secondly, we translated the colorization task to a classification problem and trained the same model structure with the altered problem representation.\\
-- hier nur erklären was wir machen\\
-- Image colorization in general\\
-- the model of the original paper\\
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=1.0\textwidth]{bsp.png}
+	\caption{Hier kann man dann auch noch etwas dazu schreiben}
+	\label{bsp}
+\end{figure}
+As previously mentioned we re-implemented the main ideas from the paper by Zhang et al. This was done with two approaches, which are going to be explained in more detail in this chapter. In both approaches the ImageNet2012 dataset was used. Firstly, we implemented the model structure as described in the paper (see figure 1) and trained the model with the color layers of the input images as the target. Secondly, we translated the colorization task to a classification problem and trained the same model structure with the altered problem representation.
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=1.0\textwidth]{layer.png}
@@ -178,17 +174,14 @@ In the first approach, a stochastic gradient descent optimizer (SGD optimizer) w
 - we tried what loss function?\\
 \section{Visualization and discussion of your results.}
 oder lieber bilder als screenshot einfügen?\\
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=1.0\textwidth]{bsp.png}
-	\caption{Hier kann man dann auch noch etwas dazu schreiben}
-	\label{bsp}
-\end{figure}
 %\includegraphics{bsp.png}
 \subsection{Training}
 The models were trained on the grid of the institute of cognitive science at Osnabrueck University. A helper script was written that distributed several grid jobs on different computers in order to experiment with the hyperparameters such as the learning rate and the batch size. Through this script, one can easily change these parameters as well as select the data set and the environment and switch between the training mode and the prediction mode. The models were trained with 2000 images and batch sizes of 10 or 20 images. The learning rate varied from 0.1 to 0.001.
 
 \subsection{Testing}
+To evaluate the goodness of our two approaches, colors for unseen test images are predicted and evaluated via visual inspection. When the script is started in prediction mode, the model is not trained, but the weights from the corresponding training process are loaded. The model then predicts the most plausible colors for the L layers of the input images.
+In the first approach, the model's output can be interpreted as the ab layers. That means the output can be combined with the input (L layer) and displayed as an image straight away.
+For the second approach, three decoding steps are necessary before yielding human-readable images. Firstly, the output of the softmax layer is decoded to find the index of the most likely color value. Secondly, this index is translated to the cantor pairing value it represents with the help of a dictionary. And thirdly, the cantor pairing value is transformed back to the a and b values it is constituted of. These a and b layers can finally be combined with the L layer to display the predicted image in LAB color space.
 
 \subsection{Conclusion and Future Work}
 - vergleich ziehen zu Zhang\\
