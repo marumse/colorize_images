@@ -1,5 +1,4 @@
 import numpy as np
-import pandas as pd
 import cv2
 import os
 import matplotlib.pyplot as plt
@@ -13,6 +12,27 @@ from keras.layers import Conv2D, Conv2DTranspose, Activation, BatchNormalization
 from grid import*
 from submit_model import*
 
+def kmeans_color_quantization(image, clusters=10, rounds=1):
+    h, w = image.shape[:2]
+    samples = np.zeros([h*w,3], dtype=np.float32)
+    count = 0
+
+    for x in range(h):
+        for y in range(w):
+            samples[count] = image[x][y]
+            count += 1
+
+    compactness, labels, centers = cv2.kmeans(samples,
+            clusters, 
+            None,
+            (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 10000, 0.0001), 
+            rounds, 
+            cv2.KMEANS_RANDOM_CENTERS)
+
+    centers = np.uint8(centers)
+    res = centers[labels.flatten()]
+    return res.reshape((image.shape))
+
 def list_files(dir):
     """List all files in a given directory including all subdirectories.
     Args:       path to a directory
@@ -20,10 +40,10 @@ def list_files(dir):
     """
     r = []
     for subdir, dirs, files in os.walk(dir):
-        for file in files[:5]:
+        for file in files[:10]:      # set higher for prediction
             filepath = subdir + '/' + file
             r.append(filepath)
-            if len(r)==5000: #set to 7 for prediction only!
+            if len(r)==10000:           #set to smaller for prediction only!
                 break
     return r
 
@@ -47,9 +67,13 @@ def generate_data(batch_size, file_list):
             sample = file_list[i]
             i += 1
             image = cv2.resize(cv2.imread(sample), (224,224))
+            # cluster the pixels into 10 colors 
+            image = kmeans_color_quantization(image, clusters=10)
+            # comvert image to LAB space
             image = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
             # split the image into the L layer for the input and ab layers for the target 
-            L = image[:,:,0][:,:,np.newaxis]
+            L = image[:,:,0]
+            L = L[:,:,np.newaxis]
             ab = image[:,:,1:]
             # append both to the corresponding lists
             image_batch.append(L)
@@ -73,11 +97,15 @@ def generate_test_data(test_batch, file_list):
         i += 1
         # read in the image and convert it to LAB color space
         image = cv2.resize(cv2.imread(sample), (224,224))
+        # cluster the pixels into 10 colors 
+        image = kmeans_color_quantization(image, clusters=10)
         image = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
         # the first layer of the image will be the input
-        L = image[:,:,0][:,:,np.newaxis]
+        L = image[:,:,0]
+        L = L[:,:,np.newaxis]
         # the last two layers will be the output or target
         ab = image[:,:,1:]
+        # to reduce the number of colors in the image I divide by X
         # append both to the corresponding lists
         image_batch.append(L)
         label_batch.append(ab)
@@ -178,12 +206,12 @@ def make_prediction(test_batch, test_files):
         original = np.concatenate((test_in[i], test_out[i]), axis=2)
         # save the image in BGR color space in order to display it straight away
         original_BGR = cv2.cvtColor(original, cv2.COLOR_LAB2BGR)
-        cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predictions/orig_'+ str(i) +'_BGR1.png', original_BGR)
+        cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predictions/orig_'+ str(i) +'_cb1.png', original_BGR)
         predicted = np.concatenate((test_in[i], prediction[i]), axis=2)
         # same for the predicted image
         # for some reason this yields a black BGR image - save the LAB image, load it again and then transform it to BGR works fine
         predicted_BGR = cv2.cvtColor(predicted, cv2.COLOR_LAB2BGR)
-        cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predictions/pred_' + str(i) +'_LAB1.png', predicted)
+        cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predictions/pred_' + str(i) +'_cb1.png', predicted)
         #cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predictions/pred_1_BGR.png', predicted_BGR)
 
 def plot_history(history):
@@ -203,14 +231,14 @@ def plot_history(history):
     plt.xticks(np.arange(0, 3 + 1, 5))
     plt.grid()
     plt.show()
-    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/all_colors.png')
+    plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/color_buckets_acc.png')
 
 def save_history(history):
     #convert the history.history dict to a pandas DataFrame   
     hist_df = pd.DataFrame(history.history) 
 
     # and save to csv
-    hist_csv_file = 'all_colors.csv'
+    hist_csv_file = 'color_buckets.csv'
     with open(hist_csv_file, mode='w') as f:
         hist_df.to_csv(f)
 
@@ -226,29 +254,29 @@ if __name__ == "__main__":
     test_batch = 5
 
     # collect all file paths to the train, validation and test images
-    train_files = list_files(path_to_train)
-    val_files = list_files(path_to_val)
-    #test_files = list_files(path_to_test)
-
+    #train_files = list_files(path_to_train)
+    #val_files = list_files(path_to_val)
+    test_files = list_files(path_to_test)
+    
     # create the model
     model = create_model()
-    #model.load_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/small_batch_few_epochs.h5')
+    model.load_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/color_buckets.h5')
     
     # generate the data with the costumized generator
-    train_gen = generate_data(batch_size, train_files)
-    val_gen = generate_data(batch_size, val_files)
+    #train_gen = generate_data(batch_size, train_files)
+    #val_gen = generate_data(batch_size, val_files)
 
     # fit model
-    history = model.fit_generator(train_gen, steps_per_epoch=250, epochs=4, validation_data=val_gen, validation_steps=1)
+    #history = model.fit_generator(train_gen, steps_per_epoch=100, epochs=20, validation_data=val_gen, validation_steps=1)
     #print(history.history)
 
     # save weights
-    model.save_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/all_colors.h5')
+    #model.save_weights('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/code/color_buckets.h5')
     
     # make a prediction and save the image
-    #make_prediction(test_batch, test_files)
+    make_prediction(test_batch, test_files)
 
     # plot and save the accuracy and loss values
-    plot_history(history)
+    #plot_history(history)
     # save history too
-    save_history(history)
+    #save_history(history)
