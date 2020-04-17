@@ -7,7 +7,7 @@ if __name__ == '__main__':
     path_to_test = '/net/projects/data/ImageNet/ILSVRC2012/test'
     batch_size = 10
     #name = 'relu' # the name under which all the files/images should be saved
-    mode = 'train' # 'predict' # choose between train and predict
+    mode = 'predict' # 'predict' # choose between train and predict
     learning_rates = [0.1] #, 0.01, 0.05, 0.08, 0.001]
     names = ['0.1'] #, '0.01', '0.05','0.08', '0.001']
 
