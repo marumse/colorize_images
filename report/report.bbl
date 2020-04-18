@@ -12,11 +12,6 @@ Cheng, Z., Yang, Q., and Sheng, B. (2015).
 \newblock Deep colorization.
 \newblock {\em 2015 IEEE International Conference on Computer Vision (ICCV)}.
 
-\bibitem[\protect\astroncite{Dahl}{2016}]{Dahl.2016}
-Dahl, R. (2016).
-\newblock Automatic colorization.
-\newblock \url{https://tinyclouds.org/colorize/}.
-
 \bibitem[\protect\astroncite{Effenberg}{2019}]{Lecture.2019}
 Effenberg, L. (2019).
 \newblock Implementing anns with tensorflow.
@@ -26,12 +21,6 @@ Hubel, D.~H. and Wiesel, T.~N. (1962).
 \newblock Receptive fields, binocular interaction and functional architecture
   in the cat{\textquotesingle}s visual cortex.
 \newblock {\em The Journal of Physiology}, 160(1):106--154.
-
-\bibitem[\protect\astroncite{Jia et~al.}{2014}]{jia2014caffe}
-Jia, Y., Shelhamer, E., Donahue, J., Karayev, S., Long, J., Girshick, R.,
-  Guadarrama, S., and Darrell, T. (2014).
-\newblock Caffe: Convolutional architecture for fast feature embedding.
-\newblock {\em arXiv preprint arXiv:1408.5093}.
 
 \bibitem[\protect\astroncite{Levin et~al.}{2004}]{Levin.2004}
 Levin, A., Lischinski, D., and Weiss, Y. (2004).
