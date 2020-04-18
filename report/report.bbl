@@ -1,12 +1,5 @@
 \begin{thebibliography}{}
 
-\bibitem[\protect\astroncite{Brownlee}{2019}]{Brownlee.2019}
-Brownlee, J. (2019).
-\newblock How to load large datasets from directories for deep learning in
-  keras.
-\newblock
-  https://machinelearningmastery.com/how-to-load-large-datasets-from-directories-for-deep-learning-with-keras/.
-
 \bibitem[\protect\astroncite{Cheng et~al.}{2015}]{Cheng_2015}
 Cheng, Z., Yang, Q., and Sheng, B. (2015).
 \newblock Deep colorization.
@@ -15,6 +8,13 @@ Cheng, Z., Yang, Q., and Sheng, B. (2015).
 \bibitem[\protect\astroncite{Effenberg}{2019}]{Lecture.2019}
 Effenberg, L. (2019).
 \newblock Implementing anns with tensorflow.
+
+\bibitem[\protect\astroncite{Escontrela}{2018}]{Escontrela.2018}
+Escontrela, A. (2018).
+\newblock Towards data science: Convolutional neural networks from the ground
+  up.
+\newblock
+  https://towardsdatascience.com/convolutional-neural-networks-from-the-ground-up-c67bb41454e1.
 
 \bibitem[\protect\astroncite{Hubel and Wiesel}{1962}]{Hubel1962}
 Hubel, D.~H. and Wiesel, T.~N. (1962).
@@ -27,16 +27,17 @@ Levin, A., Lischinski, D., and Weiss, Y. (2004).
 \newblock Colorization using optimization.
 \newblock {\em ACM Trans. Graph.}, 23(3):689–694.
 
+\bibitem[\protect\astroncite{Meri}{2007}]{cantor2007}
+Meri, L. (2007).
+\newblock Some remarks on the cantor pairing function some remarks on the
+  cantor pairing function.
+\newblock {\em Le Matematiche}, 62.
+
 \bibitem[\protect\astroncite{Russakovsky et~al.}{2014}]{Russakovsky.2014}
 Russakovsky, O., Deng, J., Su, H., Krause, J., Satheesh, S., Ma, S., Huang, Z.,
   Karpathy, A., Khosla, A., Bernstein, M.~S., Berg, A.~C., and Li, F. (2014).
 \newblock Imagenet large scale visual recognition challenge.
 \newblock {\em CoRR}, abs/1409.0575.
-
-\bibitem[\protect\astroncite{Welsh et~al.}{2002}]{Welsh.2002}
-Welsh, T., Ashikhmin, M., and Mueller, K. (2002).
-\newblock Transferring color to greyscale images.
-\newblock {\em ACM Trans. Graph.}, 21:277--280.
 
 \bibitem[\protect\astroncite{Zhang et~al.}{2016}]{Zhang.2016}
 Zhang, R., Isola, P., and Efros, A.~A. (2016).
