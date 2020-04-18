@@ -268,7 +268,7 @@ def make_prediction(test_batch, test_files, name):
         original = np.concatenate((test_in[i], orig_out), axis=2)
         # save the image in BGR color space in order to display it straight away
         original_BGR = cv2.cvtColor(original, cv2.COLOR_LAB2BGR)
-        cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predictions/orig_'+ str(i) + str(name) +'.png', original_BGR)
+        cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/malin/colorize_images/results/predictions/orig_'+ str(i) + 'malin.png', original_BGR)
         # again the ab layers have to be reconstructed from the one-hot-encoded cantor values
         pred_out = decode_one_hot(prediction[i])
         pred_out = reverse_cantor(pred_out)
@@ -276,7 +276,7 @@ def make_prediction(test_batch, test_files, name):
         # same for the predicted image
         # for some reason this yields a black BGR image - save the LAB image, load it again and then transform it to BGR works fine
         predicted_BGR = cv2.cvtColor(predicted, cv2.COLOR_LAB2BGR)
-        cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predictions/pred_' + str(i) + str(name) +'.png', predicted)
+        cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/malin/colorize_images/results/predictions/pred_' + str(i) +'malin.png', predicted)
         #cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predictions/pred_1_BGR.png', predicted_BGR)
 
 def plot_history(history, name):
@@ -355,6 +355,6 @@ if __name__ == "__main__":
         # create and compile the model
         model = create_model()
         # load the weights with which the predictions should be done
-        model.load_weights('/home/student/m/mspaniol/best_model.hdf5')        
+        model.load_weights('/home/student/m/mspaniol/best_model.hdf5')
         # make a prediction and save the image
         make_prediction(test_batch, test_files, name)
