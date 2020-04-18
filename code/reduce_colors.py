@@ -96,7 +96,7 @@ def generate_data(batch_size, file_list):
     """ Replaces Keras' native ImageDataGenerator.
         This function is a data generator that loads a costumized version of some data. More precisely, it loads images,
         tranforms them into LAB color space and returns the first layer as the input and the other two layers as the target for the model.
-        Args:       batch_size 
+        Args:       batch_size
                     file_list containing all image paths
         Return:     a tuple containing a numpy array with the inputs and a second numpy array with the targets
     """
@@ -114,7 +114,7 @@ def generate_data(batch_size, file_list):
             i += 1
             image = cv2.resize(cv2.imread(sample), (224,224))
             image = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
-            # split the image into the L layer for the input and ab layers for the target 
+            # split the image into the L layer for the input and ab layers for the target
             L = image[:,:,0][:,:,np.newaxis]
             ab = image[:,:,1:]
             # reduce the number of colors to 121 (11 different a and b values respectively)
@@ -241,7 +241,7 @@ def create_model():
     # decoding layer
     model.add(Conv2DTranspose(121, (3,3), strides = 16, padding = 'same'))
     model.add(Conv2D(121, (1,1), strides = 1, dilation_rate = 1, activation = softMaxAxis2))
-    
+
     # compile model
     #sgd = keras.optimizers.SGD(lr=0.001, momentum=0.9, nesterov=True, clipnorm=5.)
     adam = keras.optimizers.Adam(lr=learning_rate)
@@ -280,7 +280,7 @@ def make_prediction(test_batch, test_files, name):
         #cv2.imwrite('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/predictions/pred_1_BGR.png', predicted_BGR)
 
 def plot_history(history, name):
-    
+
     plt.figure(facecolor='white')
 
     plt.plot(history.history['loss'], label="loss", color="blue")
@@ -299,8 +299,8 @@ def plot_history(history, name):
     plt.savefig('/net/projects/scratch/winter/valid_until_31_July_2020/asparagus/colorize_images/results/'+ str(name) +'.png')
 
 def save_history(history, name):
-    #convert the history.history dict to a pandas DataFrame   
-    hist_df = pd.DataFrame(history.history) 
+    #convert the history.history dict to a pandas DataFrame
+    hist_df = pd.DataFrame(history.history)
 
     # and save to csv
     hist_csv_file = str(name) +'.csv'
@@ -309,7 +309,7 @@ def save_history(history, name):
 
 
 if __name__ == "__main__":
-    
+
     # collect arguments from submit_script
     args = typecast(sys.argv[1:])
     path_to_train = args[0]
@@ -333,7 +333,7 @@ if __name__ == "__main__":
 
         # create the model
         model = create_model()
-        
+
         # generate the data with the costumized generator
         train_gen = generate_data(batch_size, train_files)
         val_gen = generate_data(batch_size, val_files)
@@ -355,6 +355,6 @@ if __name__ == "__main__":
         # create and compile the model
         model = create_model()
         # load the weights with which the predictions should be done
-        model.load_weights('/home/student/s/sschulzewedd/best_model.hdf5')        
+        model.load_weights('/home/student/m/mspaniol/best_model.hdf5')        
         # make a prediction and save the image
         make_prediction(test_batch, test_files, name)
