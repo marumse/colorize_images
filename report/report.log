@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500 64-bit) (preloaded format=pdflatex 2018.1.22)  18 APR 2020 13:37
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500 64-bit) (preloaded format=pdflatex 2018.1.22)  18 APR 2020 15:48
 entering extended mode
 **./report.tex
 (report.tex
@@ -867,9 +867,6 @@ Package csquotes Info: ... found 'babel' package.
 
 LaTeX Warning: Label `fig1' multiply defined.
 
-
-LaTeX Warning: Label `fig1' multiply defined.
-
 )
 \openout1 = `report.aux'.
 
@@ -1013,23 +1010,20 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 \openout4 = `report.toc'.
 
  [2]
-Underfull \hbox (badness 10000) in paragraph at lines 97--100
+Underfull \hbox (badness 10000) in paragraph at lines 101--104
 
  []
 
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 102.
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 106.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\t1cmtt.fd"
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-Underfull \hbox (badness 10000) in paragraph at lines 102--104
-
- []
-
 LaTeX Font Info:    Font shape `T1/ybv/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/ybv/b/n' tried instead on input line 104.
+(Font)              Font shape `T1/ybv/b/n' tried instead on input line 108.
 LaTeX Font Info:    Font shape `T1/ybv/m/sl' in size <12> not available
-(Font)              Font shape `T1/ybv/m/it' tried instead on input line 107.
+(Font)              Font shape `T1/ybv/m/it' tried instead on input line 113.
+
 
 Package scrlayer-scrpage Warning: \headheight to low.
 (scrlayer-scrpage)                At least 17.99445pt needed,
@@ -1039,65 +1033,65 @@ Package scrlayer-scrpage Warning: \headheight to low.
 (scrlayer-scrpage)                e.g., setting geometry's option
 (scrlayer-scrpage)                `head=17.99445pt'.
 (scrlayer-scrpage)                I'll also decrease \topmargin on input line 1
-07.
+13.
 
 
 Overfull \vbox (5.99445pt too high) has occurred while \output is active []
 
 
 [3]
-<cnn.png, id=126, 465.74pt x 280.04625pt>
+<cnn.png, id=116, 465.74pt x 280.04625pt>
 File: cnn.png Graphic file (type png)
 <use cnn.png>
-Package pdftex.def Info: cnn.png  used on input line 127. on input line 127.
+Package pdftex.def Info: cnn.png  used on input line 130. on input line 130.
 Package pdftex.def Info: Requested size: 283.22162pt x 170.30235pt on input lin
-e 127.
-<cnn_luke.png, id=127, 473.26813pt x 182.6825pt>
+e 130.
+<cnn_luke.png, id=117, 473.26813pt x 182.6825pt>
 File: cnn_luke.png Graphic file (type png)
 <use cnn_luke.png>
-Package pdftex.def Info: cnn_luke.png  used on input line 134. on input line 13
-4.
+Package pdftex.def Info: cnn_luke.png  used on input line 137. on input line 13
+7.
 Package pdftex.def Info: Requested size: 330.42041pt x 127.54515pt on input lin
-e 134.
- [4 <./cnn.png>]
-<bsp.png, id=138, 386.94562pt x 110.4125pt>
+e 137.
+ [4] [5 <./cnn.png> <./cnn_luke.png>]
+<bsp.png, id=136, 386.94562pt x 110.4125pt>
 File: bsp.png Graphic file (type png)
 <use bsp.png>
-Package pdftex.def Info: bsp.png  used on input line 168. on input line 168.
+Package pdftex.def Info: bsp.png  used on input line 171. on input line 171.
 Package pdftex.def Info: Requested size: 472.03123pt x 134.69292pt on input lin
-e 168.
- [5 <./cnn_luke.png>]
-Overfull \hbox (200.20595pt too wide) in paragraph at lines 175--181
+e 171.
+
+Overfull \hbox (200.20595pt too wide) in paragraph at lines 178--184
 [][]$\T1/cmtt/m/n/12 https : / / machinelearningmastery . com / how-[]to-[]load
 -[]large-[]datasets-[]from-[]directories-[]for-[]deep-[]learning-[]with-[]keras
 /$[][] 
  []
 
 [6 <./bsp.png>]
-<layer.png, id=153, 676.5275pt x 183.68625pt>
+<layer.png, id=145, 676.5275pt x 183.68625pt>
 File: layer.png Graphic file (type png)
 <use layer.png>
-Package pdftex.def Info: layer.png  used on input line 186. on input line 186.
+Package pdftex.def Info: layer.png  used on input line 189. on input line 189.
 Package pdftex.def Info: Requested size: 472.03123pt x 128.16747pt on input lin
-e 186.
- [7]
-Underfull \hbox (badness 10000) in paragraph at lines 209--210
+e 189.
+ [7] [8 <./layer.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 212--213
 
  []
 
-[8 <./layer.png>] [9] (report.bbl
-LaTeX Font Info:    Try loading font information for TS1+ybv on input line 27.
+[9] (report.bbl
+LaTeX Font Info:    Try loading font information for TS1+ybv on input line 22.
 
 (C:\Users\schmuri\AppData\Roaming\MiKTeX\2.9\tex\latex\baskervald\ts1ybv.fd
 File: ts1ybv.fd 2010/07/13 Fontinst v1.933 font definitions for TS1/ybv.
 ))
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 219.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 222.
 
 [10]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 219.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 222.
  (report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 219.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 219.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 222.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 222.
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: D7BBBC8DEF1B5A4704E92B7A14BC9466;849.
 
@@ -1106,13 +1100,13 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 12978 strings out of 493312
- 217296 string characters out of 3138893
- 548448 words of memory out of 3000000
- 16285 multiletter control sequences out of 15000+200000
+ 12971 strings out of 493312
+ 217163 string characters out of 3138893
+ 549448 words of memory out of 3000000
+ 16280 multiletter control sequences out of 15000+200000
  55058 words of font info for 51 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 42i,19n,72p,1346b,412s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 42i,19n,72p,1400b,385s stack positions out of 5000i,500n,10000p,200000b,50000s
  <C:\Users\schmuri\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi60
 0\ectt1200.pk>{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}{C:/User
 s/schmuri/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/baskervald/supp-ybv.enc}<C
@@ -1120,9 +1114,9 @@ s/schmuri/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/baskervald/supp-ybv.enc}<C
 8a.pfb><C:/Users/schmuri/AppData/Roaming/MiKTeX/2.9/fonts/type1/arkandis/basker
 vald/ybvr8a.pfb><C:/Users/schmuri/AppData/Roaming/MiKTeX/2.9/fonts/type1/arkand
 is/baskervald/ybvri8a.pfb>
-Output written on report.pdf (10 pages, 696920 bytes).
+Output written on report.pdf (10 pages, 694362 bytes).
 PDF statistics:
- 236 PDF objects out of 1000 (max. 8388607)
- 40 named destinations out of 1000 (max. 500000)
+ 227 PDF objects out of 1000 (max. 8388607)
+ 38 named destinations out of 1000 (max. 500000)
  133 words of extra memory for PDF output out of 10000 (max. 10000000)
 
