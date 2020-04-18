@@ -200,9 +200,6 @@ The models were trained on the grid of the institute of Cognitive Science at Osn
 
 \subsection{Testing}
 To evaluate the predictive power of our two approaches, colors for unseen test images are predicted and evaluated via visual inspection. When the script is started in prediction mode, the model is not trained, but the weights from the corresponding training process are loaded. The model then predicts the most plausible colors for the L-layer of each input image. In the first approach, the model's output can be interpreted as the ab layers. That means the output can be combined with the input (L-layer) and displayed as an image straight away. For the second approach, three decoding steps are necessary before generating human-readable images. Firstly, the output of the softmax layer is decoded to find the index of the most likely color value. Secondly, this index is translated to the cantor pairing value it represents with the help of the created dictionary. And thirdly, the cantor pairing value is transformed back to the a and b values it is originally constituted of. These a and b layers can finally be combined with the L-layer to display the predicted image in Lab color space.
-
-%To evaluate the goodness of our two approaches, colors for unseen test images are predicted and evaluated via visual inspection. When the script is started in prediction mode, the model is not trained, but the weights from the corresponding training process are loaded. The model then predicts the most plausible colors for the L layers of the input images. In the first approach, the model's output can be interpreted as the ab layers. That means the output can be combined with the input (L layer) and displayed as an image straight away. For the second approach, three decoding steps are necessary before yielding human-readable images. Firstly, the output of the softmax layer is decoded to find the index of the most likely color value. Secondly, this index is translated to the cantor pairing value it represents with the help of a dictionary. And thirdly, the cantor pairing value is transformed back to the a and b values it is constituted of. These a and b layers can finally be combined with the L layer to display the predicted image in LAB color space.
-
 \section{Results}
 \subsection{Classical Approach}
 \begin{figure}
@@ -211,6 +208,14 @@ To evaluate the predictive power of our two approaches, colors for unseen test i
 	\caption{}
 	\label{class}
 \end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.8\textwidth]{loss_classical.png}
+	\caption{}
+	\label{loss_class}
+\end{figure}
+
 \section{Discussion}
 
 \subsection{Conclusion and Future Work}
