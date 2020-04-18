@@ -122,6 +122,21 @@ Parametric methods on the other hands, learn prediction functions from large dat
 In image classification mostly convolutional neural networks (CNNs) are used. They are inspired by the visual cortex of the brain. The idea is that highly specialized components learn a very specific task, which is similar to the receptive fields of neurons in the visual cortex \citep{Hubel1962}. These components can be combined to high-level features, which again can be merged to classes. In CNNs this concept is implemented by several successive convolutional layers: a weight kernel moves over the two-dimensional input image. For each pixel, the kernel also \enquote{scans} the neighboring pixel. After all being multiplied by the weights and summed they form the new pixelvalue. Different kernels can generate different so-called feature maps. One feature map targets the same feature (e.g. edges) in different imagesections. In this manner, CNN can store spatial information about pixel and features. In a subsequent pooling layer dimensions are reduces by summarizing over the imagesection (e.g. max pooling takes the highest value of a certain imagesection - that can be 1x1 pixel). This facilitates the computation and drops unnecessary information \citep{Lecture.2019}. In recent years, CNNs improved such that they outperform humans in many classification tasks \citep{Russakovsky.2014}.\\
 - in our case we dont need the spatial information that much, but we benefit from the 2D input? or warum?
 
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=.6\textwidth]{cnn.png}
+	\caption{internet bild https://towardsdatascience.com/convolutional-neural-networks-from-the-ground-up-c67bb41454e1}
+	\label{fig1}
+\end{figure}
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=.7\textwidth]{cnn_luke.png}
+	\caption{lukes bild}
+	\label{fig1}
+\end{figure}
+
+
 %lukes:\\
 %feed-foward neural networks: supervised learning method: input vector, applay number of non-linear functions to it depends on number of neurons, output a classification or refression of the input.\\
 %- output random at beginning, improves over time through backpropagation

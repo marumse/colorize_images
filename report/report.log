@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500 64-bit) (preloaded format=pdflatex 2018.1.22)  18 APR 2020 13:13
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500 64-bit) (preloaded format=pdflatex 2018.1.22)  18 APR 2020 13:37
 entering extended mode
 **./report.tex
 (report.tex
@@ -863,7 +863,14 @@ Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
 )
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
- (report.aux)
+ (report.aux
+
+LaTeX Warning: Label `fig1' multiply defined.
+
+
+LaTeX Warning: Label `fig1' multiply defined.
+
+)
 \openout1 = `report.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 89.
@@ -880,8 +887,7 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 89.
 LaTeX Font Info:    ... okay on input line 89.
 LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 89.
 LaTeX Font Info:    Try loading font information for TS1+cmr on input line 89.
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\ts1cmr.fd"
+ ("C:\Program Files\MiKTeX 2.9\tex\latex\base\ts1cmr.fd"
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    ... okay on input line 89.
@@ -1039,63 +1045,74 @@ Package scrlayer-scrpage Warning: \headheight to low.
 Overfull \vbox (5.99445pt too high) has occurred while \output is active []
 
 
-[3] [4]
-<bsp.png, id=130, 386.94562pt x 110.4125pt>
+[3]
+<cnn.png, id=126, 465.74pt x 280.04625pt>
+File: cnn.png Graphic file (type png)
+<use cnn.png>
+Package pdftex.def Info: cnn.png  used on input line 127. on input line 127.
+Package pdftex.def Info: Requested size: 283.22162pt x 170.30235pt on input lin
+e 127.
+<cnn_luke.png, id=127, 473.26813pt x 182.6825pt>
+File: cnn_luke.png Graphic file (type png)
+<use cnn_luke.png>
+Package pdftex.def Info: cnn_luke.png  used on input line 134. on input line 13
+4.
+Package pdftex.def Info: Requested size: 330.42041pt x 127.54515pt on input lin
+e 134.
+ [4 <./cnn.png>]
+<bsp.png, id=138, 386.94562pt x 110.4125pt>
 File: bsp.png Graphic file (type png)
 <use bsp.png>
-Package pdftex.def Info: bsp.png  used on input line 153. on input line 153.
+Package pdftex.def Info: bsp.png  used on input line 168. on input line 168.
 Package pdftex.def Info: Requested size: 472.03123pt x 134.69292pt on input lin
-e 153.
-
-Overfull \hbox (200.20595pt too wide) in paragraph at lines 160--166
+e 168.
+ [5 <./cnn_luke.png>]
+Overfull \hbox (200.20595pt too wide) in paragraph at lines 175--181
 [][]$\T1/cmtt/m/n/12 https : / / machinelearningmastery . com / how-[]to-[]load
 -[]large-[]datasets-[]from-[]directories-[]for-[]deep-[]learning-[]with-[]keras
 /$[][] 
  []
 
-[5 <./bsp.png>]
-<layer.png, id=139, 676.5275pt x 183.68625pt>
+[6 <./bsp.png>]
+<layer.png, id=153, 676.5275pt x 183.68625pt>
 File: layer.png Graphic file (type png)
 <use layer.png>
-Package pdftex.def Info: layer.png  used on input line 171. on input line 171.
+Package pdftex.def Info: layer.png  used on input line 186. on input line 186.
 Package pdftex.def Info: Requested size: 472.03123pt x 128.16747pt on input lin
-e 171.
- [6] [7 <./layer.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 194--195
+e 186.
+ [7]
+Underfull \hbox (badness 10000) in paragraph at lines 209--210
 
  []
 
-[8] (report.bbl
+[8 <./layer.png>] [9] (report.bbl
 LaTeX Font Info:    Try loading font information for TS1+ybv on input line 27.
 
 (C:\Users\schmuri\AppData\Roaming\MiKTeX\2.9\tex\latex\baskervald\ts1ybv.fd
 File: ts1ybv.fd 2010/07/13 Fontinst v1.933 font definitions for TS1/ybv.
 ))
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 204.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 219.
 
-[9]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 204.
+[10]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 219.
  (report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 204.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 204.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 219.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 219.
+Package rerunfilecheck Info: File `report.out' has not changed.
+(rerunfilecheck)             Checksum: D7BBBC8DEF1B5A4704E92B7A14BC9466;849.
 
 
-Package rerunfilecheck Warning: File `report.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
+LaTeX Warning: There were multiply-defined labels.
 
-Package rerunfilecheck Info: Checksums for `report.out':
-(rerunfilecheck)             Before: CD384BBFB41D91747138B015507F0980;785
-(rerunfilecheck)             After:  D7BBBC8DEF1B5A4704E92B7A14BC9466;849.
  ) 
 Here is how much of TeX's memory you used:
- 12964 strings out of 493312
- 217124 string characters out of 3138893
- 550448 words of memory out of 3000000
- 16276 multiletter control sequences out of 15000+200000
+ 12978 strings out of 493312
+ 217296 string characters out of 3138893
+ 548448 words of memory out of 3000000
+ 16285 multiletter control sequences out of 15000+200000
  55058 words of font info for 51 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 42i,19n,72p,1346b,381s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 42i,19n,72p,1346b,412s stack positions out of 5000i,500n,10000p,200000b,50000s
  <C:\Users\schmuri\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi60
 0\ectt1200.pk>{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}{C:/User
 s/schmuri/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/baskervald/supp-ybv.enc}<C
@@ -1103,9 +1120,9 @@ s/schmuri/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/baskervald/supp-ybv.enc}<C
 8a.pfb><C:/Users/schmuri/AppData/Roaming/MiKTeX/2.9/fonts/type1/arkandis/basker
 vald/ybvr8a.pfb><C:/Users/schmuri/AppData/Roaming/MiKTeX/2.9/fonts/type1/arkand
 is/baskervald/ybvri8a.pfb>
-Output written on report.pdf (9 pages, 467382 bytes).
+Output written on report.pdf (10 pages, 696920 bytes).
 PDF statistics:
- 223 PDF objects out of 1000 (max. 8388607)
- 37 named destinations out of 1000 (max. 500000)
- 115 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 236 PDF objects out of 1000 (max. 8388607)
+ 40 named destinations out of 1000 (max. 500000)
+ 133 words of extra memory for PDF output out of 10000 (max. 10000000)
 
