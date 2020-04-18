@@ -125,11 +125,11 @@ Parametric methods on the other hands, learn prediction functions from large dat
 %- The state-of-theart colorization methods normally require matching between the target and reference images and thus are slow.
 %It has recently been demonstrated that high-level understanding of an image is of great use for low-level visionproblems (e.g. image enhancement [18], edge detection [19]). Because image colorization is typically semantic-aware, we propose a new semantic feature descriptor to incorporate the semantic-awareness into our colorization model.
 \subsection{Convolutional neural networks for image colorization}
-Whenever dealing with image data, convolutional neural networks (CNNs) are frequently used as model structures for deep learning tasks. They are inspired by the visual cortex of the brain. The idea is that highly specialized components learn a very specific task, which is similar to the receptive fields of neurons in the visual cortex \citep{Hubel1962}. These components can be combined to high-level features, which again can be merged to classes or transformed to the desired output shape. In CNNs, this concept is implemented by several successive convolutional layers: a weight kernel moves over the input image and calculates the new pixel value for each pixel position by multiplying the weights of the kernel with the neighbouring pixel values and summing them up. Different kernels can generate different so-called feature maps. One feature map targets the same feature (e.g. edges) in different imagesections.
+Whenever dealing with image data, convolutional neural networks (CNNs) are frequently used as model structures for deep learning tasks. They are inspired by the visual cortex of the brain. The idea is that highly specialized components learn a very specific task, which is similar to the receptive fields of neurons in the visual cortex \citep{Hubel1962}. These components can be combined to high-level features, which again can be merged to classes or transformed to the desired output shape. In CNNs, this concept is implemented by several successive convolutional layers: a weight kernel moves over the input image and calculates the new pixel value for each pixel position by multiplying the weights of the kernel with the neighbouring pixel values and summing them up (see fig. \ref{convolut}). Different kernels can generate different so-called feature maps. One feature map targets the same feature (e.g. edges) in different imagesections.
 \begin{wrapfigure}[12]{r}{0.5\textwidth}
 	\centering
 	\includegraphics[width=.48\textwidth]{cnn.png}
-	\caption{Convolutional operation \citep{Escontrela.2018}.}
+	\caption{Convolutional operation: kernel slides over the input, multiplying it with its weight before summerizing the 3x3 neighborhood \citep{Escontrela.2018}.}
 	\label{convolut}
 \end{wrapfigure}
 In this manner, CNNs can store spatial information about pixels and features. In a subsequent pooling layer dimensions are reduced by summarizing over the imagesection (e.g. max pooling takes the highest value of a certain imagesection). This facilitates the computation and drops unnecessary information \citep{Lecture.2019}. In recent years, CNNs improved such that they outperform humans in many classification tasks \citep{Russakovsky.2014}.
@@ -203,7 +203,14 @@ To evaluate the predictive power of our two approaches, colors for unseen test i
 
 %To evaluate the goodness of our two approaches, colors for unseen test images are predicted and evaluated via visual inspection. When the script is started in prediction mode, the model is not trained, but the weights from the corresponding training process are loaded. The model then predicts the most plausible colors for the L layers of the input images. In the first approach, the model's output can be interpreted as the ab layers. That means the output can be combined with the input (L layer) and displayed as an image straight away. For the second approach, three decoding steps are necessary before yielding human-readable images. Firstly, the output of the softmax layer is decoded to find the index of the most likely color value. Secondly, this index is translated to the cantor pairing value it represents with the help of a dictionary. And thirdly, the cantor pairing value is transformed back to the a and b values it is constituted of. These a and b layers can finally be combined with the L layer to display the predicted image in LAB color space.
 
-\section{Result}
+\section{Results}
+\subsection{Classical Approach}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{class_predict.png}
+	\caption{}
+	\label{class}
+\end{figure}
 \section{Discussion}
 
 \subsection{Conclusion and Future Work}
