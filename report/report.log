@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500 64-bit) (preloaded format=pdflatex 2018.1.22)  19 APR 2020 18:26
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500 64-bit) (preloaded format=pdflatex 2018.1.22)  19 APR 2020 19:29
 entering extended mode
 **./report.tex
 (report.tex
@@ -1079,21 +1079,32 @@ File: cnn.png Graphic file (type png)
 Package pdftex.def Info: cnn.png  used on input line 119. on input line 119.
 Package pdftex.def Info: Requested size: 226.57297pt x 136.23676pt on input lin
 e 119.
-<zhang_pre.jpg, id=146, 1284.8pt x 303.1325pt>
+ [4 <./cnn.png>]
+<zhang_pre.jpg, id=158, 1284.8pt x 303.1325pt>
 File: zhang_pre.jpg Graphic file (type jpg)
 <use zhang_pre.jpg>
-Package pdftex.def Info: zhang_pre.jpg  used on input line 135. on input line 1
-35.
+Package pdftex.def Info: zhang_pre.jpg  used on input line 129. on input line 1
+29.
 Package pdftex.def Info: Requested size: 472.03123pt x 111.37094pt on input lin
-e 135.
- [4 <./cnn.png>]
-<layer.png, id=164, 676.5275pt x 183.68625pt>
+e 129.
+
+Underfull \hbox (badness 10000) in paragraph at lines 126--140
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 126--140
+
+ []
+
+[5 <./zhang_pre.jpg>]
+<layer.png, id=171, 676.5275pt x 183.68625pt>
 File: layer.png Graphic file (type png)
 <use layer.png>
 Package pdftex.def Info: layer.png  used on input line 145. on input line 145.
 Package pdftex.def Info: Requested size: 472.03123pt x 128.16747pt on input lin
 e 145.
-<code_datagen.png, id=166, 482.30188pt x 289.58188pt>
+<code_datagen.png, id=173, 482.30188pt x 289.58188pt>
 File: code_datagen.png Graphic file (type png)
 <use code_datagen.png>
 Package pdftex.def Info: code_datagen.png  used on input line 153. on input lin
@@ -1101,121 +1112,137 @@ e 153.
 Package pdftex.def Info: Requested size: 472.03123pt x 283.42596pt on input lin
 e 153.
 
-Underfull \hbox (badness 10000) in paragraph at lines 150--159
+Underfull \hbox (badness 10000) in paragraph at lines 150--158
 
  []
 
-[5 <./zhang_pre.jpg>]
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+Underfull \hbox (badness 10000) in paragraph at lines 150--158
 
-[6 <./layer.png>]
-<code_cantor_pairing.png, id=183, 621.82312pt x 130.98938pt>
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 150--158
+
+ []
+
+[6 <./layer.png>] [7 <./code_datagen.png>]
+<code_cantor_pairing.png, id=195, 621.82312pt x 130.98938pt>
 File: code_cantor_pairing.png Graphic file (type png)
 <use code_cantor_pairing.png>
 Package pdftex.def Info: code_cantor_pairing.png  used on input line 164. on in
 put line 164.
 Package pdftex.def Info: Requested size: 472.03123pt x 99.43501pt on input line
  164.
-<code_onehot.png, id=184, 593.71812pt x 146.04562pt>
+<code_onehot.png, id=196, 593.71812pt x 146.04562pt>
 File: code_onehot.png Graphic file (type png)
 <use code_onehot.png>
 Package pdftex.def Info: code_onehot.png  used on input line 171. on input line
  171.
 Package pdftex.def Info: Requested size: 472.03123pt x 116.11684pt on input lin
 e 171.
- [7 <./code_datagen.png> <./code_cantor_pairing.png>] [8 <./code_onehot.png>] [
-9]
-<class_predict.png, id=222, 320.69812pt x 311.66437pt>
+ [8 <./code_cantor_pairing.png> <./code_onehot.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 195--198
+
+ []
+
+[9]
+Underfull \hbox (badness 10000) in paragraph at lines 201--202
+
+ []
+
+[10]
+<class_predict.png, id=227, 320.69812pt x 311.66437pt>
 File: class_predict.png Graphic file (type png)
 <use class_predict.png>
-Package pdftex.def Info: class_predict.png  used on input line 203. on input li
-ne 203.
-Package pdftex.def Info: Requested size: 283.22162pt x 275.2499pt on input line
- 203.
-<loss_classical.png, id=223, 462.528pt x 346.896pt>
+Package pdftex.def Info: class_predict.png  used on input line 208. on input li
+ne 208.
+Package pdftex.def Info: Requested size: 330.42041pt x 321.1225pt on input line
+ 208.
+<loss_classical.png, id=228, 462.528pt x 346.896pt>
 File: loss_classical.png Graphic file (type png)
 <use loss_classical.png>
-Package pdftex.def Info: loss_classical.png  used on input line 210. on input l
-ine 210.
-Package pdftex.def Info: Requested size: 306.81741pt x 230.12186pt on input lin
-e 210.
+Package pdftex.def Info: loss_classical.png  used on input line 213. on input l
+ine 213.
+Package pdftex.def Info: Requested size: 283.22162pt x 212.42668pt on input lin
+e 213.
 
-Overfull \hbox (23.5958pt too wide) in paragraph at lines 210--211
+Overfull \hbox (33.04565pt too wide) in paragraph at lines 213--214
  [][] 
  []
 
 
-Underfull \hbox (badness 1303) in paragraph at lines 215--216
-\T1/ybv/m/n/12 start with a very high value of
+Underfull \hbox (badness 10000) in paragraph at lines 218--220
+
  []
 
-[10 <./class_predict.png> <./loss_classical.png>]
-<classific_predict.png, id=233, 325.215pt x 313.67188pt>
+[11 <./class_predict.png> <./loss_classical.png>]
+<classific_predict.png, id=238, 325.215pt x 313.67188pt>
 File: classific_predict.png Graphic file (type png)
 <use classific_predict.png>
-Package pdftex.def Info: classific_predict.png  used on input line 227. on inpu
-t line 227.
-Package pdftex.def Info: Requested size: 283.22162pt x 273.18906pt on input lin
-e 227.
-<dots.png, id=236, 152.57pt x 151.06438pt>
+Package pdftex.def Info: classific_predict.png  used on input line 232. on inpu
+t line 232.
+Package pdftex.def Info: Requested size: 330.42041pt x 318.71579pt on input lin
+e 232.
+ [12 <./classific_predict.png>]
+<dots.png, id=248, 152.57pt x 151.06438pt>
 File: dots.png Graphic file (type png)
 <use dots.png>
-Package pdftex.def Info: dots.png  used on input line 236. on input line 236.
+Package pdftex.def Info: dots.png  used on input line 241. on input line 241.
 Package pdftex.def Info: Requested size: 188.8096pt x 186.95367pt on input line
- 236.
+ 241.
 
-Underfull \hbox (badness 10000) in paragraph at lines 233--239
-
- []
-
-[11 <./classific_predict.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 239--245
+Underfull \hbox (badness 10000) in paragraph at lines 238--244
 
  []
 
-[12 <./dots.png>] [13] (report.bbl
+
+Underfull \hbox (badness 10000) in paragraph at lines 244--250
+
+ []
+
+[13 <./dots.png>] [14] (report.bbl
 LaTeX Font Info:    Try loading font information for TS1+ybv on input line 29.
 
 (C:\Users\schmuri\AppData\Roaming\MiKTeX\2.9\tex\latex\baskervald\ts1ybv.fd
 File: ts1ybv.fd 2010/07/13 Fontinst v1.933 font definitions for TS1/ybv.
 ))
-[14]
+[15]
 1: section
 1: section
-<error.png, id=268, 497.35812pt x 101.37875pt>
+<error.png, id=273, 497.35812pt x 101.37875pt>
 File: error.png Graphic file (type png)
 <use error.png>
-Package pdftex.def Info: error.png  used on input line 264. on input line 264.
+Package pdftex.def Info: error.png  used on input line 269. on input line 269.
 Package pdftex.def Info: Requested size: 472.03123pt x 96.21799pt on input line
- 264.
-[15 <./error.png>]
+ 269.
+[16 <./error.png>]
 1: section
 1: section
-<layers.jpg, id=274, 1071.00125pt x 1284.8pt>
+<layers.jpg, id=279, 1071.00125pt x 1284.8pt>
 File: layers.jpg Graphic file (type jpg)
 <use layers.jpg>
-Package pdftex.def Info: layers.jpg  used on input line 273. on input line 273.
+Package pdftex.def Info: layers.jpg  used on input line 278. on input line 278.
 
 Package pdftex.def Info: Requested size: 377.62642pt x 453.0195pt on input line
- 273.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 278.
-[16 <./layers.jpg>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 278.
+ 278.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 283.
+[17 <./layers.jpg>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 283.
  (report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 278.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 278.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 283.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 283.
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: 838931EC0656BAEF0748C81D691721A6;1087.
  ) 
 Here is how much of TeX's memory you used:
- 13508 strings out of 493312
- 230734 string characters out of 3138893
- 387308 words of memory out of 3000000
+ 13509 strings out of 493312
+ 230741 string characters out of 3138893
+ 386336 words of memory out of 3000000
  16769 multiletter control sequences out of 15000+200000
  66280 words of font info for 55 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,20n,100p,1629b,417s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 57i,20n,100p,1630b,408s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Users/schmuri/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/baskervald/supp-
 ybv.enc} <C:\Users\schmuri\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec
 \dpi600\ectt1200.pk>{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C
@@ -1228,9 +1255,9 @@ c/amsfonts/cm/cmsy10.pfb><C:/Users/schmuri/AppData/Roaming/MiKTeX/2.9/fonts/typ
 e1/arkandis/baskervald/ybvb8a.pfb><C:/Users/schmuri/AppData/Roaming/MiKTeX/2.9/
 fonts/type1/arkandis/baskervald/ybvr8a.pfb><C:/Users/schmuri/AppData/Roaming/Mi
 KTeX/2.9/fonts/type1/arkandis/baskervald/ybvri8a.pfb>
-Output written on report.pdf (16 pages, 3051187 bytes).
+Output written on report.pdf (17 pages, 3052228 bytes).
 PDF statistics:
- 361 PDF objects out of 1000 (max. 8388607)
- 61 named destinations out of 1000 (max. 500000)
+ 366 PDF objects out of 1000 (max. 8388607)
+ 62 named destinations out of 1000 (max. 500000)
  205 words of extra memory for PDF output out of 10000 (max. 10000000)
 
