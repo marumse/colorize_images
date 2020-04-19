@@ -154,27 +154,33 @@ The mapping, which Zhang and colleagues (2016) aim to learn, results out of the 
 
 \section{The Model and Implementation}
 The re-implementation of the original paper \citep{Zhang.2016} was conducted in two steps. This chapter will explain these two crucial steps in further details. In both approaches the ImageNet2012 dataset was used. Firstly, we implemented the model structure as described in the paper (see figure \ref{network}) and trained the model with the color layers of the input images as the target. Secondly, we translated the colorization task to a classification problem and trained the same model structure with the altered problem representation.
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=1.0\textwidth]{bsp.png}
-	\caption{Hier kann man dann auch noch etwas dazu schreiben}
-	\label{bsp}
-\end{figure}
-
-%As previously mentioned we re-implemented the main ideas from the paper by Zhang et al. (2016). This was done with two approaches, which are going to be explained in more detail in this chapter. In both approaches the ImageNet2012 dataset was used. Firstly, we implemented the model structure as described in the paper (see figure 1) and trained the model with the color layers of the input images as the target. Secondly, we translated the colorization task to a classification problem and trained the same model structure with the altered problem representation.
-
-
 \subsection{The Data}
 To train our model we used images from the ImageNet2012 challenge, which were also used in the paper by Zhang et al. (2016). The data was available to us through the university server. As we were working with a large amount of data in each batch, it would have been impossible to load the whole dataset at once, hence we used a data generator to load the input and target images successively for each batch. Although there are inbuilt data generators available from keras that allow for some means of data augmentation, we built our costum generator to ensure the functionality we were aiming at. The generator takes the batch size and a list which contains the paths to the images that should be used in order to create the input and target arrays as described in the following.\\
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=1.0\textwidth]{code_datagen.png}
+	\caption{The data generator}
+	\label{datagen}
+\end{figure}
 First, the images are loaded and resized to a uniform shape of (224, 224, 3), which corresponds to the height, the width and the number of the color channels, respectively. Then, the images are transformed from BGR to LAB color space. The lightness channel (L-layer), which displays most of the structure, is separated from the other two channels and used as the input for the model.  The remaining two channels (ab layers) encode the color information of the images and are used as the models’ target in the first approach. In the second approach, these processing steps remain the same. Additionally the target arrays are transformed to become a classification task.\\
 The classification task is done in three main steps. The first step is to discretize the continuous color space and reduce the number of possible colors by quantizing the a and b color ranges into 11 bins. This yields a total of 121 possible colors by combining the a and b layers. In the second step, the a and b layers are combined into a single layer, which keeps the same height and width dimensions as before. This means that the color information of each pixel is now encoded in a single number rather than two, which leads to a single target layer. Cantor pairing is used to generate a unique and deterministic number from the two a and b values of each pixel. The Contor Pairing Formula is shown in (1). As cantor pairing is reversible, one can easily translate the pairing result back to the original color values with no loss of information \citep{cantor2007}.\\
 \begin{equation}
 z = \pi(x,y) = \frac{(x+y+1)(x+y)}{2}+y
 \end{equation}
 \\
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=1.0\textwidth]{code_cantor_pairing.png}
+	\caption{Implementation of the Cantor Pairing Function}
+	\label{cantorpairing}
+\end{figure}
 Now that there is a single value encoding each pixels’ color, the third and last step is to translate this value into a one-hot encoding. With the help of a dictionary, the cantor values are translated to numbers from 0 to 120. These numbers serve as the index in the one-hot encoding. Hence, color values that were previously represented in two values (a and b color channels) are now encoded by their index in the one-hot encoding. The target array has a shape of (224, 224, 121) and a one-hot vector is located at each pixel position.
-
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=1.0\textwidth]{code_onehot.png}
+	\caption{}
+	\label{onehot}
+\end{figure}
 %- loading large amount of data\\
 %\url{https://machinelearningmastery.com/how-to-load-large-datasets-from-directories-for-deep-learning-with-keras/}\\
 %udas ist \citep{Brownlee.2019}
@@ -193,7 +199,8 @@ MSE = \frac{1}{n}\sum_{i=1}^N(y_i - \tilde{y_i})^2
 \\
 In the second approach, the softmax activation function is used in the last layer to prepare the model’s output for the categorical cross entropy loss (3), which compares the output vector to the one-hot encoded target vectors. 
 \begin{equation}
-L(y, \tilde{y}) = -\sum_{j=0}^M\sum_{i=0}^N({y_i}_j*log({\tilde{y}_i}_j))
+L(y,\tilde{y}) = -\sum_{j=0}^M \sum_{i=0}^N
+{{y_i}_j}*log({\tilde{y_i}_j})
 \end{equation}
 \\
 Both, SGD and Adam optimizer are tested. In the two approaches, kernel weights are initialized with the glorot uniform initializer which draws samples from a uniform distribution depending on the number of input and output units of the corresponding weight tensor. Biases are initialized with zeros.
