@@ -172,20 +172,16 @@ L(y,\tilde{y}) = -\sum_{j=0}^M \sum_{i=0}^N
 {{y_i}_j}*log({\tilde{y_i}_j})
 \end{equation}
 \\
-Both, SGD and Adam optimizer are tested. In the two approaches, kernel weights are initialized with the glorot uniform initializer which draws samples from a uniform distribution depending on the number of input and output units of the corresponding weight tensor. Biases are initialized with zeros.
-
-%- image preprocessing documentation\\
-%\url{https://keras.io/preprocessing/image/#imagedatagenerator-class}\\
-%- preprocessing via ImageDataGenerator() from keras.prepeocessing.image\\
-%- takes in traindata, validation data and test data\\
-%- featurewise-center and featurewise std\\
-%- classmode: none -> is for predictions\\
+Both, SGD and Adam optimizer are tested. In the two approaches, kernel weights are initialized with the \emph{Glorot uniform initializer} which draws samples from a uniform distribution depending on the number of input and output units of the corresponding weight tensor. Biases are initialized with zeros.
 
 \subsection{Training}
-The models were trained on the grid of the institute of Cognitive Science at Osnabrueck University. A helper script was written that distributed several grid jobs on different computers in order to experiment with the hyperparameters such as the learning rate and the batch size. Through this script, one can easily change these parameters as well as select the data set in addition to the environment and switch between the training mode and the prediction mode. The models were trained with 2000 images and batch sizes of 10 or 20 images. The learning rate varied from 0.1 to 0.001.
+The models were trained on the grid of the Institute of Cognitive Science at Osnabrueck University. A helper script was written that distributed several grid jobs on different computers in order to experiment with the hyperparameters such as the learning rate and the batch size. Through this script, one can easily change these parameters as well as select the data set in addition to the environment and switch between the training mode and the prediction mode. The classical model was trained with 5000 images, a batch size of 10 and a learning rate of 0.001. The classification model was trained with 2000 images, batch sizes of 10 or 20 and learning rated from 0.1 to 0.001. Unfortunately, the grid jobs terminated after three to six epochs without giving a hint for errors in the code. It appears to be a grid internal memory problem (see appendix figure \ref{error}). Therefore, we saved the model in checkpoints after each epoch and used those weights for the testing.
 
 \subsection{Testing}
-To evaluate the predictive power of our two approaches, colors for unseen test images are predicted and evaluated via visual inspection. When the script is started in prediction mode, the model is not trained, but the weights from the corresponding training process are loaded. The model then predicts the most plausible colors for the L-layer of each input image. In the first approach, the model's output can be interpreted as the ab layers. That means the output can be combined with the input (L-layer) and displayed as an image straight away. For the second approach, three decoding steps are necessary before generating human-readable images. Firstly, the output of the softmax layer is decoded to find the index of the most likely color value. Secondly, this index is translated to the cantor pairing value it represents with the help of the created dictionary. And thirdly, the cantor pairing value is transformed back to the a and b values it is originally constituted of. These a and b layers can finally be combined with the L-layer to display the predicted image in Lab color space.
+To evaluate the predictive power of our two approaches, colors for unseen test images are predicted and evaluated via visual inspection. When the script is started in prediction mode, the model is not trained, but the weights from the corresponding training process are loaded. The model then predicts the most plausible colors for the \emph{L}-layer of each input image.
+In the first approach, the model's output can be interpreted as the \emph{ab}-layers. That means the output can be combined with the input (\emph{L}-layer) and displayed as an image straight away.
+For the second approach, three decoding steps are necessary before generating human-readable images. Firstly, the output of the softmax layer is decoded to find the index of the most likely color value. Secondly, this index is translated to the cantor pairing value it represents with the help of the created dictionary. And thirdly, the cantor pairing value is transformed back to the a and b values it is originally constituted of. These a and b layers can finally be combined with the L-layer to display the predicted image in \emph{Lab} color space.
+%To evaluate the predictive power of our two approaches, colors for unseen test images are predicted and evaluated via visual inspection. When the script is started in prediction mode, the model is not trained, but the weights from the corresponding training process are loaded. The model then predicts the most plausible colors for the L-layer of each input image. In the first approach, the model's output can be interpreted as the ab layers. That means the output can be combined with the input (L-layer) and displayed as an image straight away. For the second approach, three decoding steps are necessary before generating human-readable images. Firstly, the output of the softmax layer is decoded to find the index of the most likely color value. Secondly, this index is translated to the cantor pairing value it represents with the help of the created dictionary. And thirdly, the cantor pairing value is transformed back to the a and b values it is originally constituted of. These a and b layers can finally be combined with the L-layer to display the predicted image in Lab color space.
 \section{Results}
 \subsection{Classical Approach}
 \begin{figure}
@@ -226,11 +222,11 @@ To evaluate the predictive power of our two approaches, colors for unseen test i
 \newpage
 \appendix
 \automark[section]{section}
-\section{Errors}
+\section{Error Message}
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=1.0\textwidth]{error.png}
-	\caption{}
+	\caption{Error message that occurs during running the classification model on the university server.}
 	\label{error}
 \end{figure}
 
