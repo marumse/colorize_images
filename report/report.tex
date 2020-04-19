@@ -175,7 +175,7 @@ L(y,\tilde{y}) = -\sum_{j=0}^M \sum_{i=0}^N
 Both, SGD and Adam optimizer are tested. In the two approaches, kernel weights are initialized with the \emph{Glorot uniform initializer} which draws samples from a uniform distribution depending on the number of input and output units of the corresponding weight tensor \citep{Glorot2010}. Biases are initialized with zeros.
 
 \subsection{Training}
-The models were trained on the grid of the Institute of Cognitive Science at Osnabrueck University. A helper script was written that distributed several grid jobs on different computers in order to experiment with the hyperparameters such as the learning rate and the batch size. Through this script, one can easily change these parameters as well as select the data set in addition to the environment and switch between the training mode and the prediction mode. The classical model was trained with 5000 images, a batch size of 10 and a learning rate of 0.001. The classification model was trained with 2000 images, batch sizes of 10 or 20 and learning rated from 0.1 to 0.001. Unfortunately, the grid jobs terminated after three to six epochs without giving a hint for errors in the code. It appears to be a grid internal memory problem (see appendix figure \ref{error}). Therefore, we saved the model in checkpoints after each epoch and used those weights for the testing.
+The models were trained on the grid of the Institute of Cognitive Science at Osnabrueck University. A helper script was written that distributed several grid jobs on different computers in order to experiment with the hyperparameters such as the learning rate and the batch size. Through this script, one can easily change these parameters as well as select the data set in addition to the environment and switch between the training mode and the prediction mode. The classical model was trained with 5000 images, a batch size of 10 and a learning rate of 0.001. The classification model was trained with 2000 images, batch sizes of 10 or 20 and learning rated from 0.1 to 0.001. Unfortunately, the grid jobs terminated after three to six epochs without giving a hint for errors in the code. It appears to be a grid internal memory problem (see appendix A, figure \ref{error}). Therefore, we saved the model in checkpoints after each epoch and used those weights for the testing.
 
 \subsection{Testing}
 To evaluate the predictive power of our two approaches, colors for unseen test images are predicted and evaluated via visual inspection. When the script is started in prediction mode, the model is not trained, but the weights from the corresponding training process are loaded. The model then predicts the most plausible colors for the \emph{L}-layer of each input image.\\
@@ -190,28 +190,48 @@ For the second approach, three decoding steps are necessary before generating hu
 	\caption{}
 	\label{classical}
 \end{figure}
-When looking at the predicted images, one notices that the structure of the images is still intact and it can be easily recognized what is depicted in the image. This is due to the fact that in \emph{Lab} color space the \emph{L}-layer displays most of the structure. The predictions for the colors are monotonous with a value of 131 for the \emph{a} channel and 136 for the \emph{b} channel. These two values are assigned to all the pixels throughout all images and correspond to a grayish sepia hue. There are neither differences in color between pixels nor images.\\
-As one can see in figure \ref{loss_class}, both the training and the validation loss start with a very high value of around 17 000 for the training loss and 13 000 for the validation loss . Within the first epochs, they decrease rapidly and then converge to a value around 230 to 245. The validation loss is slightly lower as the training loss in the beginning.
-\begin{figure}[h!]
+When looking at the predicted images, one can see that the structure of the images is still intact and it can be easily recognized what is depicted in the image. This is due to the fact that in \emph{Lab} color space the \emph{L}-layer displays most of the structure. The model weights with which these images were generated predict monotonous color values, with a value of 131 for the \emph{a} channel and 136 for the \emph{b} channel. These two values are assigned to all pixels throughout all images and correspond to a grayish sepia hue. There are neither differences in color between pixels nor images.
+\begin{wrapfigure}[10]{r}{0.6\textwidth}
 	\centering
-	\includegraphics[width=0.8\textwidth]{loss_classical.png}
-	\caption{}
+	\includegraphics[width=.65\textwidth]{loss_classical.png}
+	\caption{History of the MSE loss: The loss is evaluated after each epoch, for a period of 50 epochs.}
 	\label{loss_class}
-\end{figure}
+\end{wrapfigure}
 
+As showed in figure \ref{loss_class},  both the training and the validation loss start with a very high value of around 17 000 for the training loss and 13 000 for the validation loss . Within the first epochs, they decrease rapidly and then converge to a value around 230 to 245. In the beginning, the validation loss is slightly lower than the training loss.
+
+%\begin{figure}[hbt]
+%	\centering
+%	\includegraphics[width=0.6\textwidth]{loss_classical.png}
+%	\caption{}
+%	\label{loss_class}
+%\end{figure}
+\newpage
 \subsection{Classification Approach}
-\begin{figure}
+The first thing one might notice is that the originals look different in this approach. This is due to the fact that the color space was quantized to 121 different color values. This means that all color values are distributed into bins and, hence, no gradual changes in color can be observed in the images. The predictions display a similar grayish color hue throughout the image as in the classical approach. The model weights with which these images were generated predict an \emph{a} and \emph{b} value of 125 for most pixels, but additionally, some pixels in the \emph{b} channel have a predicted value of 100. Those differently predicted pixels appear systematically in a grid of 14 x 14 squares throughout each image. Each of those squares consists of nine pixels with the value 100. For the \emph{a} channel a uniform value of 125 is predicted for all pixels.
+\begin{figure}[hbt]
 	\centering
-	\includegraphics[width=0.8\textwidth]{classific_predict.png}
+	\includegraphics[width=0.6\textwidth]{classific_predict.png}
 	\caption{}
-	\label{classific}
+	\label{dots}
 \end{figure}
-The first thing one might notice is that the originals look different in this approach. This is due to the fact that the color space was quantized to 121 different color values. This means all color values are distributed into bins and, hence, no gradual changes in color can be observed in the images. The predictions display the same grayish color hue throughout the image as in the classical approach. An \emph{a} and \emph{b} value of 125 is predicted for most pixels, but additional some pixels in the \emph{b} channel have a predicted value of 100. Those differently predicted pixels are organized in a grid of 14 by 14 dots. For the \emph{a} channel a uniform value of 125 is predicted for all pixels.
 
 \section{Discussion}
+As predicted by Zhang et al. (2016), using a regression loss function like the MSE as in the first approach, leads to desaturated colors. This indicates that the model learns the mean color of the image dataset and predicts that mean value for all pixels. This is due to the nature of Euclidean loss and MSE, which is not robust to the multimodal nature of the colorization problem \citep{Zhang.2016}. The optimal solution to such loss functions will always be the mean of the whole color set.\\
+\begin{wrapfigure}[14]{r}{0.43\textwidth}
+	\centering
+	\includegraphics[width=.40\textwidth]{dots.png}
+	\caption{}
+	\label{dots}
+\end{wrapfigure}
+The rapidly decreasing loss (see figure \ref{loss_class}) suggests that the learning process of the classical model happens quickly and converges after the mean value is reached. With a longer training period and more training images different color variations in the predicted images can be expected though still desaturated \citep{Zhang.2016}.\\
+In order to improve the quality of the results, the MSE loss can be replaced by a custom loss function. In our classification approach, we implemented a categorical cross entropy loss, to improve the first approach. The transformation to a classification problem promises vivid and realistic colors, which we were not able to reproduce. Obviously the short training periods also pose a problem for this implementation. Additionally an unexpected bug occured, that predicted colored dots on the output images rather than coloring the whole image (see figure \ref{dots}. The grid jobs always terminated after three to six epochs when training the classification approach. Thus, the predictions had to be made with the intermediate checkpoints that were saved after each improving epoch. Therefore, it is not guaranteed that this surprising prediction of dots remains if training for a longer period of time is possible. As the dots appear on an evenly distributed grid of 14 by 14, we suspect that the error might occur in the deconvolutional layer. To be more precise, in the last convolutional block the data is represented with 14 by 14 neurons and the transposed convolution upsamples this output to the desired size of 224 by 224 neurons. We thoroughly tested the helper functions for encoding the color channels of the images as one-hot vectors, and for decoding them back to images. Therefore we assume that the artifact results from a conversion problem at some point, but as no error message occurs, and the overall process is a complex calculation, we were not able to find the cause.\\
+The first improving steps to consider would be to increase the number of training images, the batch size and the number of epochs. We are aware that the values we chose for those three parameters are too small to expect an excellent result. As computation turned out to be very time consuming, even when performed on the grid of the Institute of Cognitive Science, we were not able to run the model for more episodes with more time consuming but promising parameters (e.g. higher batch size).\\
+A next step to improve the model would be to implement a class-rebalancing by weighing color bins, depending on how frequently they occur through the whole dataset. Pixels of rare color bins should be weighted more. This could be a way to yield more vivid and realistic color results.\\
+Translating a colorization problem into a classification problem is a new approach. Therefore, not many solutions or partial solutions existed for implementation steps, such as an adequate data generator. Although the code from the guiding paper was available to us in caffe, the translation of the problem was not deductible from their documentation. Hence, we came up with our own ideas for the implementation resulting in the data generator with the cantor pairing and one-hot encoding as it can be found in figure 3-5.\\
 
-\subsection{Conclusion and Future Work}
-- vergleich ziehen zu Zhang\\
+\section{Conclusion}
+In this project, we implemented a convolutional neural network predicting color values for grayscale images \citep{Zhang.2016} and trained it on the ImageNet2012 dataset. The results of our first step resemble the findings of the paper, where they used the Euclidean loss \citep{Zhang.2016}. The predicted images appear to be sepia, as expected. The results of our second step could not replicate the same color quality as demonstrated in the paper. Even though we converted the task to a classification problem in a similar way and implemented our own quantization, we did not succeed to reach colorful results. Larger training datasets and batch sizes might improve the results, but primarily further investigations are needed to explain the unexpected prediction of tiny colored squares throughout the output images.
 \newpage
 \thispagestyle{empty}
 \section{Literature}

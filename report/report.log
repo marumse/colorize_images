@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500 64-bit) (preloaded format=pdflatex 2018.1.22)  19 APR 2020 15:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500 64-bit) (preloaded format=pdflatex 2018.1.22)  19 APR 2020 17:05
 entering extended mode
 **./report.tex
 (report.tex
@@ -843,7 +843,11 @@ Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
 )
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
- (report.aux)
+ (report.aux
+
+LaTeX Warning: Label `dots' multiply defined.
+
+)
 \openout1 = `report.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 92.
@@ -860,8 +864,7 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 92.
 LaTeX Font Info:    ... okay on input line 92.
 LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 92.
 LaTeX Font Info:    Try loading font information for TS1+cmr on input line 92.
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\ts1cmr.fd"
+ ("C:\Program Files\MiKTeX 2.9\tex\latex\base\ts1cmr.fd"
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    ... okay on input line 92.
@@ -1073,62 +1076,78 @@ Package pdftex.def Info: class_predict.png  used on input line 189. on input li
 ne 189.
 Package pdftex.def Info: Requested size: 283.22162pt x 275.2499pt on input line
  189.
-<loss_classical.png, id=208, 462.528pt x 346.896pt>
+<loss_classical.png, id=207, 462.528pt x 346.896pt>
 File: loss_classical.png Graphic file (type png)
 <use loss_classical.png>
-Package pdftex.def Info: loss_classical.png  used on input line 197. on input l
-ine 197.
-Package pdftex.def Info: Requested size: 377.62642pt x 283.23383pt on input lin
-e 197.
- [9]
+Package pdftex.def Info: loss_classical.png  used on input line 196. on input l
+ine 196.
+Package pdftex.def Info: Requested size: 306.81741pt x 230.12186pt on input lin
+e 196.
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
+Overfull \hbox (23.5958pt too wide) in paragraph at lines 196--197
+ [][] 
+ []
 
-<classific_predict.png, id=214, 325.215pt x 313.67188pt>
+[9] [10 <./class_predict.png> <./loss_classical.png>]
+<classific_predict.png, id=222, 325.215pt x 313.67188pt>
 File: classific_predict.png Graphic file (type png)
 <use classific_predict.png>
-Package pdftex.def Info: classific_predict.png  used on input line 205. on inpu
-t line 205.
-Package pdftex.def Info: Requested size: 377.62642pt x 364.25209pt on input lin
-e 205.
+Package pdftex.def Info: classific_predict.png  used on input line 214. on inpu
+t line 214.
+Package pdftex.def Info: Requested size: 283.22162pt x 273.18906pt on input lin
+e 214.
+<dots.png, id=225, 152.57pt x 151.06438pt>
+File: dots.png Graphic file (type png)
+<use dots.png>
+Package pdftex.def Info: dots.png  used on input line 223. on input line 223.
+Package pdftex.def Info: Requested size: 188.8096pt x 186.95367pt on input line
+ 223.
 
-Underfull \hbox (badness 10000) in paragraph at lines 214--215
+Underfull \hbox (badness 10000) in paragraph at lines 220--226
 
  []
 
-[10 <./class_predict.png>] [11 <./loss_classical.png>] [12 <./classific_predict
-.png>] (report.bbl
+[11 <./classific_predict.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 226--232
+
+ []
+
+[12 <./dots.png>] [13] (report.bbl
 LaTeX Font Info:    Try loading font information for TS1+ybv on input line 29.
 
 (C:\Users\schmuri\AppData\Roaming\MiKTeX\2.9\tex\latex\baskervald\ts1ybv.fd
 File: ts1ybv.fd 2010/07/13 Fontinst v1.933 font definitions for TS1/ybv.
 ))
-[13]
+[14]
 1: section
 1: section
-<error.png, id=239, 497.35812pt x 101.37875pt>
+<error.png, id=257, 497.35812pt x 101.37875pt>
 File: error.png Graphic file (type png)
 <use error.png>
-Package pdftex.def Info: error.png  used on input line 230. on input line 230.
+Package pdftex.def Info: error.png  used on input line 250. on input line 250.
 Package pdftex.def Info: Requested size: 472.03123pt x 96.21799pt on input line
- 230.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 236.
-[14 <./error.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 236.
+ 250.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 256.
+[15 <./error.png>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 256.
  (report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 236.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 236.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 256.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 256.
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: E54CD8F6D6440B6CE712F3C5C9C568EE;1060.
+(rerunfilecheck)             Checksum: 1525ED1EE1246B886A157B031F4F2514;1030.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
  ) 
 Here is how much of TeX's memory you used:
- 12361 strings out of 493312
- 214180 string characters out of 3138893
- 362505 words of memory out of 3000000
- 15654 multiletter control sequences out of 15000+200000
+ 12367 strings out of 493312
+ 214244 string characters out of 3138893
+ 362637 words of memory out of 3000000
+ 15658 multiletter control sequences out of 15000+200000
  66280 words of font info for 55 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,20n,100p,1137b,397s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 57i,20n,100p,1628b,403s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Users/schmuri/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/baskervald/supp-
 ybv.enc} <C:\Users\schmuri\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec
 \dpi600\ectt1200.pk>{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C
@@ -1141,9 +1160,9 @@ c/amsfonts/cm/cmsy10.pfb><C:/Users/schmuri/AppData/Roaming/MiKTeX/2.9/fonts/typ
 e1/arkandis/baskervald/ybvb8a.pfb><C:/Users/schmuri/AppData/Roaming/MiKTeX/2.9/
 fonts/type1/arkandis/baskervald/ybvr8a.pfb><C:/Users/schmuri/AppData/Roaming/Mi
 KTeX/2.9/fonts/type1/arkandis/baskervald/ybvri8a.pfb>
-Output written on report.pdf (14 pages, 2577418 bytes).
+Output written on report.pdf (15 pages, 2653046 bytes).
 PDF statistics:
- 327 PDF objects out of 1000 (max. 8388607)
- 55 named destinations out of 1000 (max. 500000)
- 182 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 345 PDF objects out of 1000 (max. 8388607)
+ 57 named destinations out of 1000 (max. 500000)
+ 187 words of extra memory for PDF output out of 10000 (max. 10000000)
 
