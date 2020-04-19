@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500 64-bit) (preloaded format=pdflatex 2018.1.22)  19 APR 2020 17:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500 64-bit) (preloaded format=pdflatex 2018.1.22)  19 APR 2020 18:26
 entering extended mode
 **./report.tex
 (report.tex
@@ -816,61 +816,106 @@ Package: natbib 2010/09/13 8.31b (PWD, AO)
 LaTeX Info: Redefining \cite on input line 694.
 \c@NAT@ctr=\count112
 )
+(C:\Users\schmuri\AppData\Roaming\MiKTeX\2.9\tex\latex\pdfpages\pdfpages.sty
+Package: pdfpages 2017/10/31 v0.5l Insert pages of external PDF documents (AM)
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\tools\calc.sty"
+Package: calc 2014/10/28 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count113
+\calc@Bcount=\count114
+\calc@Adimen=\dimen127
+\calc@Bdimen=\dimen128
+\calc@Askip=\skip47
+\calc@Bskip=\skip48
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count115
+\calc@Cskip=\skip49
+)
+(C:\Users\schmuri\AppData\Roaming\MiKTeX\2.9\tex\latex\eso-pic\eso-pic.sty
+Package: eso-pic 2018/04/12 v2.0h eso-pic (RN)
+
+(C:\Users\schmuri\AppData\Roaming\MiKTeX\2.9\tex\latex\xcolor\xcolor.sty
+Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics-cfg\color.cfg"
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
+Package xcolor Info: Model `RGB' extended on input line 1364.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
+))
+\AM@pagewidth=\dimen129
+\AM@pageheight=\dimen130
+
+(C:\Users\schmuri\AppData\Roaming\MiKTeX\2.9\tex\latex\pdfpages\pppdftex.def
+File: pppdftex.def 2017/10/31 v0.5l Pdfpages driver for pdfTeX (AM)
+)
+\AM@pagebox=\box27
+\AM@global@opts=\toks21
+\AM@toc@title=\toks22
+\c@AM@survey=\count116
+\AM@templatesizebox=\box28
+)
 (C:\Users\schmuri\AppData\Roaming\MiKTeX\2.9\tex\latex\blindtext\blindtext.sty
 Package: blindtext 2012/01/06 V2.0 blindtext-Package
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\tools\xspace.sty"
 Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
 )
-\c@blindtext=\count113
-\c@Blindtext=\count114
-\c@blind@countparstart=\count115
-\blind@countxx=\count116
-\blindtext@numBlindtext=\count117
-\blind@countyy=\count118
-\c@blindlist=\count119
-\c@blindlistlevel=\count120
-\c@blindlist@level=\count121
-\blind@listitem=\count122
-\c@blind@listcount=\count123
-\c@blind@levelcount=\count124
-\blind@mathformula=\count125
-\blind@Mathformula=\count126
-\c@blind@randomcount=\count127
-\c@blind@randommax=\count128
-\c@blind@pangramcount=\count129
-\c@blind@pangrammax=\count130
+\c@blindtext=\count117
+\c@Blindtext=\count118
+\c@blind@countparstart=\count119
+\blind@countxx=\count120
+\blindtext@numBlindtext=\count121
+\blind@countyy=\count122
+\c@blindlist=\count123
+\c@blindlistlevel=\count124
+\c@blindlist@level=\count125
+\blind@listitem=\count126
+\c@blind@listcount=\count127
+\c@blind@levelcount=\count128
+\blind@mathformula=\count129
+\blind@Mathformula=\count130
+\c@blind@randomcount=\count131
+\c@blind@randommax=\count132
+\c@blind@pangramcount=\count133
+\c@blind@pangrammax=\count134
 )
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
- (report.aux
-
-LaTeX Warning: Label `dots' multiply defined.
-
-)
+ (report.aux)
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 92.
-LaTeX Font Info:    ... okay on input line 92.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 92.
-LaTeX Font Info:    ... okay on input line 92.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 92.
-LaTeX Font Info:    ... okay on input line 92.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 92.
-LaTeX Font Info:    ... okay on input line 92.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 92.
-LaTeX Font Info:    ... okay on input line 92.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 92.
-LaTeX Font Info:    ... okay on input line 92.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 92.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 92.
- ("C:\Program Files\MiKTeX 2.9\tex\latex\base\ts1cmr.fd"
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 94.
+LaTeX Font Info:    ... okay on input line 94.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 94.
+LaTeX Font Info:    ... okay on input line 94.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 94.
+LaTeX Font Info:    ... okay on input line 94.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 94.
+LaTeX Font Info:    ... okay on input line 94.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 94.
+LaTeX Font Info:    ... okay on input line 94.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 94.
+LaTeX Font Info:    ... okay on input line 94.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 94.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 94.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\ts1cmr.fd"
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 92.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 92.
-LaTeX Font Info:    ... okay on input line 92.
-LaTeX Font Info:    Try loading font information for T1+ybv on input line 92.
+LaTeX Font Info:    ... okay on input line 94.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 94.
+LaTeX Font Info:    ... okay on input line 94.
+LaTeX Font Info:    Try loading font information for T1+ybv on input line 94.
 
 (C:\Users\schmuri\AppData\Roaming\MiKTeX\2.9\tex\latex\baskervald\t1ybv.fd
 File: t1ybv.fd 2010/07/13 Fontinst v1.933 font definitions for T1/ybv.
@@ -910,7 +955,7 @@ File: t1ybv.fd 2010/07/13 Fontinst v1.933 font definitions for T1/ybv.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 Package scrlayer Info: Setting magic \footheight to \baselineskip while
-(scrlayer)             \begin{document} on input line 92.
+(scrlayer)             \begin{document} on input line 94.
 
 Package scrlayer-scrpage Warning: Very small head height detected!
 (scrlayer-scrpage)                Using scrlayer-scrpage the head height
@@ -923,17 +968,17 @@ Package scrlayer-scrpage Warning: Very small head height detected!
 
 (C:\Users\schmuri\AppData\Roaming\MiKTeX\2.9\tex\context\base\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count131
-\scratchdimen=\dimen127
-\scratchbox=\box27
-\nofMPsegments=\count132
-\nofMParguments=\count133
-\everyMPshowfont=\toks21
-\MPscratchCnt=\count134
-\MPscratchDim=\dimen128
-\MPnumerator=\count135
-\makeMPintoPDFobject=\count136
-\everyMPtoPDFconversion=\toks22
+\scratchcounter=\count135
+\scratchdimen=\dimen131
+\scratchbox=\box29
+\nofMPsegments=\count136
+\nofMParguments=\count137
+\everyMPshowfont=\toks23
+\MPscratchCnt=\count138
+\MPscratchDim=\dimen132
+\MPnumerator=\count139
+\makeMPintoPDFobject=\count140
+\everyMPtoPDFconversion=\toks24
 ) ("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\epstopdf-base.sty"
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
@@ -950,17 +995,8 @@ G,.JBIG2,.JB2,.eps]
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
-\AtBeginShipoutBox=\box28
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\color.sty"
-Package: color 2016/07/10 v1.1e Standard LaTeX Color (DPC)
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\graphics-cfg\color.cfg"
-File: color.cfg 2016/01/02 v1.6 sample color configuration
-)
-Package color Info: Driver file: pdftex.def on input line 147.
-)
-Package hyperref Info: Link coloring ON on input line 92.
+\AtBeginShipoutBox=\box30
+Package hyperref Info: Link coloring ON on input line 94.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -968,25 +1004,34 @@ Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 ("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\gettitlestring.sty"
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count137
+\c@section@level=\count141
 )
-LaTeX Info: Redefining \ref on input line 92.
-LaTeX Info: Redefining \pageref on input line 92.
-LaTeX Info: Redefining \nameref on input line 92.
+LaTeX Info: Redefining \ref on input line 94.
+LaTeX Info: Redefining \pageref on input line 94.
+LaTeX Info: Redefining \nameref on input line 94.
 
 (report.out) (report.out)
 \@outlinefile=\write3
 \openout3 = `report.out'.
 
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\pdflscape.sty"
+Package: pdflscape 2016/05/14 v0.11 Display of landscape pages in PDF (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\lscape.sty"
+Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
+)
+Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
+)
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <14.4> on input line 94.
+(Font)              <14.4> on input line 96.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 94.
+(Font)              <7> on input line 96.
  [1
 
 {C:/Users/schmuri/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
 LaTeX Font Info:    Font shape `T1/ybv/bx/n' in size <17.28> not available
-(Font)              Font shape `T1/ybv/b/n' tried instead on input line 97.
+(Font)              Font shape `T1/ybv/b/n' tried instead on input line 99.
  (report.toc
 LaTeX Font Info:    Font shape `T1/ybv/bx/n' in size <12> not available
 (Font)              Font shape `T1/ybv/b/n' tried instead on input line 2.
@@ -1001,16 +1046,16 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 \openout4 = `report.toc'.
 
  [2]
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 105.
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 107.
 
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\t1cmtt.fd"
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `T1/ybv/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/ybv/b/n' tried instead on input line 108.
+(Font)              Font shape `T1/ybv/b/n' tried instead on input line 110.
 LaTeX Font Info:    Font shape `T1/ybv/m/sl' in size <12> not available
-(Font)              Font shape `T1/ybv/m/it' tried instead on input line 111.
+(Font)              Font shape `T1/ybv/m/it' tried instead on input line 113.
 
 
 Package scrlayer-scrpage Warning: \headheight to low.
@@ -1021,94 +1066,111 @@ Package scrlayer-scrpage Warning: \headheight to low.
 (scrlayer-scrpage)                e.g., setting geometry's option
 (scrlayer-scrpage)                `head=17.99445pt'.
 (scrlayer-scrpage)                I'll also decrease \topmargin on input line 1
-11.
+13.
 
 
 Overfull \vbox (5.99445pt too high) has occurred while \output is active []
 
 
 [3]
-<cnn.png, id=130, 465.74pt x 280.04625pt>
+<cnn.png, id=135, 465.74pt x 280.04625pt>
 File: cnn.png Graphic file (type png)
 <use cnn.png>
-Package pdftex.def Info: cnn.png  used on input line 117. on input line 117.
+Package pdftex.def Info: cnn.png  used on input line 119. on input line 119.
 Package pdftex.def Info: Requested size: 226.57297pt x 136.23676pt on input lin
-e 117.
+e 119.
+<zhang_pre.jpg, id=146, 1284.8pt x 303.1325pt>
+File: zhang_pre.jpg Graphic file (type jpg)
+<use zhang_pre.jpg>
+Package pdftex.def Info: zhang_pre.jpg  used on input line 135. on input line 1
+35.
+Package pdftex.def Info: Requested size: 472.03123pt x 111.37094pt on input lin
+e 135.
  [4 <./cnn.png>]
-<layer.png, id=157, 676.5275pt x 183.68625pt>
+<layer.png, id=164, 676.5275pt x 183.68625pt>
 File: layer.png Graphic file (type png)
 <use layer.png>
-Package pdftex.def Info: layer.png  used on input line 131. on input line 131.
+Package pdftex.def Info: layer.png  used on input line 145. on input line 145.
 Package pdftex.def Info: Requested size: 472.03123pt x 128.16747pt on input lin
-e 131.
-<code_datagen.png, id=159, 482.30188pt x 289.58188pt>
+e 145.
+<code_datagen.png, id=166, 482.30188pt x 289.58188pt>
 File: code_datagen.png Graphic file (type png)
 <use code_datagen.png>
-Package pdftex.def Info: code_datagen.png  used on input line 139. on input lin
-e 139.
+Package pdftex.def Info: code_datagen.png  used on input line 153. on input lin
+e 153.
 Package pdftex.def Info: Requested size: 472.03123pt x 283.42596pt on input lin
-e 139.
+e 153.
 
-Underfull \hbox (badness 10000) in paragraph at lines 136--145
+Underfull \hbox (badness 10000) in paragraph at lines 150--159
 
  []
 
-[5 <./layer.png>] [6 <./code_datagen.png>]
-<code_cantor_pairing.png, id=175, 621.82312pt x 130.98938pt>
+[5 <./zhang_pre.jpg>]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[6 <./layer.png>]
+<code_cantor_pairing.png, id=183, 621.82312pt x 130.98938pt>
 File: code_cantor_pairing.png Graphic file (type png)
 <use code_cantor_pairing.png>
-Package pdftex.def Info: code_cantor_pairing.png  used on input line 150. on in
-put line 150.
+Package pdftex.def Info: code_cantor_pairing.png  used on input line 164. on in
+put line 164.
 Package pdftex.def Info: Requested size: 472.03123pt x 99.43501pt on input line
- 150.
-<code_onehot.png, id=176, 593.71812pt x 146.04562pt>
+ 164.
+<code_onehot.png, id=184, 593.71812pt x 146.04562pt>
 File: code_onehot.png Graphic file (type png)
 <use code_onehot.png>
-Package pdftex.def Info: code_onehot.png  used on input line 157. on input line
- 157.
+Package pdftex.def Info: code_onehot.png  used on input line 171. on input line
+ 171.
 Package pdftex.def Info: Requested size: 472.03123pt x 116.11684pt on input lin
-e 157.
- [7 <./code_cantor_pairing.png> <./code_onehot.png>] [8]
-<class_predict.png, id=206, 320.69812pt x 311.66437pt>
+e 171.
+ [7 <./code_datagen.png> <./code_cantor_pairing.png>] [8 <./code_onehot.png>] [
+9]
+<class_predict.png, id=222, 320.69812pt x 311.66437pt>
 File: class_predict.png Graphic file (type png)
 <use class_predict.png>
-Package pdftex.def Info: class_predict.png  used on input line 189. on input li
-ne 189.
+Package pdftex.def Info: class_predict.png  used on input line 203. on input li
+ne 203.
 Package pdftex.def Info: Requested size: 283.22162pt x 275.2499pt on input line
- 189.
-<loss_classical.png, id=207, 462.528pt x 346.896pt>
+ 203.
+<loss_classical.png, id=223, 462.528pt x 346.896pt>
 File: loss_classical.png Graphic file (type png)
 <use loss_classical.png>
-Package pdftex.def Info: loss_classical.png  used on input line 196. on input l
-ine 196.
+Package pdftex.def Info: loss_classical.png  used on input line 210. on input l
+ine 210.
 Package pdftex.def Info: Requested size: 306.81741pt x 230.12186pt on input lin
-e 196.
+e 210.
 
-Overfull \hbox (23.5958pt too wide) in paragraph at lines 196--197
+Overfull \hbox (23.5958pt too wide) in paragraph at lines 210--211
  [][] 
  []
 
-[9] [10 <./class_predict.png> <./loss_classical.png>]
-<classific_predict.png, id=222, 325.215pt x 313.67188pt>
+
+Underfull \hbox (badness 1303) in paragraph at lines 215--216
+\T1/ybv/m/n/12 start with a very high value of
+ []
+
+[10 <./class_predict.png> <./loss_classical.png>]
+<classific_predict.png, id=233, 325.215pt x 313.67188pt>
 File: classific_predict.png Graphic file (type png)
 <use classific_predict.png>
-Package pdftex.def Info: classific_predict.png  used on input line 214. on inpu
-t line 214.
+Package pdftex.def Info: classific_predict.png  used on input line 227. on inpu
+t line 227.
 Package pdftex.def Info: Requested size: 283.22162pt x 273.18906pt on input lin
-e 214.
-<dots.png, id=225, 152.57pt x 151.06438pt>
+e 227.
+<dots.png, id=236, 152.57pt x 151.06438pt>
 File: dots.png Graphic file (type png)
 <use dots.png>
-Package pdftex.def Info: dots.png  used on input line 223. on input line 223.
+Package pdftex.def Info: dots.png  used on input line 236. on input line 236.
 Package pdftex.def Info: Requested size: 188.8096pt x 186.95367pt on input line
- 223.
+ 236.
 
-Underfull \hbox (badness 10000) in paragraph at lines 220--226
+Underfull \hbox (badness 10000) in paragraph at lines 233--239
 
  []
 
 [11 <./classific_predict.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 226--232
+Underfull \hbox (badness 10000) in paragraph at lines 239--245
 
  []
 
@@ -1121,33 +1183,39 @@ File: ts1ybv.fd 2010/07/13 Fontinst v1.933 font definitions for TS1/ybv.
 [14]
 1: section
 1: section
-<error.png, id=257, 497.35812pt x 101.37875pt>
+<error.png, id=268, 497.35812pt x 101.37875pt>
 File: error.png Graphic file (type png)
 <use error.png>
-Package pdftex.def Info: error.png  used on input line 250. on input line 250.
+Package pdftex.def Info: error.png  used on input line 264. on input line 264.
 Package pdftex.def Info: Requested size: 472.03123pt x 96.21799pt on input line
- 250.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 256.
+ 264.
 [15 <./error.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 256.
+1: section
+1: section
+<layers.jpg, id=274, 1071.00125pt x 1284.8pt>
+File: layers.jpg Graphic file (type jpg)
+<use layers.jpg>
+Package pdftex.def Info: layers.jpg  used on input line 273. on input line 273.
+
+Package pdftex.def Info: Requested size: 377.62642pt x 453.0195pt on input line
+ 273.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 278.
+[16 <./layers.jpg>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 278.
  (report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 256.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 256.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 278.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 278.
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 1525ED1EE1246B886A157B031F4F2514;1030.
-
-
-LaTeX Warning: There were multiply-defined labels.
-
+(rerunfilecheck)             Checksum: 838931EC0656BAEF0748C81D691721A6;1087.
  ) 
 Here is how much of TeX's memory you used:
- 12367 strings out of 493312
- 214244 string characters out of 3138893
- 362637 words of memory out of 3000000
- 15658 multiletter control sequences out of 15000+200000
+ 13508 strings out of 493312
+ 230734 string characters out of 3138893
+ 387308 words of memory out of 3000000
+ 16769 multiletter control sequences out of 15000+200000
  66280 words of font info for 55 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,20n,100p,1628b,403s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 57i,20n,100p,1629b,417s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Users/schmuri/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/baskervald/supp-
 ybv.enc} <C:\Users\schmuri\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec
 \dpi600\ectt1200.pk>{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C
@@ -1160,9 +1228,9 @@ c/amsfonts/cm/cmsy10.pfb><C:/Users/schmuri/AppData/Roaming/MiKTeX/2.9/fonts/typ
 e1/arkandis/baskervald/ybvb8a.pfb><C:/Users/schmuri/AppData/Roaming/MiKTeX/2.9/
 fonts/type1/arkandis/baskervald/ybvr8a.pfb><C:/Users/schmuri/AppData/Roaming/Mi
 KTeX/2.9/fonts/type1/arkandis/baskervald/ybvri8a.pfb>
-Output written on report.pdf (15 pages, 2653046 bytes).
+Output written on report.pdf (16 pages, 3051187 bytes).
 PDF statistics:
- 345 PDF objects out of 1000 (max. 8388607)
- 57 named destinations out of 1000 (max. 500000)
- 187 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 361 PDF objects out of 1000 (max. 8388607)
+ 61 named destinations out of 1000 (max. 500000)
+ 205 words of extra memory for PDF output out of 10000 (max. 10000000)
 

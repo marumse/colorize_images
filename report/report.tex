@@ -49,6 +49,8 @@
 %Literaturverzeichnis
 \usepackage[author year]{natbib}
 
+\usepackage{pdfpages}
+
 %insert codesnippets
 %\usepackage{listings}
 %\usepackage{xcolor}
@@ -122,7 +124,19 @@ In this manner, CNNs can store spatial information about pixels and features. In
 
 \subsection{Guiding Paper} 
 Zhang and colleagues (2016) propose a fully automatic approach to colorize grayscale images. They choose to solve this task with a feed-forward CNN as a classification task using a custom loss and class-rebalancing at training time in order to increase the diversity of the colours in the final results. The model is trained over a million color images from ImageNet dataset \citep{Russakovsky.2014}. Concerning the CNN architecture, they use a single stream, VGG-styled network with added depth and dilated convolutions.\\
-The mapping, which Zhang and colleagues (2016) aim to learn, results out of the \emph{Lab} color space: The input is the \emph{L} lightness channel, the target channels are the \emph{a} and \emph{b} color channels. First, they used the Euclidean loss to train the model. This leads to overall grayish colors because the Euclidean loss favors the mean of all color pixel values. Therefore, Zhang et al. (2016) choose to treat the problem as a multinomial classification task. The \emph{ab} output space is therefore divided into bins of grid size ten, and the 313 color values in-gamut span the 313 possible color combinations. Following, a mapping to a probability distribution over all 313 possible colors is learned for each input. The ground truth color is converted to a vector, using a soft-encoding scheme and a multinomial cross entropy loss, which is responsible for the class-rebalancing. Thereafter, they map the probability distribution to the color values. The class-rebalancing operates pixel-wise and the loss of each pixel is re-weighted at training time, based on how often the color occurs.
+%\begin{wrapfigure}[6]{r}{0.5\textwidth}
+%	\centering
+%	\includegraphics[width=.48\textwidth]{zhang_pred.png}
+%	\caption{\citep{Zhang.2016}}
+%	\label{zhang_pred}
+%\end{wrapfigure}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.0\textwidth]{zhang_pre.jpg}
+	\caption{Example results from different approaches tested by Zhang et al. (2016)}
+	\label{zhangpred}
+\end{figure}
+The mapping, which Zhang and colleagues (2016) aim to learn, results out of the \emph{Lab} color space: The input is the \emph{L} lightness channel, the target channels are the \emph{a} (from green to red) and \emph{b} (from blue to yellow) color channels. First, they used the Euclidean loss to train the model. This leads to overall grayish colors because the Euclidean loss favors the mean of all color pixel values. The example results in figure \ref{zhangpred} show this phenomenon in the column \enquote{regression}. Therefore, Zhang et al. (2016) choose to treat the problem as a multinomial classification task. The \emph{ab} output space is therefore divided into bins of grid size ten, and the 313 color values in-gamut span the 313 possible color combinations. Following, a mapping to a probability distribution over all 313 possible colors is learned for each input. The ground truth color is converted to a vector, using a soft-encoding scheme and a multinomial cross entropy loss, which is responsible for the class-rebalancing. Thereafter, they map the probability distribution to the color values. The class-rebalancing operates pixel-wise and the loss of each pixel is re-weighted at training time, based on how often the color occurs.
 
 \section{Network Structure and Implementation}
 The re-implementation of the original paper \citep{Zhang.2016} was conducted in two steps and can be found on GitHub (\url{https://github.com/marumse/colorize_images}). This chapter will explain these two crucial steps in further detail. In both approaches, the ImageNet2012 dataset was used. Firstly, we implemented the model structure as described in the paper (see figure \ref{network}) and trained the model with the color layers of the input images as the target. Secondly, we translated the colorization task to a classification problem and trained the same model structure with the altered problem representation.
@@ -141,7 +155,7 @@ The ImageNet2012 dataset was available to us through the university server. As w
 	\label{datagen}
 \end{figure}
 First, the images are loaded and resized to a uniform shape of (224, 224, 3), which corresponds to the height, the width and the number of the color channels, respectively. Then, the images are transformed from BGR to \emph{Lab} color space. The lightness channel (\emph{L}-layer), which displays most of the structure, is separated from the other two channels and used as the input for the model. The remaining two channels (\emph{ab}-layers) encode the color information of the images and are used as the models’ target in the first approach. In the second approach, these processing steps remain the same. Additionally the target arrays are transformed to become a classification task.\\
-The classification task is done in three main steps. The first step is to discretize the continuous color space and reduce the number of possible colors by quantizing the a and b color ranges into eleven bins each. This yields a total of 121 possible colors by combining the a and b layers. In the second step, the a and b layers are combined into a single layer, which keeps the same height and width dimensions as before. This means that the color information of each pixel is now encoded in a single number rather than two, which leads to a single target layer. Cantor pairing is used to generate a unique and deterministic number from the two a and b values of each pixel. The Cantor pairing formula is shown in (1) and its implementation in figure \ref{cantorpairing}. As cantor pairing is reversible, one can easily translate the pairing result back to the original color values with no loss of information \citep{cantor2007}.\\
+The transformation of images for the classification task is done in three main steps. The first step is to discretize the continuous color space and reduce the number of possible colors by quantizing the \emph{a} and \emph{b} color ranges into eleven bins each. This yields a total of 121 possible colors by combining the \emph{a}- and \emph{b}-layers. In the second step, the \emph{a}- and \emph{b}-layers are combined into a single layer, which keeps the same height and width dimensions as before. This means that the color information of each pixel is now encoded in a single number rather than two, which leads to a single target layer. Cantor pairing is used to generate a unique and deterministic number from the two \emph{a} and \emph{b} values of each pixel. The Cantor pairing formula is shown in (1) and its implementation in figure \ref{cantorpairing}. As cantor pairing is reversible, one can easily translate the pairing result back to the original color values with no loss of information \citep{cantor2007}.\\
 \begin{equation}
 z = \pi(x,y) = \frac{(x+y+1)(x+y)}{2}+y
 \end{equation}\\
@@ -160,7 +174,7 @@ Now that there is a single value encoding each pixels’ color, the third and la
 \end{figure}
 
 \subsection{Model Structure}
-The model structure is equivalent to the original implementation by Zhang et al. (2016). Only minor changes occur, mostly due to the translation from caffe to keras. The model consists of eight blocks comprising two or three repeated convolution and ReLU activation layers followed by a batch normalization. There are no pooling layers in the model, as changes  in  resolution  are  achieved  through  spatial  down-  or  upsampling between the convolution blocks. A transposed convolutional layer is used to inverse the convolution and upsample the output back to the correct size.\\
+The model structure is equivalent to the original implementation by Zhang et al. (2016). Only minor changes occur, mostly due to the translation from caffe to keras. The model consists of eight blocks comprising two or three repeated convolution and ReLU activation layers followed by a batch normalization. There are no pooling layers in the model, as changes  in  resolution  are  achieved  through  spatial  down-  or  upsampling between the convolution blocks. A transposed convolutional layer is used to inverse the convolution and upsample the output back to the correct size. The model summary can be looked at in the appendix B (figure \ref{modellayer}).\\
 In the first approach, a stochastic gradient descent optimizer (SGD) with a learning rate of 0.001 and a momentum of 0.9 is used, which is inspired by the original paper. SGD is a stochastic approximation to gradient descent, which uses an estimation for the gradients and thereby decreases the computational complexity. In each optimization step, a random data point is selected from which the gradients are calculated rather than using the whole dataset. The downside to SGD is that it does not guarantee to converge to a solution as the gradients might vary heavily from sample to sample \citep{Lecture.2019}. Further,  mean squared error (MSE) is implemented as the loss function, which uses the average squared difference between the estimated and the target values (2). In the case of image data, that means that each estimated pixel value is compared to the target pixel value and the average over the squared differences is used to optimize the estimation process.
 \begin{equation}
 MSE = \frac{1}{n}\sum_{i=1}^N(y_i - \tilde{y_i})^2
@@ -175,7 +189,7 @@ L(y,\tilde{y}) = -\sum_{j=0}^M \sum_{i=0}^N
 Both, SGD and Adam optimizer are tested. In the two approaches, kernel weights are initialized with the \emph{Glorot uniform initializer} which draws samples from a uniform distribution depending on the number of input and output units of the corresponding weight tensor \citep{Glorot2010}. Biases are initialized with zeros.
 
 \subsection{Training}
-The models were trained on the grid of the Institute of Cognitive Science at Osnabrueck University. A helper script was written that distributed several grid jobs on different computers in order to experiment with the hyperparameters such as the learning rate and the batch size. Through this script, one can easily change these parameters as well as select the data set in addition to the environment and switch between the training mode and the prediction mode. The classical model was trained with 5000 images, a batch size of 10 and a learning rate of 0.001. The classification model was trained with 2000 images, batch sizes of 10 or 20 and learning rated from 0.1 to 0.001. Unfortunately, the grid jobs terminated after three to six epochs without giving a hint for errors in the code. It appears to be a grid internal memory problem (see appendix A, figure \ref{error}). Therefore, we saved the model in checkpoints after each epoch and used those weights for the testing.
+The models were trained on the grid of the Institute of Cognitive Science at Osnabrueck University. A helper script was written that distributed several grid jobs on different computers in order to experiment with the hyperparameters such as the learning rate and the batch size. Through this script, one can easily change these parameters as well as select the dataset in addition to the environment and switch between the training mode and the prediction mode. The classical model was trained with 5000 images, a batch size of 10 and a learning rate of 0.001. The classification model was trained with 2000 images, batch sizes of 10 or 20 and learning rated from 0.1 to 0.001. Unfortunately, the grid jobs terminated after three to six epochs without giving a hint for errors in the code. It appears to be a grid internal memory problem (see appendix A, figure \ref{error}). Therefore, we saved the model in checkpoints after each epoch and used those weights for the testing.
 
 \subsection{Testing}
 To evaluate the predictive power of our two approaches, colors for unseen test images are predicted and evaluated via visual inspection. When the script is started in prediction mode, the model is not trained, but the weights from the corresponding training process are loaded. The model then predicts the most plausible colors for the \emph{L}-layer of each input image.\\
@@ -187,7 +201,7 @@ For the second approach, three decoding steps are necessary before generating hu
 \begin{figure}[hbt]
 	\centering
 	\includegraphics[width=0.6\textwidth]{class_predict.png}
-	\caption{}
+	\caption{Example ground truth images from the ImageNet test set, with corresponding extracted L-input layer and prediction by our classical approach.}
 	\label{classical}
 \end{figure}
 When looking at the predicted images, one can see that the structure of the images is still intact and it can be easily recognized what is depicted in the image. This is due to the fact that in \emph{Lab} color space the \emph{L}-layer displays most of the structure. The model weights with which these images were generated predict monotonous color values, with a value of 131 for the \emph{a} channel and 136 for the \emph{b} channel. These two values are assigned to all pixels throughout all images and correspond to a grayish sepia hue. There are neither differences in color between pixels nor images.
@@ -198,7 +212,7 @@ When looking at the predicted images, one can see that the structure of the imag
 	\label{loss_class}
 \end{wrapfigure}
 
-As showed in figure \ref{loss_class},  both the training and the validation loss start with a very high value of around 17 000 for the training loss and 13 000 for the validation loss . Within the first epochs, they decrease rapidly and then converge to a value around 230 to 245. In the beginning, the validation loss is slightly lower than the training loss.
+As shown in figure \ref{loss_class},  both the training and the validation loss start with a very high value of around 17000 for the training loss and 13000 for the validation loss. Within the first epochs, they decrease rapidly and then converge to a value around 230 to 245. In the beginning, the validation loss is slightly lower than the training loss.
 
 %\begin{figure}[hbt]
 %	\centering
@@ -206,14 +220,13 @@ As showed in figure \ref{loss_class},  both the training and the validation loss
 %	\caption{}
 %	\label{loss_class}
 %\end{figure}
-\newpage
 \subsection{Classification Approach}
 The first thing one might notice is that the originals look different in this approach. This is due to the fact that the color space was quantized to 121 different color values. This means that all color values are distributed into bins and, hence, no gradual changes in color can be observed in the images. The predictions display a similar grayish color hue throughout the image as in the classical approach. The model weights with which these images were generated predict an \emph{a} and \emph{b} value of 125 for most pixels, but additionally, some pixels in the \emph{b} channel have a predicted value of 100. Those differently predicted pixels appear systematically in a grid of 14 x 14 squares throughout each image. Each of those squares consists of nine pixels with the value 100. For the \emph{a} channel a uniform value of 125 is predicted for all pixels.
 \begin{figure}[hbt]
 	\centering
 	\includegraphics[width=0.6\textwidth]{classific_predict.png}
-	\caption{}
-	\label{dots}
+	\caption{Example ground truth images from the ImageNet test set, with corresponding extracted L-input layer and prediction by our classification approach.}
+	\label{classificatio}
 \end{figure}
 
 \section{Discussion}
@@ -221,14 +234,14 @@ As predicted by Zhang et al. (2016), using a regression loss function like the M
 \begin{wrapfigure}[14]{r}{0.43\textwidth}
 	\centering
 	\includegraphics[width=.40\textwidth]{dots.png}
-	\caption{}
+	\caption{Closeup to the colored dots in the prediction.}
 	\label{dots}
 \end{wrapfigure}
 The rapidly decreasing loss (see figure \ref{loss_class}) suggests that the learning process of the classical model happens quickly and converges after the mean value is reached. With a longer training period and more training images different color variations in the predicted images can be expected though still desaturated \citep{Zhang.2016}.\\
-In order to improve the quality of the results, the MSE loss can be replaced by a custom loss function. In our classification approach, we implemented a categorical cross entropy loss, to improve the first approach. The transformation to a classification problem promises vivid and realistic colors, which we were not able to reproduce. Obviously the short training periods also pose a problem for this implementation. Additionally an unexpected bug occured, that predicted colored dots on the output images rather than coloring the whole image (see figure \ref{dots}. The grid jobs always terminated after three to six epochs when training the classification approach. Thus, the predictions had to be made with the intermediate checkpoints that were saved after each improving epoch. Therefore, it is not guaranteed that this surprising prediction of dots remains if training for a longer period of time is possible. As the dots appear on an evenly distributed grid of 14 by 14, we suspect that the error might occur in the deconvolutional layer. To be more precise, in the last convolutional block the data is represented with 14 by 14 neurons and the transposed convolution upsamples this output to the desired size of 224 by 224 neurons. We thoroughly tested the helper functions for encoding the color channels of the images as one-hot vectors, and for decoding them back to images. Therefore we assume that the artifact results from a conversion problem at some point, but as no error message occurs, and the overall process is a complex calculation, we were not able to find the cause.\\
+In order to improve the quality of the results, the MSE loss can be replaced by a custom loss function. In our classification approach, we implemented a categorical cross entropy loss, to improve the first approach. The transformation to a classification problem promises vivid and realistic colors, which we were not able to reproduce. Obviously the short training periods also pose a problem for this implementation. Additionally an unexpected bug occurred, that predicted colored dots on the output images rather than coloring the whole image (see figure \ref{dots}. The grid jobs always terminated after three to six epochs when training the classification approach. Thus, the predictions had to be made with the intermediate checkpoints that were saved after each improving epoch. Therefore, it is not guaranteed that this surprising prediction of dots remains if training for a longer period of time is possible. As the dots appear on an evenly distributed grid of 14 by 14, we suspect that the error might occur in the deconvolutional layer. To be more precise, in the last convolutional block the data is represented with 14 by 14 neurons and the transposed convolution upsamples this output to the desired size of 224 by 224 neurons. We thoroughly tested the helper functions for encoding the color channels of the images as one-hot vectors, and for decoding them back to images. Therefore we assume that the artifact results from a conversion problem at some point, but as no error message occurs, and the overall process is a complex calculation, we were not able to find the cause.\\
 The first improving steps to consider would be to increase the number of training images, the batch size and the number of epochs. We are aware that the values we chose for those three parameters are too small to expect an excellent result. As computation turned out to be very time consuming, even when performed on the grid of the Institute of Cognitive Science, we were not able to run the model for more episodes with more time consuming but promising parameters (e.g. higher batch size).\\
 A next step to improve the model would be to implement a class-rebalancing by weighing color bins, depending on how frequently they occur through the whole dataset. Pixels of rare color bins should be weighted more. This could be a way to yield more vivid and realistic color results.\\
-Translating a colorization problem into a classification problem is a new approach. Therefore, not many solutions or partial solutions existed for implementation steps, such as an adequate data generator. Although the code from the guiding paper was available to us in caffe, the translation of the problem was not deductible from their documentation. Hence, we came up with our own ideas for the implementation resulting in the data generator with the cantor pairing and one-hot encoding as it can be found in figure 3-5.\\
+Translating a colorization problem into a classification problem is a new approach. Therefore, not many solutions or partial solutions existed for implementation steps, such as an adequate data generator. Although the code from the guiding paper was available to us in caffe, the translation of the problem was not deductible from their documentation. Hence, we came up with our own ideas for the implementation resulting in the data generator with the cantor pairing and one-hot encoding as it can be found in figure 4-6.\\
 
 \section{Conclusion}
 In this project, we implemented a convolutional neural network predicting color values for grayscale images \citep{Zhang.2016} and trained it on the ImageNet2012 dataset. The results of our first step resemble the findings of the paper, where they used the Euclidean loss \citep{Zhang.2016}. The predicted images appear to be sepia, as expected. The results of our second step could not replicate the same color quality as demonstrated in the paper. Even though we converted the task to a classification problem in a similar way and implemented our own quantization, we did not succeed to reach colorful results. Larger training datasets and batch sizes might improve the results, but primarily further investigations are needed to explain the unexpected prediction of tiny colored squares throughout the output images.
@@ -242,6 +255,7 @@ In this project, we implemented a convolutional neural network predicting color 
 \bibliography{lit}
 
 \newpage
+\thispagestyle{empty}
 \appendix
 \automark[section]{section}
 \section{Error Message}
@@ -251,6 +265,14 @@ In this project, we implemented a convolutional neural network predicting color 
 	\caption{Error message that occurs during running the classification model on the university server.}
 	\label{error}
 \end{figure}
-
+\newpage
+\automark[section]{section}
+\section{Layers of the Model}
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=0.8\textwidth]{layers.jpg}
+	\caption{Model summary of the implemented CNN, giving detailed information about the different layers, the output shape and the number of parameters.}
+	\label{modellayer}
+\end{figure} 
 	
 \end{document}

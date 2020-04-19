@@ -9,10 +9,11 @@
 \contentsline {subsection}{\numberline {3.2}Model Structure}{8}{subsection.3.2}
 \contentsline {subsection}{\numberline {3.3}Training}{9}{subsection.3.3}
 \contentsline {subsection}{\numberline {3.4}Testing}{9}{subsection.3.4}
-\contentsline {section}{\numberline {4}Results}{9}{section.4}
-\contentsline {subsection}{\numberline {4.1}Classical Approach}{9}{subsection.4.1}
+\contentsline {section}{\numberline {4}Results}{10}{section.4}
+\contentsline {subsection}{\numberline {4.1}Classical Approach}{10}{subsection.4.1}
 \contentsline {subsection}{\numberline {4.2}Classification Approach}{11}{subsection.4.2}
-\contentsline {section}{\numberline {5}Discussion}{11}{section.5}
+\contentsline {section}{\numberline {5}Discussion}{12}{section.5}
 \contentsline {section}{\numberline {6}Conclusion}{13}{section.6}
 \contentsline {section}{\numberline {7}Literature}{14}{section.7}
 \contentsline {section}{\numberline {A}Error Message}{15}{appendix.A}
+\contentsline {section}{\numberline {B}Layers of the Model}{16}{appendix.B}
