@@ -22,6 +22,12 @@ Hubel, D.~H. and Wiesel, T.~N. (1962).
   in the cat{\textquotesingle}s visual cortex.
 \newblock {\em The Journal of Physiology}, 160(1):106--154.
 
+\bibitem[\protect\astroncite{Jia et~al.}{2014}]{jia2014caffe}
+Jia, Y., Shelhamer, E., Donahue, J., Karayev, S., Long, J., Girshick, R.,
+  Guadarrama, S., and Darrell, T. (2014).
+\newblock Caffe: Convolutional architecture for fast feature embedding.
+\newblock {\em arXiv preprint arXiv:1408.5093}.
+
 \bibitem[\protect\astroncite{Levin et~al.}{2004}]{Levin.2004}
 Levin, A., Lischinski, D., and Weiss, Y. (2004).
 \newblock Colorization using optimization.
