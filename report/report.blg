@@ -6,4 +6,7 @@ I was expecting a `,' or a `}'---line 62 of file lit.bib
  : title = {GitHub: xahidbuffon/rgb-lab-conv}
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-(There was 1 error message)
+A bad cross reference---entry "Glorot2010"
+refers to entry "conf/aistats/2010", which doesn't exist
+Warning--I didn't find a database entry for "conf/aistats/2010"
+(There were 2 error messages)

@@ -124,7 +124,7 @@ In this manner, CNNs can store spatial information about pixels and features. In
 Zhang and colleagues (2016) propose a fully automatic approach to colorize grayscale images. They choose to solve this task with a feed-forward CNN as a classification task using a custom loss and class-rebalancing at training time in order to increase the diversity of the colours in the final results. The model is trained over a million color images from ImageNet dataset \citep{Russakovsky.2014}. Concerning the CNN architecture, they use a single stream, VGG-styled network with added depth and dilated convolutions.\\
 The mapping, which Zhang and colleagues (2016) aim to learn, results out of the \emph{Lab} color space: The input is the \emph{L} lightness channel, the target channels are the \emph{a} and \emph{b} color channels. First, they used the Euclidean loss to train the model. This leads to overall grayish colors because the Euclidean loss favors the mean of all color pixel values. Therefore, Zhang et al. (2016) choose to treat the problem as a multinomial classification task. The \emph{ab} output space is therefore divided into bins of grid size ten, and the 313 color values in-gamut span the 313 possible color combinations. Following, a mapping to a probability distribution over all 313 possible colors is learned for each input. The ground truth color is converted to a vector, using a soft-encoding scheme and a multinomial cross entropy loss, which is responsible for the class-rebalancing. Thereafter, they map the probability distribution to the color values. The class-rebalancing operates pixel-wise and the loss of each pixel is re-weighted at training time, based on how often the color occurs.
 
-\section{Networkstructure and Implementation}
+\section{Network Structure and Implementation}
 The re-implementation of the original paper \citep{Zhang.2016} was conducted in two steps and can be found on GitHub (\url{https://github.com/marumse/colorize_images}). This chapter will explain these two crucial steps in further detail. In both approaches, the ImageNet2012 dataset was used. Firstly, we implemented the model structure as described in the paper (see figure \ref{network}) and trained the model with the color layers of the input images as the target. Secondly, we translated the colorization task to a classification problem and trained the same model structure with the altered problem representation.
 \begin{figure}[hb]
 	\centering
@@ -159,7 +159,7 @@ Now that there is a single value encoding each pixels’ color, the third and la
 	\label{onehot}
 \end{figure}
 
-\subsection{Modelstructure}
+\subsection{Model Structure}
 The model structure is equivalent to the original implementation by Zhang et al. (2016). Only minor changes occur, mostly due to the translation from caffe to keras. The model consists of eight blocks comprising two or three repeated convolution and ReLU activation layers followed by a batch normalization. There are no pooling layers in the model, as changes  in  resolution  are  achieved  through  spatial  down-  or  upsampling between the convolution blocks. A transposed convolutional layer is used to inverse the convolution and upsample the output back to the correct size.\\
 In the first approach, a stochastic gradient descent optimizer (SGD) with a learning rate of 0.001 and a momentum of 0.9 is used, which is inspired by the original paper. SGD is a stochastic approximation to gradient descent, which uses an estimation for the gradients and thereby decreases the computational complexity. In each optimization step, a random data point is selected from which the gradients are calculated rather than using the whole dataset. The downside to SGD is that it does not guarantee to converge to a solution as the gradients might vary heavily from sample to sample \citep{Lecture.2019}. Further,  mean squared error (MSE) is implemented as the loss function, which uses the average squared difference between the estimated and the target values (2). In the case of image data, that means that each estimated pixel value is compared to the target pixel value and the average over the squared differences is used to optimize the estimation process.
 \begin{equation}
@@ -172,25 +172,26 @@ L(y,\tilde{y}) = -\sum_{j=0}^M \sum_{i=0}^N
 {{y_i}_j}*log({\tilde{y_i}_j})
 \end{equation}
 \\
-Both, SGD and Adam optimizer are tested. In the two approaches, kernel weights are initialized with the \emph{Glorot uniform initializer} which draws samples from a uniform distribution depending on the number of input and output units of the corresponding weight tensor. Biases are initialized with zeros.
+Both, SGD and Adam optimizer are tested. In the two approaches, kernel weights are initialized with the \emph{Glorot uniform initializer} which draws samples from a uniform distribution depending on the number of input and output units of the corresponding weight tensor \citep{Glorot2010}. Biases are initialized with zeros.
 
 \subsection{Training}
 The models were trained on the grid of the Institute of Cognitive Science at Osnabrueck University. A helper script was written that distributed several grid jobs on different computers in order to experiment with the hyperparameters such as the learning rate and the batch size. Through this script, one can easily change these parameters as well as select the data set in addition to the environment and switch between the training mode and the prediction mode. The classical model was trained with 5000 images, a batch size of 10 and a learning rate of 0.001. The classification model was trained with 2000 images, batch sizes of 10 or 20 and learning rated from 0.1 to 0.001. Unfortunately, the grid jobs terminated after three to six epochs without giving a hint for errors in the code. It appears to be a grid internal memory problem (see appendix figure \ref{error}). Therefore, we saved the model in checkpoints after each epoch and used those weights for the testing.
 
 \subsection{Testing}
-To evaluate the predictive power of our two approaches, colors for unseen test images are predicted and evaluated via visual inspection. When the script is started in prediction mode, the model is not trained, but the weights from the corresponding training process are loaded. The model then predicts the most plausible colors for the \emph{L}-layer of each input image.
-In the first approach, the model's output can be interpreted as the \emph{ab}-layers. That means the output can be combined with the input (\emph{L}-layer) and displayed as an image straight away.
-For the second approach, three decoding steps are necessary before generating human-readable images. Firstly, the output of the softmax layer is decoded to find the index of the most likely color value. Secondly, this index is translated to the cantor pairing value it represents with the help of the created dictionary. And thirdly, the cantor pairing value is transformed back to the a and b values it is originally constituted of. These a and b layers can finally be combined with the L-layer to display the predicted image in \emph{Lab} color space.
-%To evaluate the predictive power of our two approaches, colors for unseen test images are predicted and evaluated via visual inspection. When the script is started in prediction mode, the model is not trained, but the weights from the corresponding training process are loaded. The model then predicts the most plausible colors for the L-layer of each input image. In the first approach, the model's output can be interpreted as the ab layers. That means the output can be combined with the input (L-layer) and displayed as an image straight away. For the second approach, three decoding steps are necessary before generating human-readable images. Firstly, the output of the softmax layer is decoded to find the index of the most likely color value. Secondly, this index is translated to the cantor pairing value it represents with the help of the created dictionary. And thirdly, the cantor pairing value is transformed back to the a and b values it is originally constituted of. These a and b layers can finally be combined with the L-layer to display the predicted image in Lab color space.
+To evaluate the predictive power of our two approaches, colors for unseen test images are predicted and evaluated via visual inspection. When the script is started in prediction mode, the model is not trained, but the weights from the corresponding training process are loaded. The model then predicts the most plausible colors for the \emph{L}-layer of each input image.\\
+In the first approach, the model's output can be interpreted as the \emph{ab} layers. That means the output can be combined with the input (\emph{L}-layer) and displayed as an image straight away.\\
+For the second approach, three decoding steps are necessary before generating human-readable images. Firstly, the output of the softmax layer is decoded to find the index of the most likely color value. Secondly, this index is translated to the cantor pairing value it represents with the help of the created dictionary. And thirdly, the cantor pairing value is transformed back to the \emph{a} and \emph{b} values it is originally constituted of. These \emph{a} and \emph{b} layers can finally be combined with the \emph{L}-layer to display the predicted image in \emph{Lab} color space.
+
 \section{Results}
 \subsection{Classical Approach}
-\begin{figure}
+\begin{figure}[hbt]
 	\centering
-	\includegraphics[width=0.8\textwidth]{class_predict.png}
+	\includegraphics[width=0.6\textwidth]{class_predict.png}
 	\caption{}
-	\label{class}
+	\label{classical}
 \end{figure}
-
+When looking at the predicted images, one notices that the structure of the images is still intact and it can be easily recognized what is depicted in the image. This is due to the fact that in \emph{Lab} color space the \emph{L}-layer displays most of the structure. The predictions for the colors are monotonous with a value of 131 for the \emph{a} channel and 136 for the \emph{b} channel. These two values are assigned to all the pixels throughout all images and correspond to a grayish sepia hue. There are neither differences in color between pixels nor images.\\
+As one can see in figure \ref{loss_class}, both the training and the validation loss start with a very high value of around 17 000 for the training loss and 13 000 for the validation loss . Within the first epochs, they decrease rapidly and then converge to a value around 230 to 245. The validation loss is slightly lower as the training loss in the beginning.
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.8\textwidth]{loss_classical.png}
@@ -203,8 +204,9 @@ For the second approach, three decoding steps are necessary before generating hu
 	\centering
 	\includegraphics[width=0.8\textwidth]{classific_predict.png}
 	\caption{}
-	\label{class}
+	\label{classific}
 \end{figure}
+The first thing one might notice is that the originals look different in this approach. This is due to the fact that the color space was quantized to 121 different color values. This means all color values are distributed into bins and, hence, no gradual changes in color can be observed in the images. The predictions display the same grayish color hue throughout the image as in the classical approach. An \emph{a} and \emph{b} value of 125 is predicted for most pixels, but additional some pixels in the \emph{b} channel have a predicted value of 100. Those differently predicted pixels are organized in a grid of 14 by 14 dots. For the \emph{a} channel a uniform value of 125 is predicted for all pixels.
 
 \section{Discussion}
 

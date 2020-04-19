@@ -16,6 +16,13 @@ Escontrela, A. (2018).
 \newblock
   https://towardsdatascience.com/convolutional-neural-networks-from-the-ground-up-c67bb41454e1.
 
+\bibitem[\protect\astroncite{Glorot and Bengio}{2010}]{Glorot2010}
+Glorot, X. and Bengio, Y. (2010).
+\newblock Understanding the difficulty of training deep feedforward neural
+  networks.
+\newblock In Teh, Y.~W. and Titterington, D.~M., editors, {\em AISTATS},
+  volume~9 of {\em JMLR Proceedings}, pages 249--256. JMLR.org.
+
 \bibitem[\protect\astroncite{Hubel and Wiesel}{1962}]{Hubel1962}
 Hubel, D.~H. and Wiesel, T.~N. (1962).
 \newblock Receptive fields, binocular interaction and functional architecture
