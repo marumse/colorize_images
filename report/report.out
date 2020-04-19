@@ -3,8 +3,8 @@
 \BOOKMARK [2][-]{subsection.2.1}{Related work}{section.2}% 3
 \BOOKMARK [2][-]{subsection.2.2}{Convolutional neural networks for image colorization}{section.2}% 4
 \BOOKMARK [2][-]{subsection.2.3}{Guiding Paper}{section.2}% 5
-\BOOKMARK [1][-]{section.3}{The Model and Implementation}{}% 6
-\BOOKMARK [2][-]{subsection.3.1}{The Data}{section.3}% 7
+\BOOKMARK [1][-]{section.3}{Networkstructure and Implementation}{}% 6
+\BOOKMARK [2][-]{subsection.3.1}{Data Generation}{section.3}% 7
 \BOOKMARK [2][-]{subsection.3.2}{Modelstructure}{section.3}% 8
 \BOOKMARK [2][-]{subsection.3.3}{Training}{section.3}% 9
 \BOOKMARK [2][-]{subsection.3.4}{Testing}{section.3}% 10

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500 64-bit) (preloaded format=pdflatex 2018.1.22)  19 APR 2020 13:57
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500 64-bit) (preloaded format=pdflatex 2018.1.22)  19 APR 2020 14:34
 entering extended mode
 **./report.tex
 (report.tex
@@ -1035,67 +1035,67 @@ Package pdftex.def Info: cnn.png  used on input line 117. on input line 117.
 Package pdftex.def Info: Requested size: 226.57297pt x 136.23676pt on input lin
 e 117.
  [4 <./cnn.png>]
-<code_datagen.png, id=155, 482.30188pt x 289.58188pt>
+<layer.png, id=157, 676.5275pt x 183.68625pt>
+File: layer.png Graphic file (type png)
+<use layer.png>
+Package pdftex.def Info: layer.png  used on input line 131. on input line 131.
+Package pdftex.def Info: Requested size: 472.03123pt x 128.16747pt on input lin
+e 131.
+<code_datagen.png, id=159, 482.30188pt x 289.58188pt>
 File: code_datagen.png Graphic file (type png)
 <use code_datagen.png>
-Package pdftex.def Info: code_datagen.png  used on input line 134. on input lin
-e 134.
+Package pdftex.def Info: code_datagen.png  used on input line 139. on input lin
+e 139.
 Package pdftex.def Info: Requested size: 472.03123pt x 283.42596pt on input lin
-e 134.
+e 139.
 
-Underfull \hbox (badness 10000) in paragraph at lines 131--140
+Underfull \hbox (badness 10000) in paragraph at lines 136--145
 
  []
 
-[5] [6 <./code_datagen.png>]
-<code_cantor_pairing.png, id=171, 621.82312pt x 130.98938pt>
+[5 <./layer.png>] [6 <./code_datagen.png>]
+<code_cantor_pairing.png, id=175, 621.82312pt x 130.98938pt>
 File: code_cantor_pairing.png Graphic file (type png)
 <use code_cantor_pairing.png>
-Package pdftex.def Info: code_cantor_pairing.png  used on input line 146. on in
-put line 146.
+Package pdftex.def Info: code_cantor_pairing.png  used on input line 150. on in
+put line 150.
 Package pdftex.def Info: Requested size: 472.03123pt x 99.43501pt on input line
- 146.
-<code_onehot.png, id=172, 593.71812pt x 146.04562pt>
+ 150.
+<code_onehot.png, id=176, 593.71812pt x 146.04562pt>
 File: code_onehot.png Graphic file (type png)
 <use code_onehot.png>
-Package pdftex.def Info: code_onehot.png  used on input line 153. on input line
- 153.
+Package pdftex.def Info: code_onehot.png  used on input line 157. on input line
+ 157.
 Package pdftex.def Info: Requested size: 472.03123pt x 116.11684pt on input lin
-e 153.
-<layer.png, id=173, 676.5275pt x 183.68625pt>
-File: layer.png Graphic file (type png)
-<use layer.png>
-Package pdftex.def Info: layer.png  used on input line 164. on input line 164.
-Package pdftex.def Info: Requested size: 472.03123pt x 128.16747pt on input lin
-e 164.
- [7 <./code_cantor_pairing.png> <./code_onehot.png>] [8 <./layer.png>]
-<class_predict.png, id=197, 320.69812pt x 311.66437pt>
+e 157.
+ [7 <./code_cantor_pairing.png> <./code_onehot.png>] [8]
+<class_predict.png, id=202, 320.69812pt x 311.66437pt>
 File: class_predict.png Graphic file (type png)
 <use class_predict.png>
-Package pdftex.def Info: class_predict.png  used on input line 197. on input li
-ne 197.
+Package pdftex.def Info: class_predict.png  used on input line 193. on input li
+ne 193.
 Package pdftex.def Info: Requested size: 377.62642pt x 366.99986pt on input lin
-e 197.
-<loss_classical.png, id=198, 462.528pt x 346.896pt>
+e 193.
+<loss_classical.png, id=203, 462.528pt x 346.896pt>
 File: loss_classical.png Graphic file (type png)
 <use loss_classical.png>
-Package pdftex.def Info: loss_classical.png  used on input line 204. on input l
-ine 204.
+Package pdftex.def Info: loss_classical.png  used on input line 200. on input l
+ine 200.
 Package pdftex.def Info: Requested size: 377.62642pt x 283.23383pt on input lin
-e 204.
+e 200.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<classific_predict.png, id=199, 325.215pt x 313.67188pt>
+<classific_predict.png, id=204, 325.215pt x 313.67188pt>
 File: classific_predict.png Graphic file (type png)
 <use classific_predict.png>
-Package pdftex.def Info: classific_predict.png  used on input line 212. on inpu
-t line 212.
+Package pdftex.def Info: classific_predict.png  used on input line 208. on inpu
+t line 208.
 Package pdftex.def Info: Requested size: 377.62642pt x 364.25209pt on input lin
-e 212.
+e 208.
 
-Underfull \hbox (badness 10000) in paragraph at lines 220--221
+Underfull \hbox (badness 10000) in paragraph at lines 216--217
 
  []
 
@@ -1108,20 +1108,20 @@ File: ts1ybv.fd 2010/07/13 Fontinst v1.933 font definitions for TS1/ybv.
 [11 <./loss_classical.png>] [12 <./classific_predict.png>]) [13]
 1: section
 1: section
-<error.png, id=228, 497.35812pt x 101.37875pt>
+<error.png, id=233, 497.35812pt x 101.37875pt>
 File: error.png Graphic file (type png)
 <use error.png>
-Package pdftex.def Info: error.png  used on input line 236. on input line 236.
+Package pdftex.def Info: error.png  used on input line 232. on input line 232.
 Package pdftex.def Info: Requested size: 472.03123pt x 96.21799pt on input line
- 236.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 242.
+ 232.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 238.
 [14 <./error.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 242.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 238.
  (report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 242.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 242.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 238.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 238.
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 9634286766C82A4EF72E235C19032EB6;1037.
+(rerunfilecheck)             Checksum: 6B38E2AE44CA934B23FE21CC3B299423;1051.
 
 
 LaTeX Warning: There were multiply-defined labels.
@@ -1130,7 +1130,7 @@ LaTeX Warning: There were multiply-defined labels.
 Here is how much of TeX's memory you used:
  12356 strings out of 493312
  214096 string characters out of 3138893
- 361298 words of memory out of 3000000
+ 362384 words of memory out of 3000000
  15650 multiletter control sequences out of 15000+200000
  66280 words of font info for 55 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1147,9 +1147,9 @@ c/amsfonts/cm/cmsy10.pfb><C:/Users/schmuri/AppData/Roaming/MiKTeX/2.9/fonts/typ
 e1/arkandis/baskervald/ybvb8a.pfb><C:/Users/schmuri/AppData/Roaming/MiKTeX/2.9/
 fonts/type1/arkandis/baskervald/ybvr8a.pfb><C:/Users/schmuri/AppData/Roaming/Mi
 KTeX/2.9/fonts/type1/arkandis/baskervald/ybvri8a.pfb>
-Output written on report.pdf (14 pages, 2570195 bytes).
+Output written on report.pdf (14 pages, 2571602 bytes).
 PDF statistics:
- 314 PDF objects out of 1000 (max. 8388607)
+ 319 PDF objects out of 1000 (max. 8388607)
  54 named destinations out of 1000 (max. 500000)
  182 words of extra memory for PDF output out of 10000 (max. 10000000)
 
